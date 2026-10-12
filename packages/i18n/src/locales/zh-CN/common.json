@@ -1145,7 +1145,8 @@
       "requalified": "重新定级了首席执行官审批队列中的优先级：{old} → {new}",
       "requalification_cancelled": "取消了优先级重新定级",
       "reminded": "催办了负责人",
-      "reminded_auto": "已向负责人发送自动催办"
+      "reminded_auto": "已向负责人发送自动催办",
+      "deadline_postponed": "将截止日期从{old}推迟到{new}"
     },
     "alerts": {
       "deadline_soon": "距截止日期 3 天",
@@ -1161,6 +1162,18 @@
       "requalified": "重新定级了首席执行官审批队列中的优先级",
       "reminder": "就此工作项催办您",
       "reminder_auto": "自动催办：请更新此工作项"
+    },
+    "create": {
+      "hint": "受管项目：类别、监督人、审批人、负责人和截止日期为必填项。"
+    },
+    "rules": {
+      "required": "此项目为受管项目：请填写{fields}。",
+      "deadline_comment": "在受管项目中，推迟截止日期需要说明理由。",
+      "postpone_title": "推迟截止日期",
+      "postpone_description": "此项目为受管项目：请说明推迟截止日期的理由。",
+      "postpone_description_date": "此项目为受管项目：请说明将截止日期推迟到{date}的理由。",
+      "postpone_reason": "推迟理由",
+      "postpone_confirm": "推迟"
     }
   },
   "activity_via_claude": "通过 Claude",

@@ -33,6 +33,7 @@ from plane.db.models import (
     Workspace,
     WorkspaceMember,
 )
+from plane.utils.steering_required import SteeringRuleError, check_steering_fields_kept
 from plane.utils.steering import (
     SteeringValueError,
     apply_steering_changes,
@@ -472,9 +473,12 @@ class IssueSteeringEndpoint(BaseAPIView):
         )
         try:
             changes = clean_steering_changes(request.data, issue.workspace_id)
+            check_steering_fields_kept(issue, changes)
             changed = apply_steering_changes(steering, changes)
         except SteeringValueError as error:
             return _error(str(error))
+        except SteeringRuleError as error:
+            return Response(error.payload, status=status.HTTP_400_BAD_REQUEST)
 
         if changed or steering._state.adding:
             epoch = int(time.time())

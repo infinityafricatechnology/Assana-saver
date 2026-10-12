@@ -1145,7 +1145,8 @@
       "requalified": "CEO kuyruğu için önceliği yeniden sınıflandırdı: {old} → {new}",
       "requalification_cancelled": "öncelik yeniden sınıflandırmasını iptal etti",
       "reminded": "sorumluya hatırlatma gönderdi",
-      "reminded_auto": "Sorumluya otomatik hatırlatma gönderildi"
+      "reminded_auto": "Sorumluya otomatik hatırlatma gönderildi",
+      "deadline_postponed": "son tarihi {old} tarihinden {new} tarihine erteledi"
     },
     "alerts": {
       "deadline_soon": "Son tarihe 3 gün",
@@ -1161,6 +1162,18 @@
       "requalified": "CEO kuyruğu için önceliği yeniden sınıflandırdı",
       "reminder": "bu iş öğesi için size hatırlatma yapıyor",
       "reminder_auto": "Otomatik hatırlatma: lütfen bu iş öğesini güncelleyin"
+    },
+    "create": {
+      "hint": "Yönetilen proje: kategori, denetçi, onaylayan, sorumlu ve son tarih zorunludur."
+    },
+    "rules": {
+      "required": "Bu proje yönetiliyor: {fields} alanlarını doldurun.",
+      "deadline_comment": "Yönetilen bir projede son tarihi ertelemek için gerekçe gerekir.",
+      "postpone_title": "Son tarihi ertele",
+      "postpone_description": "Bu proje yönetiliyor: son tarihin neden ertelendiğini açıklayın.",
+      "postpone_description_date": "Bu proje yönetiliyor: son tarihin neden {date} tarihine ertelendiğini açıklayın.",
+      "postpone_reason": "Erteleme gerekçesi",
+      "postpone_confirm": "Ertele"
     }
   },
   "activity_via_claude": "Claude üzerinden",

@@ -1145,7 +1145,8 @@
       "requalified": "reclassificou a prioridade para a fila do CEO: {old} → {new}",
       "requalification_cancelled": "cancelou a reclassificação da prioridade",
       "reminded": "enviou um lembrete ao responsável",
-      "reminded_auto": "Lembrete automático enviado ao responsável"
+      "reminded_auto": "Lembrete automático enviado ao responsável",
+      "deadline_postponed": "adiou o prazo de {old} para {new}"
     },
     "alerts": {
       "deadline_soon": "Prazo em 3 dias",
@@ -1161,6 +1162,18 @@
       "requalified": "reclassificou a prioridade para a fila do CEO",
       "reminder": "envia um lembrete sobre este item de trabalho",
       "reminder_auto": "Lembrete automático: atualize este item de trabalho"
+    },
+    "create": {
+      "hint": "Projeto acompanhado: categoria, supervisor, aprovador, responsável e prazo são obrigatórios."
+    },
+    "rules": {
+      "required": "Este projeto é acompanhado: preencha {fields}.",
+      "deadline_comment": "Em um projeto acompanhado, adiar um prazo exige uma justificativa.",
+      "postpone_title": "Adiar o prazo",
+      "postpone_description": "Este projeto é acompanhado: explique por que o prazo foi adiado.",
+      "postpone_description_date": "Este projeto é acompanhado: explique por que o prazo passa para {date}.",
+      "postpone_reason": "Motivo do adiamento",
+      "postpone_confirm": "Adiar"
     }
   },
   "activity_via_claude": "via Claude",

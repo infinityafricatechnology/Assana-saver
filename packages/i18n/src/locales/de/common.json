@@ -1145,7 +1145,8 @@
       "requalified": "hat die Priorität für die CEO-Warteschlange neu eingestuft: {old} → {new}",
       "requalification_cancelled": "hat die Neueinstufung der Priorität aufgehoben",
       "reminded": "hat den Verantwortlichen erinnert",
-      "reminded_auto": "Automatische Erinnerung an den Verantwortlichen gesendet"
+      "reminded_auto": "Automatische Erinnerung an den Verantwortlichen gesendet",
+      "deadline_postponed": "hat die Frist vom {old} auf den {new} verschoben"
     },
     "alerts": {
       "deadline_soon": "Frist in 3 Tagen",
@@ -1161,6 +1162,18 @@
       "requalified": "hat die Priorität für die CEO-Warteschlange neu eingestuft",
       "reminder": "erinnert Sie an dieses Arbeitselement",
       "reminder_auto": "Automatische Erinnerung: bitte aktualisieren Sie dieses Arbeitselement"
+    },
+    "create": {
+      "hint": "Gesteuertes Projekt: Kategorie, Supervisor, Genehmiger, Verantwortlicher und Frist sind Pflichtfelder."
+    },
+    "rules": {
+      "required": "Dieses Projekt wird gesteuert: Bitte {fields} angeben.",
+      "deadline_comment": "In einem gesteuerten Projekt muss eine Fristverschiebung begründet werden.",
+      "postpone_title": "Frist verschieben",
+      "postpone_description": "Dieses Projekt wird gesteuert: Begründen Sie, warum die Frist verschoben wird.",
+      "postpone_description_date": "Dieses Projekt wird gesteuert: Begründen Sie, warum die Frist auf den {date} verschoben wird.",
+      "postpone_reason": "Grund der Verschiebung",
+      "postpone_confirm": "Verschieben"
     }
   },
   "activity_via_claude": "über Claude",

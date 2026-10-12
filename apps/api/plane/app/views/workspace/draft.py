@@ -41,6 +41,7 @@ from .. import BaseViewSet
 from plane.bgtasks.issue_activities_task import issue_activity
 from plane.utils.issue_filters import issue_filters
 from plane.utils.host import base_host
+from plane.utils.steering_required import SteeringRuleError, attach_steering, prepare_steering_on_create
 
 
 class WorkspaceDraftIssueViewSet(BaseViewSet):
@@ -221,6 +222,12 @@ class WorkspaceDraftIssueViewSet(BaseViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+        # Infinity Planning (cahier des charges §4): a work item of a steered project is created complete.
+        try:
+            steering_changes = prepare_steering_on_create(draft_issue.project, request.data)
+        except SteeringRuleError as error:
+            return Response(error.payload, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = IssueCreateSerializer(
             data=request.data,
             context={
@@ -232,6 +239,7 @@ class WorkspaceDraftIssueViewSet(BaseViewSet):
 
         if serializer.is_valid():
             serializer.save()
+            attach_steering(serializer.instance, steering_changes)
 
             issue_activity.delay(
                 type="issue.activity.created",

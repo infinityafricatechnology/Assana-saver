@@ -69,6 +69,14 @@ from plane.utils.grouper import (
     issue_queryset_grouper,
 )
 from plane.utils.host import base_host
+from plane.utils.steering_required import (
+    SteeringRuleError,
+    attach_steering,
+    check_steered_update,
+    is_steered,
+    prepare_steering_on_create,
+    record_postponement,
+)
 from plane.utils.issue_filters import issue_filters
 from plane.utils.order_queryset import order_issue_queryset
 from plane.utils.paginator import GroupedOffsetPaginator, SubGroupedOffsetPaginator
@@ -404,6 +412,11 @@ class IssueViewSet(BaseViewSet):
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER])
     def create(self, request, slug, project_id):
         project = Project.objects.get(pk=project_id)
+        # Infinity Planning (cahier des charges §4): a work item of a steered project is created complete.
+        try:
+            steering_changes = prepare_steering_on_create(project, request.data)
+        except SteeringRuleError as error:
+            return Response(error.payload, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = IssueCreateSerializer(
             data=request.data,
@@ -416,6 +429,7 @@ class IssueViewSet(BaseViewSet):
 
         if serializer.is_valid():
             serializer.save()
+            attach_steering(serializer.instance, steering_changes)
 
             # Track the issue
             issue_activity.delay(
@@ -674,12 +688,21 @@ class IssueViewSet(BaseViewSet):
         if not issue:
             return Response({"error": "Issue not found"}, status=status.HTTP_404_NOT_FOUND)
 
+        # Infinity Planning (§4, §9.4): a steered work item keeps its deadline and assignees, and
+        # postponing its deadline needs a comment.
+        try:
+            postponement = check_steered_update(issue, request.data)
+        except SteeringRuleError as error:
+            return Response(error.payload, status=status.HTTP_400_BAD_REQUEST)
+        previous_target_date = issue.target_date
+
         current_instance = json.dumps(IssueDetailSerializer(issue).data, cls=DjangoJSONEncoder)
 
         requested_data = json.dumps(self.request.data, cls=DjangoJSONEncoder)
         serializer = IssueCreateSerializer(issue, data=request.data, partial=True, context={"project_id": project_id})
         if serializer.is_valid():
             serializer.save()
+            record_postponement(serializer.instance, request.user, previous_target_date, postponement)
             # Check if the update is a migration description update
             is_migration_description_update = skip_activity and is_description_update
             # Log all the updates
@@ -1135,6 +1158,29 @@ class IssueBulkUpdateDateEndpoint(BaseAPIView):
         issues_dict = {str(issue.id): issue for issue in issues}
         issues_to_update = []
 
+        # Infinity Planning (§9.4): in a steered project, postponing a deadline needs a comment.
+        postponed = (
+            {
+                update["id"]: issues_dict[update["id"]].target_date
+                for update in updates
+                if update.get("target_date")
+                and issues_dict.get(update["id"])
+                and issues_dict[update["id"]].target_date
+                and str(update["target_date"])[:10] > str(issues_dict[update["id"]].target_date)
+            }
+            if is_steered(project_id)
+            else {}
+        )
+        deadline_comment = str(request.data.get("deadline_comment") or "").strip()[:2000]
+        if postponed and not deadline_comment:
+            return Response(
+                {
+                    "error": "Postponing the deadline of a steered work item needs a comment.",
+                    "code": "deadline_comment_required",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         for update in updates:
             issue_id = update["id"]
             issue = issues_dict.get(issue_id)
@@ -1179,6 +1225,8 @@ class IssueBulkUpdateDateEndpoint(BaseAPIView):
 
         # Bulk update issues
         Issue.objects.bulk_update(issues_to_update, ["start_date", "target_date"])
+        for issue_id, previous_target_date in postponed.items():
+            record_postponement(issues_dict[issue_id], request.user, previous_target_date, deadline_comment)
 
         return Response({"message": "Issues updated successfully"}, status=status.HTTP_200_OK)
 

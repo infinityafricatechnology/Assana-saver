@@ -1145,7 +1145,8 @@
       "requalified": "đã xếp lại mức ưu tiên trong hàng chờ của Tổng giám đốc: {old} → {new}",
       "requalification_cancelled": "đã hủy việc xếp lại mức ưu tiên",
       "reminded": "đã nhắc người phụ trách",
-      "reminded_auto": "Đã gửi lời nhắc tự động đến người phụ trách"
+      "reminded_auto": "Đã gửi lời nhắc tự động đến người phụ trách",
+      "deadline_postponed": "đã lùi hạn chót từ {old} đến {new}"
     },
     "alerts": {
       "deadline_soon": "Còn 3 ngày đến hạn",
@@ -1161,6 +1162,18 @@
       "requalified": "đã xếp lại mức ưu tiên trong hàng chờ của Tổng giám đốc",
       "reminder": "nhắc bạn về mục công việc này",
       "reminder_auto": "Nhắc tự động: hãy cập nhật mục công việc này"
+    },
+    "create": {
+      "hint": "Dự án được điều hành: danh mục, người giám sát, người phê duyệt, người phụ trách và hạn chót là bắt buộc."
+    },
+    "rules": {
+      "required": "Dự án này được điều hành: hãy điền {fields}.",
+      "deadline_comment": "Trong dự án được điều hành, việc lùi hạn chót cần có lý do.",
+      "postpone_title": "Lùi hạn chót",
+      "postpone_description": "Dự án này được điều hành: hãy giải thích vì sao hạn chót bị lùi.",
+      "postpone_description_date": "Dự án này được điều hành: hãy giải thích vì sao hạn chót lùi đến {date}.",
+      "postpone_reason": "Lý do lùi hạn",
+      "postpone_confirm": "Lùi hạn"
     }
   },
   "activity_via_claude": "qua Claude",

@@ -82,6 +82,14 @@ _Éviter_ : équipe, société, département
 L'entité qui porte un projet. Chaque projet en a une seule.
 _Éviter_ : propriétaire, entité responsable
 
+**Projet piloté** :
+Un projet qui a une entité porteuse. Ses tâches se créent complètes (responsable, échéance, catégorie, superviseur, approbateur), et tout report d'échéance est motivé. Les autres projets restent libres.
+_Éviter_ : projet suivi, projet obligatoire
+
+**Report d'échéance** :
+Le déplacement de l'échéance d'une tâche à une date plus tardive. Dans un projet piloté, il demande un motif, qui entre dans l'historique.
+_Éviter_ : décalage, glissement
+
 **Catégorie** :
 La nature d'une tâche dans l'espace de pilotage (Agréments, Gouvernance, Partenariats, Développement…), tenue par le Cabinet.
 _Éviter_ : type, étiquette

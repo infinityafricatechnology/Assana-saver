@@ -1145,7 +1145,8 @@
       "requalified": "社長承認待ちの優先度を再分類しました：{old} → {new}",
       "requalification_cancelled": "優先度の再分類を取り消しました",
       "reminded": "担当者に催促しました",
-      "reminded_auto": "担当者に自動催促を送信しました"
+      "reminded_auto": "担当者に自動催促を送信しました",
+      "deadline_postponed": "期限を{old}から{new}に延期しました"
     },
     "alerts": {
       "deadline_soon": "期限まで3日",
@@ -1161,6 +1162,18 @@
       "requalified": "社長承認待ちの優先度を再分類しました",
       "reminder": "この作業項目について催促しています",
       "reminder_auto": "自動催促：この作業項目を更新してください"
+    },
+    "create": {
+      "hint": "管理対象プロジェクトでは、カテゴリー、監督者、承認者、担当者、期限が必須です。"
+    },
+    "rules": {
+      "required": "このプロジェクトは管理対象です。{fields}を入力してください。",
+      "deadline_comment": "管理対象プロジェクトで期限を延期するには理由が必要です。",
+      "postpone_title": "期限を延期",
+      "postpone_description": "このプロジェクトは管理対象です。期限を延期する理由を入力してください。",
+      "postpone_description_date": "このプロジェクトは管理対象です。期限を{date}に延期する理由を入力してください。",
+      "postpone_reason": "延期の理由",
+      "postpone_confirm": "延期する"
     }
   },
   "activity_via_claude": "Claude 経由",

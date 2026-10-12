@@ -1145,7 +1145,8 @@
       "requalified": "a requalifié la priorité pour la File PDG : {old} → {new}",
       "requalification_cancelled": "a annulé la requalification de la priorité",
       "reminded": "a relancé le responsable",
-      "reminded_auto": "Relance automatique envoyée au responsable"
+      "reminded_auto": "Relance automatique envoyée au responsable",
+      "deadline_postponed": "a reporté l'échéance du {old} au {new}"
     },
     "alerts": {
       "deadline_soon": "Échéance dans 3 jours",
@@ -1161,6 +1162,18 @@
       "requalified": "a requalifié la priorité pour la File PDG",
       "reminder": "vous relance sur cette tâche",
       "reminder_auto": "Relance automatique : fiche à mettre à jour"
+    },
+    "create": {
+      "hint": "Projet piloté : catégorie, superviseur, approbateur, responsable et échéance sont obligatoires."
+    },
+    "rules": {
+      "required": "Ce projet est piloté : renseignez {fields}.",
+      "deadline_comment": "Dans un projet piloté, un report d'échéance doit être justifié.",
+      "postpone_title": "Reporter l'échéance",
+      "postpone_description": "Ce projet est piloté : expliquez pourquoi l'échéance est reportée.",
+      "postpone_description_date": "Ce projet est piloté : expliquez pourquoi l'échéance passe au {date}.",
+      "postpone_reason": "Motif du report",
+      "postpone_confirm": "Reporter"
     }
   },
   "activity_via_claude": "via Claude",

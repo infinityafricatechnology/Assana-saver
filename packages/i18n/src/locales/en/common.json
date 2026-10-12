@@ -1145,7 +1145,8 @@
       "requalified": "requalified the priority for the CEO queue: {old} → {new}",
       "requalification_cancelled": "cancelled the priority requalification",
       "reminded": "reminded the assignee",
-      "reminded_auto": "Automatic reminder sent to the assignee"
+      "reminded_auto": "Automatic reminder sent to the assignee",
+      "deadline_postponed": "postponed the deadline from {old} to {new}"
     },
     "alerts": {
       "deadline_soon": "Deadline in 3 days",
@@ -1161,6 +1162,18 @@
       "requalified": "requalified the priority for the CEO queue",
       "reminder": "reminds you about this work item",
       "reminder_auto": "Automatic reminder: please update this work item"
+    },
+    "create": {
+      "hint": "Steered project: category, supervisor, approver, assignee and deadline are required."
+    },
+    "rules": {
+      "required": "This project is steered: fill in {fields}.",
+      "deadline_comment": "In a steered project, postponing a deadline needs a reason.",
+      "postpone_title": "Postpone the deadline",
+      "postpone_description": "This project is steered: explain why the deadline moves later.",
+      "postpone_description_date": "This project is steered: explain why the deadline moves to {date}.",
+      "postpone_reason": "Reason for the postponement",
+      "postpone_confirm": "Postpone"
     }
   },
   "activity_via_claude": "via Claude",

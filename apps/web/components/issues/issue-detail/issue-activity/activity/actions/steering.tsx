@@ -74,10 +74,10 @@ export const IssueSteeringEventActivity = observer(function IssueSteeringEventAc
 
   const { event = "", text } = readEvent(activity.comment);
   const key = event === "reminded" && !activity.actor ? "reminded_auto" : event;
-  const sentence = t(`steering.history.${key}`, {
-    old: activity.old_value ? t(activity.old_value) : "",
-    new: activity.new_value ? t(activity.new_value) : "",
-  });
+  // A postponement carries dates (§9.4), a requalification priorities.
+  const show = (value: string | null | undefined) =>
+    !value ? "" : event === "deadline_postponed" ? (renderFormattedDate(value) ?? value) : t(value);
+  const sentence = t(`steering.history.${key}`, { old: show(activity.old_value), new: show(activity.new_value) });
 
   return (
     <IssueActivityBlockComponent

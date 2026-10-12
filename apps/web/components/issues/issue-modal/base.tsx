@@ -1,3 +1,4 @@
+// oxlint-disable no-shadow
 /**
  * Copyright (c) 2023-present Plane Software, Inc. and contributors
  * SPDX-License-Identifier: AGPL-3.0-only
@@ -14,6 +15,10 @@ import { useTranslation } from "@plane/i18n";
 import { setToast } from "@plane/blocks/toast";
 import type { TBaseIssue, TIssue } from "@plane/types";
 import { EIssuesStoreType } from "@plane/types";
+// components
+import { useSteeringRuleMessage } from "@/components/steering/rules-dialog";
+// helpers
+import { isHandledSteeringError } from "@/helpers/steering-rules.helper";
 // hooks
 import { useIssueModal } from "@/hooks/context/use-issue-modal";
 import { useCycle } from "@/hooks/store/use-cycle";
@@ -81,6 +86,7 @@ export const CreateUpdateIssueModalBase = observer(function CreateUpdateIssueMod
   const { createIssue, updateIssue } = useIssuesActions(storeType);
   // propel: toast actions cross the boundary as data, never as JSX
   const buildCreateIssueToastActions = useCreateIssueToastActions();
+  const ruleMessage = useSteeringRuleMessage();
   // derived values
   const routerProjectIdentifier = workItem?.toString().split("-")[0];
   const projectIdFromRouter = getProjectByIdentifier(routerProjectIdentifier)?.id;
@@ -253,7 +259,8 @@ export const CreateUpdateIssueModalBase = observer(function CreateUpdateIssueMod
       setToast({
         type: "error",
         title: t("error"),
-        message: error?.error ?? t(is_draft_issue ? "draft_creation_failed" : "issue_creation_failed"),
+        message:
+          ruleMessage(error) ?? error?.error ?? t(is_draft_issue ? "draft_creation_failed" : "issue_creation_failed"),
       });
       throw error;
     }
@@ -351,6 +358,8 @@ export const CreateUpdateIssueModalBase = observer(function CreateUpdateIssueMod
       handleClose();
     } catch (error: any) {
       console.error(error);
+      // Infinity Planning: a steered project's refusal was already explained.
+      if (isHandledSteeringError(error)) return;
       setToast({
         type: "error",
         title: t("error"),

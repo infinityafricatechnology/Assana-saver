@@ -1145,7 +1145,8 @@
       "requalified": "přeřadil(a) prioritu pro frontu generálního ředitele: {old} → {new}",
       "requalification_cancelled": "zrušil(a) přeřazení priority",
       "reminded": "připomněl(a) se odpovědné osobě",
-      "reminded_auto": "Automatická připomínka odeslána odpovědné osobě"
+      "reminded_auto": "Automatická připomínka odeslána odpovědné osobě",
+      "deadline_postponed": "posunul(a) termín z {old} na {new}"
     },
     "alerts": {
       "deadline_soon": "Termín za 3 dny",
@@ -1161,6 +1162,18 @@
       "requalified": "přeřadil(a) prioritu pro frontu generálního ředitele",
       "reminder": "vám připomíná tuto pracovní položku",
       "reminder_auto": "Automatická připomínka: aktualizujte tuto pracovní položku"
+    },
+    "create": {
+      "hint": "Řízený projekt: kategorie, supervizor, schvalovatel, odpovědná osoba a termín jsou povinné."
+    },
+    "rules": {
+      "required": "Tento projekt je řízený: vyplňte {fields}.",
+      "deadline_comment": "V řízeném projektu musí být posunutí termínu zdůvodněno.",
+      "postpone_title": "Posunout termín",
+      "postpone_description": "Tento projekt je řízený: vysvětlete, proč se termín posouvá.",
+      "postpone_description_date": "Tento projekt je řízený: vysvětlete, proč se termín posouvá na {date}.",
+      "postpone_reason": "Důvod posunutí",
+      "postpone_confirm": "Posunout"
     }
   },
   "activity_via_claude": "přes Claude",

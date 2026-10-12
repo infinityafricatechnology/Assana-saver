@@ -1145,7 +1145,8 @@
       "requalified": "대표이사 결재 대기열의 우선순위를 재분류했습니다: {old} → {new}",
       "requalification_cancelled": "우선순위 재분류를 취소했습니다",
       "reminded": "담당자에게 독촉했습니다",
-      "reminded_auto": "담당자에게 자동 독촉을 보냈습니다"
+      "reminded_auto": "담당자에게 자동 독촉을 보냈습니다",
+      "deadline_postponed": "마감일을 {old}에서 {new}(으)로 연기했습니다"
     },
     "alerts": {
       "deadline_soon": "마감 3일 전",
@@ -1161,6 +1162,18 @@
       "requalified": "대표이사 결재 대기열의 우선순위를 재분류했습니다",
       "reminder": "이 작업 항목에 대해 독촉합니다",
       "reminder_auto": "자동 독촉: 이 작업 항목을 업데이트하십시오"
+    },
+    "create": {
+      "hint": "관리 대상 프로젝트에서는 카테고리, 감독자, 승인자, 담당자, 마감일이 필수입니다."
+    },
+    "rules": {
+      "required": "이 프로젝트는 관리 대상입니다. {fields}을(를) 입력하세요.",
+      "deadline_comment": "관리 대상 프로젝트에서 마감일을 연기하려면 사유가 필요합니다.",
+      "postpone_title": "마감일 연기",
+      "postpone_description": "이 프로젝트는 관리 대상입니다. 마감일을 연기하는 사유를 입력하세요.",
+      "postpone_description_date": "이 프로젝트는 관리 대상입니다. 마감일을 {date}(으)로 연기하는 사유를 입력하세요.",
+      "postpone_reason": "연기 사유",
+      "postpone_confirm": "연기"
     }
   },
   "activity_via_claude": "Claude를 통해",

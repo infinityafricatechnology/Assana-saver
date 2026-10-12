@@ -1145,7 +1145,8 @@
       "requalified": "heeft de prioriteit voor de CEO-wachtrij opnieuw ingedeeld: {old} → {new}",
       "requalification_cancelled": "heeft de nieuwe indeling van de prioriteit geannuleerd",
       "reminded": "heeft de verantwoordelijke herinnerd",
-      "reminded_auto": "Automatische herinnering verstuurd aan de verantwoordelijke"
+      "reminded_auto": "Automatische herinnering verstuurd aan de verantwoordelijke",
+      "deadline_postponed": "heeft de deadline uitgesteld van {old} naar {new}"
     },
     "alerts": {
       "deadline_soon": "Deadline over 3 dagen",
@@ -1161,6 +1162,18 @@
       "requalified": "heeft de prioriteit voor de CEO-wachtrij opnieuw ingedeeld",
       "reminder": "herinnert u aan dit werkitem",
       "reminder_auto": "Automatische herinnering: werk dit werkitem bij"
+    },
+    "create": {
+      "hint": "Gestuurd project: categorie, supervisor, goedkeurder, verantwoordelijke en deadline zijn verplicht."
+    },
+    "rules": {
+      "required": "Dit project wordt gestuurd: vul {fields} in.",
+      "deadline_comment": "In een gestuurd project moet het uitstellen van een deadline worden gemotiveerd.",
+      "postpone_title": "Deadline uitstellen",
+      "postpone_description": "Dit project wordt gestuurd: leg uit waarom de deadline wordt uitgesteld.",
+      "postpone_description_date": "Dit project wordt gestuurd: leg uit waarom de deadline naar {date} verschuift.",
+      "postpone_reason": "Reden van het uitstel",
+      "postpone_confirm": "Uitstellen"
     }
   },
   "activity_via_claude": "via Claude",

@@ -89,6 +89,13 @@ from plane.bgtasks.storage_metadata_task import get_asset_object_metadata
 from .base import BaseAPIView
 from plane.utils.host import base_host
 from plane.utils.steering_rules import creates_circular_dependency
+from plane.utils.steering_required import (
+    SteeringRuleError,
+    attach_steering,
+    check_steered_update,
+    prepare_steering_on_create,
+    record_postponement,
+)
 from plane.utils.issue_relation_mapper import get_actual_relation
 from plane.bgtasks.webhook_task import model_activity
 from plane.app.permissions import ROLE
@@ -458,6 +465,11 @@ class IssueListCreateAPIEndpoint(BaseAPIView):
         Supports external ID tracking for integration purposes.
         """
         project = Project.objects.get(pk=project_id)
+        # Infinity Planning (cahier des charges §4): a work item of a steered project is created complete.
+        try:
+            steering_changes = prepare_steering_on_create(project, request.data)
+        except SteeringRuleError as error:
+            return Response(error.payload, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = IssueSerializer(
             data=request.data,
@@ -494,6 +506,7 @@ class IssueListCreateAPIEndpoint(BaseAPIView):
                 )
 
             serializer.save()
+            attach_steering(serializer.instance, steering_changes)
             # Refetch the issue
             issue = Issue.objects.filter(workspace__slug=slug, project_id=project_id, pk=serializer.data["id"]).first()
             issue.created_at = request.data.get("created_at", timezone.now())
@@ -783,6 +796,13 @@ class IssueDetailAPIEndpoint(BaseAPIView):
         Supports external ID validation to prevent conflicts.
         """
         issue = Issue.objects.get(workspace__slug=slug, project_id=project_id, pk=pk)
+        # Infinity Planning (§4, §9.4): a steered work item keeps its deadline and assignees, and
+        # postponing its deadline needs a comment.
+        try:
+            postponement = check_steered_update(issue, request.data)
+        except SteeringRuleError as error:
+            return Response(error.payload, status=status.HTTP_400_BAD_REQUEST)
+        previous_target_date = issue.target_date
         project = Project.objects.get(pk=project_id)
         current_instance = json.dumps(IssueSerializer(issue).data, cls=DjangoJSONEncoder)
         requested_data = json.dumps(self.request.data, cls=DjangoJSONEncoder)
@@ -812,6 +832,7 @@ class IssueDetailAPIEndpoint(BaseAPIView):
                 )
 
             serializer.save()
+            record_postponement(serializer.instance, request.user, previous_target_date, postponement)
             issue_activity.delay(
                 via=self.activity_via,
                 type="issue.activity.updated",

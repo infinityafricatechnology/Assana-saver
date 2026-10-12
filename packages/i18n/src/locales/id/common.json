@@ -1145,7 +1145,8 @@
       "requalified": "mengklasifikasi ulang prioritas untuk antrean CEO: {old} → {new}",
       "requalification_cancelled": "membatalkan klasifikasi ulang prioritas",
       "reminded": "mengingatkan penanggung jawab",
-      "reminded_auto": "Pengingat otomatis dikirim ke penanggung jawab"
+      "reminded_auto": "Pengingat otomatis dikirim ke penanggung jawab",
+      "deadline_postponed": "menunda tenggat dari {old} ke {new}"
     },
     "alerts": {
       "deadline_soon": "Tenggat dalam 3 hari",
@@ -1161,6 +1162,18 @@
       "requalified": "mengklasifikasi ulang prioritas untuk antrean CEO",
       "reminder": "mengingatkan Anda tentang item kerja ini",
       "reminder_auto": "Pengingat otomatis: perbarui item kerja ini"
+    },
+    "create": {
+      "hint": "Proyek yang dipantau: kategori, supervisor, pemberi persetujuan, penanggung jawab, dan tenggat wajib diisi."
+    },
+    "rules": {
+      "required": "Proyek ini dipantau: isi {fields}.",
+      "deadline_comment": "Dalam proyek yang dipantau, penundaan tenggat harus disertai alasan.",
+      "postpone_title": "Tunda tenggat",
+      "postpone_description": "Proyek ini dipantau: jelaskan mengapa tenggat ditunda.",
+      "postpone_description_date": "Proyek ini dipantau: jelaskan mengapa tenggat diundur ke {date}.",
+      "postpone_reason": "Alasan penundaan",
+      "postpone_confirm": "Tunda"
     }
   },
   "activity_via_claude": "melalui Claude",

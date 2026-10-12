@@ -7,6 +7,7 @@
 import { observer } from "mobx-react";
 // components
 import { CreateProjectModal } from "@/components/project/create-project-modal";
+import { SteeringRulesDialog } from "@/components/steering/rules-dialog";
 // hooks
 import { useCommandPalette } from "@/hooks/store/use-command-palette";
 
@@ -26,6 +27,7 @@ export const WorkspaceLevelModals = observer(function WorkspaceLevelModals(props
         onClose={() => toggleCreateProjectModal(false)}
         workspaceSlug={workspaceSlug.toString()}
       />
+      <SteeringRulesDialog />
     </>
   );
 });

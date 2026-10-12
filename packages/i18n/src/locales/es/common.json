@@ -1145,7 +1145,8 @@
       "requalified": "recalificó la prioridad para la cola del CEO: {old} → {new}",
       "requalification_cancelled": "anuló la recalificación de la prioridad",
       "reminded": "envió un recordatorio al responsable",
-      "reminded_auto": "Recordatorio automático enviado al responsable"
+      "reminded_auto": "Recordatorio automático enviado al responsable",
+      "deadline_postponed": "aplazó la fecha límite del {old} al {new}"
     },
     "alerts": {
       "deadline_soon": "Fecha límite en 3 días",
@@ -1161,6 +1162,18 @@
       "requalified": "recalificó la prioridad para la cola del CEO",
       "reminder": "le envía un recordatorio sobre este elemento de trabajo",
       "reminder_auto": "Recordatorio automático: actualice este elemento de trabajo"
+    },
+    "create": {
+      "hint": "Proyecto con seguimiento: la categoría, el supervisor, el aprobador, el responsable y la fecha límite son obligatorios."
+    },
+    "rules": {
+      "required": "Este proyecto tiene seguimiento: completa {fields}.",
+      "deadline_comment": "En un proyecto con seguimiento, aplazar una fecha límite requiere un motivo.",
+      "postpone_title": "Aplazar la fecha límite",
+      "postpone_description": "Este proyecto tiene seguimiento: explica por qué se aplaza la fecha límite.",
+      "postpone_description_date": "Este proyecto tiene seguimiento: explica por qué la fecha límite pasa al {date}.",
+      "postpone_reason": "Motivo del aplazamiento",
+      "postpone_confirm": "Aplazar"
     }
   },
   "activity_via_claude": "vía Claude",

@@ -16,6 +16,9 @@ import { AddOutline } from "@makeplane/propel/icons";
 import { setPromiseToast } from "@plane/blocks/toast";
 import type { IProject, TIssue, EIssueLayoutTypes } from "@plane/types";
 import { cn, createIssuePayload } from "@plane/utils";
+// components
+import { CreateUpdateIssueModal } from "@/components/issues/issue-modal/modal";
+import { useIsSteeredProject } from "@/components/steering/create-fields";
 // local imports
 import { QuickAddIssueFormRoot } from "./form";
 import { useCreateIssueToastActions } from "../../create-issue-toast-action-items";
@@ -71,6 +74,9 @@ export const QuickAddIssueRoot = observer(function QuickAddIssueRoot(props: TQui
   const buildCreateIssueToastActions = useCreateIssueToastActions();
   // states
   const [isOpen, setIsOpen] = useState(isQuickAddOpen ?? false);
+  // Infinity Planning (cahier des charges §4): a steered project's work item needs the full form.
+  const isSteered = useIsSteeredProject(workspaceSlug?.toString() ?? "", projectId?.toString());
+  const [steeredDraft, setSteeredDraft] = useState<Partial<TIssue> | null>(null);
   // form info
   const {
     reset,
@@ -103,6 +109,13 @@ export const QuickAddIssueRoot = observer(function QuickAddIssueRoot(props: TQui
     if (isSubmitting || !workspaceSlug || !projectId) return;
 
     reset({ ...defaultValues });
+
+    if (isSteered && !isEpic) {
+      // oxlint-disable-next-line unicorn/no-useless-fallback-in-spread
+      setSteeredDraft({ ...(prePopulatedData ?? {}), name: formData.name, project_id: projectId.toString() });
+      handleIsOpen(false);
+      return;
+    }
 
     const payload = createIssuePayload(projectId.toString(), {
       // oxlint-disable-next-line unicorn/no-useless-fallback-in-spread
@@ -168,6 +181,11 @@ export const QuickAddIssueRoot = observer(function QuickAddIssueRoot(props: TQui
           )}
         </>
       )}
+      <CreateUpdateIssueModal
+        isOpen={!!steeredDraft}
+        data={steeredDraft ?? undefined}
+        onClose={() => setSteeredDraft(null)}
+      />
     </div>
   );
 });

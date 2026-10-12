@@ -1145,7 +1145,8 @@
       "requalified": "a recalificat prioritatea pentru coada CEO-ului: {old} → {new}",
       "requalification_cancelled": "a anulat recalificarea priorității",
       "reminded": "a trimis o reamintire responsabilului",
-      "reminded_auto": "Reamintire automată trimisă responsabilului"
+      "reminded_auto": "Reamintire automată trimisă responsabilului",
+      "deadline_postponed": "a amânat termenul de la {old} la {new}"
     },
     "alerts": {
       "deadline_soon": "Termen în 3 zile",
@@ -1161,6 +1162,18 @@
       "requalified": "a recalificat prioritatea pentru coada CEO-ului",
       "reminder": "vă reamintește de acest element de lucru",
       "reminder_auto": "Reamintire automată: actualizați acest element de lucru"
+    },
+    "create": {
+      "hint": "Proiect coordonat: categoria, supervizorul, aprobatorul, responsabilul și termenul sunt obligatorii."
+    },
+    "rules": {
+      "required": "Acest proiect este coordonat: completați {fields}.",
+      "deadline_comment": "Într-un proiect coordonat, amânarea unui termen trebuie justificată.",
+      "postpone_title": "Amânați termenul",
+      "postpone_description": "Acest proiect este coordonat: explicați de ce se amână termenul.",
+      "postpone_description_date": "Acest proiect este coordonat: explicați de ce termenul trece la {date}.",
+      "postpone_reason": "Motivul amânării",
+      "postpone_confirm": "Amânați"
     }
   },
   "activity_via_claude": "prin Claude",

@@ -1145,7 +1145,8 @@
       "requalified": "preradil(a) prioritu pre front generálneho riaditeľa: {old} → {new}",
       "requalification_cancelled": "zrušil(a) preradenie priority",
       "reminded": "pripomenul(a) sa zodpovednej osobe",
-      "reminded_auto": "Automatická pripomienka odoslaná zodpovednej osobe"
+      "reminded_auto": "Automatická pripomienka odoslaná zodpovednej osobe",
+      "deadline_postponed": "posunul(a) termín z {old} na {new}"
     },
     "alerts": {
       "deadline_soon": "Termín o 3 dni",
@@ -1161,6 +1162,18 @@
       "requalified": "preradil(a) prioritu pre front generálneho riaditeľa",
       "reminder": "vám pripomína túto pracovnú položku",
       "reminder_auto": "Automatická pripomienka: aktualizujte túto pracovnú položku"
+    },
+    "create": {
+      "hint": "Riadený projekt: kategória, supervízor, schvaľovateľ, zodpovedná osoba a termín sú povinné."
+    },
+    "rules": {
+      "required": "Tento projekt je riadený: vyplňte {fields}.",
+      "deadline_comment": "V riadenom projekte musí byť posunutie termínu zdôvodnené.",
+      "postpone_title": "Posunúť termín",
+      "postpone_description": "Tento projekt je riadený: vysvetlite, prečo sa termín posúva.",
+      "postpone_description_date": "Tento projekt je riadený: vysvetlite, prečo sa termín posúva na {date}.",
+      "postpone_reason": "Dôvod posunutia",
+      "postpone_confirm": "Posunúť"
     }
   },
   "activity_via_claude": "cez Claude",

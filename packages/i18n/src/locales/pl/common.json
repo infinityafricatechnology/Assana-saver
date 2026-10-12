@@ -1145,7 +1145,8 @@
       "requalified": "przekwalifikował(a) priorytet w kolejce Prezesa: {old} → {new}",
       "requalification_cancelled": "anulował(a) przekwalifikowanie priorytetu",
       "reminded": "przypomniał(a) osobie odpowiedzialnej",
-      "reminded_auto": "Wysłano automatyczne przypomnienie do osoby odpowiedzialnej"
+      "reminded_auto": "Wysłano automatyczne przypomnienie do osoby odpowiedzialnej",
+      "deadline_postponed": "przesunął(-ęła) termin z {old} na {new}"
     },
     "alerts": {
       "deadline_soon": "Termin za 3 dni",
@@ -1161,6 +1162,18 @@
       "requalified": "przekwalifikował(a) priorytet w kolejce Prezesa",
       "reminder": "przypomina Ci o tym elemencie pracy",
       "reminder_auto": "Automatyczne przypomnienie: zaktualizuj ten element pracy"
+    },
+    "create": {
+      "hint": "Projekt zarządzany: kategoria, nadzorujący, zatwierdzający, odpowiedzialny i termin są wymagane."
+    },
+    "rules": {
+      "required": "Ten projekt jest zarządzany: uzupełnij {fields}.",
+      "deadline_comment": "W projekcie zarządzanym przesunięcie terminu wymaga uzasadnienia.",
+      "postpone_title": "Przesuń termin",
+      "postpone_description": "Ten projekt jest zarządzany: wyjaśnij, dlaczego termin jest przesuwany.",
+      "postpone_description_date": "Ten projekt jest zarządzany: wyjaśnij, dlaczego termin przesuwa się na {date}.",
+      "postpone_reason": "Powód przesunięcia",
+      "postpone_confirm": "Przesuń"
     }
   },
   "activity_via_claude": "przez Claude",

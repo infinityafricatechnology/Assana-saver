@@ -1,3 +1,4 @@
+// oxlint-disable promise/always-return
 /**
  * Copyright (c) 2023-present Plane Software, Inc. and contributors
  * SPDX-License-Identifier: AGPL-3.0-only
@@ -184,10 +185,10 @@ export class IssueStore implements IIssueStore {
         ? this.rootIssueDetailStore.rootIssueStore.projectEpics
         : this.rootIssueDetailStore.rootIssueStore.projectIssues;
 
-    await Promise.all([
-      currentStore.updateIssue(workspaceSlug, projectId, issueId, data),
-      this.rootIssueDetailStore.activity.fetchActivities(workspaceSlug, projectId, issueId),
-    ]);
+    // Infinity Planning: the history is read once the update is saved, which can wait for the reason
+    // of a postponed deadline.
+    await currentStore.updateIssue(workspaceSlug, projectId, issueId, data);
+    await this.rootIssueDetailStore.activity.fetchActivities(workspaceSlug, projectId, issueId);
   };
 
   removeIssue = async (workspaceSlug: string, projectId: string, issueId: string) => {

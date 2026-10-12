@@ -1145,7 +1145,8 @@
       "requalified": "重新定級了執行長審批佇列中的優先順序：{old} → {new}",
       "requalification_cancelled": "取消了優先順序重新定級",
       "reminded": "催辦了負責人",
-      "reminded_auto": "已向負責人傳送自動催辦"
+      "reminded_auto": "已向負責人傳送自動催辦",
+      "deadline_postponed": "將截止日期從{old}延後至{new}"
     },
     "alerts": {
       "deadline_soon": "距截止日期 3 天",
@@ -1161,6 +1162,18 @@
       "requalified": "重新定級了執行長審批佇列中的優先順序",
       "reminder": "就此工作項目催辦您",
       "reminder_auto": "自動催辦：請更新此工作項目"
+    },
+    "create": {
+      "hint": "受管專案：類別、監督人、核准人、負責人和截止日期為必填欄位。"
+    },
+    "rules": {
+      "required": "此專案為受管專案：請填寫{fields}。",
+      "deadline_comment": "在受管專案中，延後截止日期需要說明理由。",
+      "postpone_title": "延後截止日期",
+      "postpone_description": "此專案為受管專案：請說明延後截止日期的理由。",
+      "postpone_description_date": "此專案為受管專案：請說明將截止日期延後至{date}的理由。",
+      "postpone_reason": "延後理由",
+      "postpone_confirm": "延後"
     }
   },
   "activity_via_claude": "透過 Claude",

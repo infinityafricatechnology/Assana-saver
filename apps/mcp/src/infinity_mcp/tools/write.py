@@ -8,7 +8,7 @@ from mcp.types import ToolAnnotations
 from pydantic import BaseModel, Field
 
 from .. import formatting
-from ..api import InfinityAPI
+from ..api import InfinityAPI, InfinityAPIError
 from ..deps import Deps
 from ..project_context import ProjectContext
 from ..resolve import find_task
@@ -43,6 +43,11 @@ class NewTask(BaseModel):
             "or list of people (names or emails)"
         ),
     )
+    # Steered projects (carried by an entity of the Group) require these, with an assignee and a due date.
+    category: str | None = Field(None, description="Steered projects: category of the Group referential (required)")
+    supervisor: str | None = Field(None, description="Steered projects: supervisor, name or email (required)")
+    approver: str | None = Field(None, description="Steered projects: approver, name or email (required)")
+    entity: str | None = Field(None, description="Steered projects: carrying entity, when not the project's own")
 
 
 class TaskChanges(BaseModel):
@@ -54,6 +59,9 @@ class TaskChanges(BaseModel):
     assignee: str | None = Field(None, description="'me', a project member's name or email, or 'none' to unassign")
     start_date: str | None = Field(None, pattern=DATE_OR_NONE, description="YYYY-MM-DD, or 'none' to clear")
     due_date: str | None = Field(None, pattern=DATE_OR_NONE, description="YYYY-MM-DD, or 'none' to clear")
+    due_date_reason: str | None = Field(
+        None, description="Steered projects: why the due date moves later (required to postpone it there)"
+    )
     priority: Priority | None = None
     labels: list[str] | None = Field(None, description="Replaces the labels; [] removes them all")
     custom_fields: dict[str, Any] | None = Field(
@@ -63,6 +71,24 @@ class TaskChanges(BaseModel):
 
 def _clear_or(value: str | None) -> str | None:
     return None if value == "none" else value
+
+
+def _steering_person(context: ProjectContext, reference: str) -> str:
+    """A project member by name or email; anyone else of the workspace by email (the API checks it)."""
+    try:
+        return context.person_id(reference)
+    except InfinityAPIError:
+        if "@" in reference:
+            return reference.strip()
+        raise
+
+
+def _steering_payload(context: ProjectContext, task: NewTask) -> dict[str, str]:
+    steering = {"category": task.category, "entity": task.entity}
+    for key, reference in (("supervisor", task.supervisor), ("approver", task.approver)):
+        if reference:
+            steering[key] = _steering_person(context, reference)
+    return {key: value for key, value in steering.items() if value}
 
 
 def _new_task_payload(context: ProjectContext, task: NewTask, parents: dict[str, str]) -> dict:
@@ -80,6 +106,7 @@ def _new_task_payload(context: ProjectContext, task: NewTask, parents: dict[str,
             payload[key] = value
     if task.custom_fields:
         payload["custom_fields"] = context.custom_field_values(task.custom_fields)
+    payload["steering"] = _steering_payload(context, task) or None
     return {key: value for key, value in payload.items() if value is not None}
 
 
@@ -101,6 +128,8 @@ def _changes_payload(context: ProjectContext, issue: dict, changes: TaskChanges)
         payload["start_date"] = _clear_or(changes.start_date)
     if changes.due_date is not None:
         payload["target_date"] = _clear_or(changes.due_date)
+    if changes.due_date_reason:
+        payload["deadline_comment"] = changes.due_date_reason
     if changes.priority is not None:
         payload["priority"] = changes.priority
     if changes.labels is not None:
@@ -129,6 +158,8 @@ def register_write_tools(mcp: FastMCP, deps: Deps) -> None:
 
         All or nothing: if one task is invalid, none is created. Call get_project first for the exact
         names of sections, labels, people and custom field options. Subtasks: set `parent`.
+        In a steered project (carried by an entity of the Group), each task needs an assignee, a due date,
+        a category, a supervisor and an approver; the refusal names what is missing.
         """
         async with deps.api() as api:
             context = await ProjectContext.load(api, project, await _me_id(api))
@@ -147,7 +178,8 @@ def register_write_tools(mcp: FastMCP, deps: Deps) -> None:
         """Change up to 100 tasks at once: name, description, section, completion, assignee, dates, priority,
         labels and custom fields. Only the given fields change.
 
-        Each project's tasks are updated all or nothing.
+        Each project's tasks are updated all or nothing. In a steered project, a task keeps its assignee
+        and due date, and postponing the due date needs `due_date_reason`: ask the user for it.
         """
         updated = []
         async with deps.api() as api:

@@ -1145,7 +1145,8 @@
       "requalified": "ha riqualificato la priorità per la coda del CEO: {old} → {new}",
       "requalification_cancelled": "ha annullato la riqualificazione della priorità",
       "reminded": "ha sollecitato il responsabile",
-      "reminded_auto": "Sollecito automatico inviato al responsabile"
+      "reminded_auto": "Sollecito automatico inviato al responsabile",
+      "deadline_postponed": "ha rinviato la scadenza dal {old} al {new}"
     },
     "alerts": {
       "deadline_soon": "Scadenza tra 3 giorni",
@@ -1161,6 +1162,18 @@
       "requalified": "ha riqualificato la priorità per la coda del CEO",
       "reminder": "la sollecita su questo elemento di lavoro",
       "reminder_auto": "Sollecito automatico: aggiorni questo elemento di lavoro"
+    },
+    "create": {
+      "hint": "Progetto sotto controllo: categoria, supervisore, approvatore, responsabile e scadenza sono obbligatori."
+    },
+    "rules": {
+      "required": "Questo progetto è sotto controllo: compila {fields}.",
+      "deadline_comment": "In un progetto sotto controllo, il rinvio di una scadenza va motivato.",
+      "postpone_title": "Rinvia la scadenza",
+      "postpone_description": "Questo progetto è sotto controllo: spiega perché la scadenza viene rinviata.",
+      "postpone_description_date": "Questo progetto è sotto controllo: spiega perché la scadenza passa al {date}.",
+      "postpone_reason": "Motivo del rinvio",
+      "postpone_confirm": "Rinvia"
     }
   },
   "activity_via_claude": "tramite Claude",
