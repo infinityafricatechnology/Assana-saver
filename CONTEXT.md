@@ -113,8 +113,16 @@ _Éviter_ : rôle (réservé aux droits dans l'organisation et les projets)
 ### Personnes
 
 **Membre** :
-Une personne du groupe, invitée dans l'organisation avec son adresse `@infinity-africa.com`. Il n'existe pas d'invités extérieurs.
+Une personne du groupe, pré-inscrite dans l'organisation par un administrateur avec son adresse `@infinity-africa.com`. Il n'existe pas d'invités extérieurs.
 _Éviter_ : utilisateur, invité, guest
+
+**Pré-inscription** :
+L'ajout d'une personne par un administrateur, depuis la page « Personnes ». Son compte, son rôle, ses profils de pilotage et ses projets existent avant sa première connexion.
+_Éviter_ : invitation, inscription
+
+**Départ** :
+La fermeture des accès d'une personne qui quitte le Groupe. Ses tâches ouvertes sont confiées à quelqu'un d'autre, et son historique est conservé.
+_Éviter_ : suppression, désactivation (en interface)
 
 **Responsable** :
 La seule personne chargée d'une tâche. Une tâche a zéro ou un responsable, jamais plusieurs.

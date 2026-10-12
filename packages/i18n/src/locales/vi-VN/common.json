@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "qua Claude"
+  "activity_via_claude": "qua Claude",
+  "people": {
+    "title": "Nhân sự",
+    "description": "Mọi người trong tổ chức: đăng ký trước lần đăng nhập đầu tiên, đặt vai trò, hồ sơ điều hành và dự án, ghi nhận người nghỉ việc.",
+    "search": "Tìm theo tên hoặc email",
+    "add": "Thêm người",
+    "export": "Xuất",
+    "select_all": "Chọn tất cả",
+    "empty": "Không ai khớp với các bộ lọc này.",
+    "actions": "Thao tác cho",
+    "edit": "Sửa",
+    "reactivate": "Kích hoạt lại",
+    "add_to_projects": "Thêm vào dự án",
+    "add_to_projects_selected": "{count, plural, one {Thêm # người vào dự án} other {Thêm # người vào dự án}}",
+    "project_count": "{count, plural, one {# dự án} other {# dự án}}",
+    "filters": {
+      "label": "Trạng thái",
+      "all": "Tất cả ({count})",
+      "active": "Đang hoạt động ({count})",
+      "pending": "Chưa từng đăng nhập ({count})",
+      "departed": "Đã nghỉ ({count})"
+    },
+    "status": {
+      "active": "Đang hoạt động",
+      "pending": "Chưa từng đăng nhập",
+      "departed": "Đã nghỉ"
+    },
+    "roles": {
+      "admin": "Quản trị viên",
+      "member": "Thành viên"
+    },
+    "fields": {
+      "name": "Tên",
+      "first_name": "Tên",
+      "last_name": "Họ",
+      "email": "Email",
+      "role": "Vai trò",
+      "projects": "Dự án",
+      "projects_placeholder": "Chọn dự án",
+      "project_role": "Vai trò trong các dự án này",
+      "status": "Trạng thái",
+      "last_login": "Lần đăng nhập gần nhất",
+      "send_email": "Gửi email chào mừng kèm hướng dẫn đăng nhập"
+    },
+    "dialog": {
+      "add_title": "Thêm người",
+      "add_description": "Người này có quyền truy cập ngay và đăng nhập bằng email công việc.",
+      "edit_title": "Sửa thông tin"
+    },
+    "projects_dialog": {
+      "title": "Thêm vào dự án",
+      "description": "{count, plural, one {# người} other {# người}}",
+      "admin_hint": "Quản trị viên của tổ chức luôn là quản trị viên các dự án của họ.",
+      "submit": "Thêm"
+    },
+    "departure": {
+      "action": "Ghi nhận nghỉ việc",
+      "title": "{name} nghỉ việc",
+      "description": "Mọi quyền truy cập bị đóng (đăng nhập, dự án, token Claude). Lịch sử được giữ lại và có thể kích hoạt lại sau.",
+      "open_work_items": "{count, plural, one {Có # mục công việc đang mở được giao cho người này. Ai sẽ tiếp nhận?} other {Có # mục công việc đang mở được giao cho người này. Ai sẽ tiếp nhận?}}",
+      "no_open_work_items": "Không có mục công việc đang mở nào được giao cho người này.",
+      "reassign_placeholder": "Giao lại cho…",
+      "nobody": "Không ai (để trống người phụ trách)",
+      "confirm": "Xác nhận nghỉ việc"
+    },
+    "import": {
+      "button": "Nhập",
+      "title": "Nhập danh sách người",
+      "description": "Tệp .csv hoặc .xlsx với các cột của mẫu. Không có gì được tạo trước khi bạn xác nhận.",
+      "choose": "Chọn tệp",
+      "template": "Tải mẫu",
+      "summary": "Sẵn sàng: {valid} · Có lỗi: {invalid}",
+      "line": "Dòng",
+      "result": "Kết quả",
+      "ready": "Sẵn sàng",
+      "submit": "{count, plural, one {Nhập # người} other {Nhập # người}}",
+      "done": "{count, plural, one {Đã nhập # người.} other {Đã nhập # người.}}",
+      "errors": {
+        "invalid_email": "email không hợp lệ",
+        "missing_first_name": "thiếu tên",
+        "invalid_role": "vai trò không xác định",
+        "invalid_profile": "hồ sơ không xác định",
+        "unknown_branch": "khối không xác định",
+        "unknown_entity": "đơn vị không xác định",
+        "unknown_project": "dự án không xác định",
+        "duplicate_in_file": "trùng lặp trong tệp",
+        "already_member": "đã là thành viên",
+        "departed": "đã nghỉ: hãy kích hoạt lại từ danh sách"
+      }
+    },
+    "toasts": {
+      "added": "Đã thêm người.",
+      "added_with_email": "Đã thêm người. Email chào mừng đang được gửi.",
+      "updated": "Đã lưu thay đổi.",
+      "projects_added": "Đã cập nhật dự án.",
+      "departed": "Đã ghi nhận nghỉ việc.",
+      "reactivated": "Đã khôi phục quyền truy cập."
+    },
+    "errors": {
+      "generic": "Không thể lưu thay đổi.",
+      "invalid_email": "Địa chỉ email này không hợp lệ.",
+      "missing_first_name": "Tên là bắt buộc.",
+      "invalid_role": "Vai trò không xác định.",
+      "profile_scope": "Giám đốc khối cần một khối, người phụ trách đơn vị cần một đơn vị.",
+      "invalid_profile": "Hồ sơ điều hành không xác định.",
+      "invalid_project": "Dự án không xác định.",
+      "already_member": "Người này đã là thành viên.",
+      "departed": "Người này đã rời tổ chức: hãy kích hoạt lại từ danh sách.",
+      "self": "Không thể thực hiện với tài khoản của chính bạn.",
+      "last_admin": "Tổ chức cần ít nhất một quản trị viên.",
+      "missing_selection": "Hãy chọn người và dự án.",
+      "inactive_member": "Chỉ thành viên đang hoạt động mới có thể tham gia dự án.",
+      "invalid_reassign": "Hãy giao các mục công việc cho một thành viên đang hoạt động.",
+      "forbidden": "Chỉ quản trị viên của tổ chức mới quản lý nhân sự.",
+      "missing_file": "Hãy chọn một tệp.",
+      "file_too_large": "Tệp quá lớn (tối đa 2 MB).",
+      "unreadable_file": "Không thể đọc tệp này.",
+      "unsupported_file": "Hãy dùng tệp .csv hoặc .xlsx.",
+      "missing_columns": "Tệp cần ít nhất các cột Prénom và E-mail.",
+      "empty_file": "Tệp trống.",
+      "too_many_rows": "Tối đa 1.000 người mỗi lần nhập."
+    }
+  }
 }

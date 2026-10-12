@@ -261,3 +261,12 @@ from .steering.base import (
     SteeringProfileEndpoint,
     SteeringReferentialEndpoint,
 )
+from .people.base import (
+    PeopleEndpoint,
+    PeopleExportEndpoint,
+    PeopleImportEndpoint,
+    PeopleProjectsEndpoint,
+    PersonDepartureEndpoint,
+    PersonDetailEndpoint,
+    PersonReactivationEndpoint,
+)

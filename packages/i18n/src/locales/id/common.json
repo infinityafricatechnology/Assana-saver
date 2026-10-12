@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "melalui Claude"
+  "activity_via_claude": "melalui Claude",
+  "people": {
+    "title": "Orang",
+    "description": "Semua orang di organisasi: daftarkan mereka sebelum masuk pertama kali, atur peran, profil pemantauan, dan proyeknya, serta catat yang keluar.",
+    "search": "Cari berdasarkan nama atau email",
+    "add": "Tambah orang",
+    "export": "Ekspor",
+    "select_all": "Pilih semua",
+    "empty": "Tidak ada yang cocok dengan filter ini.",
+    "actions": "Tindakan untuk",
+    "edit": "Edit",
+    "reactivate": "Aktifkan kembali",
+    "add_to_projects": "Tambahkan ke proyek",
+    "add_to_projects_selected": "{count, plural, one {Tambahkan # orang ke proyek} other {Tambahkan # orang ke proyek}}",
+    "project_count": "{count, plural, one {# proyek} other {# proyek}}",
+    "filters": {
+      "label": "Status",
+      "all": "Semua ({count})",
+      "active": "Aktif ({count})",
+      "pending": "Belum pernah masuk ({count})",
+      "departed": "Keluar ({count})"
+    },
+    "status": {
+      "active": "Aktif",
+      "pending": "Belum pernah masuk",
+      "departed": "Keluar"
+    },
+    "roles": {
+      "admin": "Admin",
+      "member": "Anggota"
+    },
+    "fields": {
+      "name": "Nama",
+      "first_name": "Nama depan",
+      "last_name": "Nama belakang",
+      "email": "Email",
+      "role": "Peran",
+      "projects": "Proyek",
+      "projects_placeholder": "Pilih proyek",
+      "project_role": "Peran dalam proyek ini",
+      "status": "Status",
+      "last_login": "Terakhir masuk",
+      "send_email": "Kirim email sambutan berisi petunjuk masuk"
+    },
+    "dialog": {
+      "add_title": "Tambah orang",
+      "add_description": "Orang ini langsung mendapat akses dan masuk dengan email kantornya.",
+      "edit_title": "Edit orang"
+    },
+    "projects_dialog": {
+      "title": "Tambahkan ke proyek",
+      "description": "{count, plural, one {# orang} other {# orang}}",
+      "admin_hint": "Admin organisasi selalu menjadi admin proyeknya.",
+      "submit": "Tambah"
+    },
+    "departure": {
+      "action": "Catat keluar",
+      "title": "{name} keluar",
+      "description": "Semua akses ditutup (masuk, proyek, token Claude). Riwayat tetap tersimpan dan orang ini bisa diaktifkan kembali nanti.",
+      "open_work_items": "{count, plural, one {Ada # item kerja terbuka yang ditugaskan kepadanya. Siapa yang mengambil alih?} other {Ada # item kerja terbuka yang ditugaskan kepadanya. Siapa yang mengambil alih?}}",
+      "no_open_work_items": "Tidak ada item kerja terbuka yang ditugaskan kepadanya.",
+      "reassign_placeholder": "Serahkan kepada…",
+      "nobody": "Tidak seorang pun (biarkan tanpa penanggung jawab)",
+      "confirm": "Konfirmasi keluar"
+    },
+    "import": {
+      "button": "Impor",
+      "title": "Impor daftar orang",
+      "description": "File .csv atau .xlsx dengan kolom templat. Tidak ada yang dibuat sebelum Anda mengonfirmasi.",
+      "choose": "Pilih file",
+      "template": "Unduh templat",
+      "summary": "Siap: {valid} · Ada kesalahan: {invalid}",
+      "line": "Baris",
+      "result": "Hasil",
+      "ready": "Siap",
+      "submit": "{count, plural, one {Impor # orang} other {Impor # orang}}",
+      "done": "{count, plural, one {# orang diimpor.} other {# orang diimpor.}}",
+      "errors": {
+        "invalid_email": "email tidak valid",
+        "missing_first_name": "nama depan kosong",
+        "invalid_role": "peran tidak dikenal",
+        "invalid_profile": "profil tidak dikenal",
+        "unknown_branch": "divisi tidak dikenal",
+        "unknown_entity": "entitas tidak dikenal",
+        "unknown_project": "proyek tidak dikenal",
+        "duplicate_in_file": "muncul dua kali di file",
+        "already_member": "sudah menjadi anggota",
+        "departed": "sudah keluar: aktifkan kembali dari daftar"
+      }
+    },
+    "toasts": {
+      "added": "Orang ditambahkan.",
+      "added_with_email": "Orang ditambahkan. Email sambutan sedang dikirim.",
+      "updated": "Perubahan disimpan.",
+      "projects_added": "Proyek diperbarui.",
+      "departed": "Keluar dicatat.",
+      "reactivated": "Akses dipulihkan."
+    },
+    "errors": {
+      "generic": "Perubahan tidak dapat disimpan.",
+      "invalid_email": "Alamat email ini tidak valid.",
+      "missing_first_name": "Nama depan wajib diisi.",
+      "invalid_role": "Peran tidak dikenal.",
+      "profile_scope": "Direktur divisi memerlukan divisi, penanggung jawab entitas memerlukan entitas.",
+      "invalid_profile": "Profil pemantauan tidak dikenal.",
+      "invalid_project": "Proyek tidak dikenal.",
+      "already_member": "Orang ini sudah menjadi anggota.",
+      "departed": "Orang ini sudah keluar dari organisasi: aktifkan kembali dari daftar.",
+      "self": "Tidak bisa untuk akun Anda sendiri.",
+      "last_admin": "Organisasi memerlukan setidaknya satu admin.",
+      "missing_selection": "Pilih orang dan proyek.",
+      "inactive_member": "Hanya anggota aktif yang dapat bergabung ke proyek.",
+      "invalid_reassign": "Serahkan item kerja kepada anggota aktif.",
+      "forbidden": "Hanya admin organisasi yang mengelola orang.",
+      "missing_file": "Pilih file.",
+      "file_too_large": "File terlalu besar (maksimal 2 MB).",
+      "unreadable_file": "File ini tidak dapat dibaca.",
+      "unsupported_file": "Gunakan file .csv atau .xlsx.",
+      "missing_columns": "File harus memiliki setidaknya kolom Prénom dan E-mail.",
+      "empty_file": "File kosong.",
+      "too_many_rows": "Maksimal 1.000 orang per impor."
+    }
+  }
 }

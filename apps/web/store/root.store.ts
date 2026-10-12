@@ -25,6 +25,8 @@ import type { ICustomFieldStore } from "./custom-field.store";
 import { CustomFieldStore } from "./custom-field.store";
 import type { ISteeringStore } from "./steering.store";
 import { SteeringStore } from "./steering.store";
+import type { IPeopleStore } from "./people.store";
+import { PeopleStore } from "./people.store";
 import type { ITimelineStore } from "./timeline/timeline.store";
 import { TimeLineStore } from "./timeline/timeline.store";
 // stores
@@ -112,6 +114,7 @@ export class CoreRootStore {
   assistant: IAssistantStore;
   customField: ICustomFieldStore;
   steering: ISteeringStore;
+  people: IPeopleStore;
 
   constructor() {
     this.router = new RouterStore();
@@ -147,6 +150,7 @@ export class CoreRootStore {
     this.assistant = new AssistantStore();
     this.customField = new CustomFieldStore();
     this.steering = new SteeringStore();
+    this.people = new PeopleStore();
   }
 
   resetOnSignOut() {
@@ -184,6 +188,7 @@ export class CoreRootStore {
     this.assistant = new AssistantStore();
     this.customField = new CustomFieldStore();
     this.steering = new SteeringStore();
+    this.people = new PeopleStore();
   }
 }
 

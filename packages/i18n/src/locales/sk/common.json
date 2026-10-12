@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "cez Claude"
+  "activity_via_claude": "cez Claude",
+  "people": {
+    "title": "Ľudia",
+    "description": "Všetci ľudia organizácie: zaregistrujte ich pred prvým prihlásením, nastavte ich rolu, riadiace profily a projekty a zaznamenajte odchody.",
+    "search": "Hľadať podľa mena alebo e-mailu",
+    "add": "Pridať osobu",
+    "export": "Exportovať",
+    "select_all": "Vybrať všetko",
+    "empty": "Týmto filtrom nikto nezodpovedá.",
+    "actions": "Akcie pre",
+    "edit": "Upraviť",
+    "reactivate": "Znova aktivovať",
+    "add_to_projects": "Pridať do projektov",
+    "add_to_projects_selected": "{count, plural, one {Pridať # osobu do projektov} few {Pridať # osoby do projektov} many {Pridať # osoby do projektov} other {Pridať # osôb do projektov}}",
+    "project_count": "{count, plural, one {# projekt} few {# projekty} many {# projektu} other {# projektov}}",
+    "filters": {
+      "label": "Stav",
+      "all": "Všetci ({count})",
+      "active": "Aktívni ({count})",
+      "pending": "Nikdy neprihlásení ({count})",
+      "departed": "Odišli ({count})"
+    },
+    "status": {
+      "active": "Aktívny",
+      "pending": "Nikdy neprihlásený",
+      "departed": "Odišiel"
+    },
+    "roles": {
+      "admin": "Správca",
+      "member": "Člen"
+    },
+    "fields": {
+      "name": "Meno",
+      "first_name": "Meno",
+      "last_name": "Priezvisko",
+      "email": "E-mail",
+      "role": "Rola",
+      "projects": "Projekty",
+      "projects_placeholder": "Vyberte projekty",
+      "project_role": "Rola v týchto projektoch",
+      "status": "Stav",
+      "last_login": "Posledné prihlásenie",
+      "send_email": "Poslať uvítací e-mail s pokynmi na prihlásenie"
+    },
+    "dialog": {
+      "add_title": "Pridať osobu",
+      "add_description": "Osoba má prístup hneď a prihlasuje sa pracovným e-mailom.",
+      "edit_title": "Upraviť osobu"
+    },
+    "projects_dialog": {
+      "title": "Pridať do projektov",
+      "description": "{count, plural, one {# osoba} few {# osoby} many {# osoby} other {# osôb}}",
+      "admin_hint": "Správcovia organizácie sú vždy správcami svojich projektov.",
+      "submit": "Pridať"
+    },
+    "departure": {
+      "action": "Zaznamenať odchod",
+      "title": "Odchod: {name}",
+      "description": "Všetky prístupy sa uzavrú (prihlásenie, projekty, tokeny Claude). História zostane zachovaná a osobu možno neskôr znova aktivovať.",
+      "open_work_items": "{count, plural, one {Je jej pridelená # otvorená pracovná položka. Kto ju prevezme?} few {Sú jej pridelené # otvorené pracovné položky. Kto ich prevezme?} many {Je jej pridelených # otvorenej pracovnej položky. Kto ich prevezme?} other {Je jej pridelených # otvorených pracovných položiek. Kto ich prevezme?}}",
+      "no_open_work_items": "Nie je jej pridelená žiadna otvorená pracovná položka.",
+      "reassign_placeholder": "Odovzdať komu…",
+      "nobody": "Nikomu (nechať bez zodpovednej osoby)",
+      "confirm": "Potvrdiť odchod"
+    },
+    "import": {
+      "button": "Importovať",
+      "title": "Importovať zoznam osôb",
+      "description": "Súbor .csv alebo .xlsx so stĺpcami šablóny. Pred vaším potvrdením sa nič nevytvorí.",
+      "choose": "Vybrať súbor",
+      "template": "Stiahnuť šablónu",
+      "summary": "Pripravené: {valid} · S chybami: {invalid}",
+      "line": "Riadok",
+      "result": "Výsledok",
+      "ready": "Pripravené",
+      "submit": "{count, plural, one {Importovať # osobu} few {Importovať # osoby} many {Importovať # osoby} other {Importovať # osôb}}",
+      "done": "{count, plural, one {Importovaná # osoba.} few {Importované # osoby.} many {Importovaných # osoby.} other {Importovaných # osôb.}}",
+      "errors": {
+        "invalid_email": "neplatný e-mail",
+        "missing_first_name": "chýba meno",
+        "invalid_role": "neznáma rola",
+        "invalid_profile": "neznámy profil",
+        "unknown_branch": "neznáma divízia",
+        "unknown_entity": "neznáma jednotka",
+        "unknown_project": "neznámy projekt",
+        "duplicate_in_file": "v súbore dvakrát",
+        "already_member": "už je členom",
+        "departed": "odišiel: znova aktivujte zo zoznamu"
+      }
+    },
+    "toasts": {
+      "added": "Osoba pridaná.",
+      "added_with_email": "Osoba pridaná. Uvítací e-mail je na ceste.",
+      "updated": "Zmeny uložené.",
+      "projects_added": "Projekty aktualizované.",
+      "departed": "Odchod zaznamenaný.",
+      "reactivated": "Prístup obnovený."
+    },
+    "errors": {
+      "generic": "Zmenu sa nepodarilo uložiť.",
+      "invalid_email": "Táto e-mailová adresa nie je platná.",
+      "missing_first_name": "Meno je povinné.",
+      "invalid_role": "Neznáma rola.",
+      "profile_scope": "Riaditeľ divízie potrebuje divíziu, vedúci jednotky jednotku.",
+      "invalid_profile": "Neznámy riadiaci profil.",
+      "invalid_project": "Neznámy projekt.",
+      "already_member": "Táto osoba už je členom.",
+      "departed": "Táto osoba opustila organizáciu: znova ju aktivujte zo zoznamu.",
+      "self": "Pri vlastnom účte to nie je možné.",
+      "last_admin": "Organizácia potrebuje aspoň jedného správcu.",
+      "missing_selection": "Vyberte osoby a projekty.",
+      "inactive_member": "K projektom sa môžu pripojiť iba aktívni členovia.",
+      "invalid_reassign": "Odovzdajte pracovné položky aktívnemu členovi.",
+      "forbidden": "Osoby spravujú iba správcovia organizácie.",
+      "missing_file": "Vyberte súbor.",
+      "file_too_large": "Súbor je príliš veľký (najviac 2 MB).",
+      "unreadable_file": "Tento súbor sa nedá prečítať.",
+      "unsupported_file": "Použite súbor .csv alebo .xlsx.",
+      "missing_columns": "Súbor musí obsahovať aspoň stĺpce Prénom a E-mail.",
+      "empty_file": "Súbor je prázdny.",
+      "too_many_rows": "Najviac 1 000 osôb na jeden import."
+    }
+  }
 }
