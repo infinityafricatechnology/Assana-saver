@@ -33,9 +33,9 @@ export enum EIssueGroupByToServerOptions {
   "cycle" = "cycle_id",
   "module" = "issue_module__module_id",
   "target_date" = "target_date",
+  // oxlint-disable-next-line typescript/no-duplicate-enum-values -- "team_project" also groups by the project field
   "project" = "project_id",
   "created_by" = "created_by",
-  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   "team_project" = "project_id",
 }
 
@@ -64,6 +64,7 @@ export enum EIssueListRow {
   QUICK_ADD = "QUICK_ADD",
 }
 
+/** Infinity Planning keeps three priorities (cahier des charges §4): Urgent, Important (high), Normal (medium). */
 export const ISSUE_PRIORITIES: {
   key: TIssuePriorities;
   title: string;
@@ -74,19 +75,11 @@ export const ISSUE_PRIORITIES: {
   },
   {
     key: "high",
-    title: "High",
+    title: "Important",
   },
   {
     key: "medium",
-    title: "Medium",
-  },
-  {
-    key: "low",
-    title: "Low",
-  },
-  {
-    key: "none",
-    title: "None",
+    title: "Normal",
   },
 ];
 

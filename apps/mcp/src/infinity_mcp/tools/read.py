@@ -94,7 +94,8 @@ def register_read_tools(mcp: FastMCP, deps: Deps) -> None:
         section: Annotated[str | None, Field(description="Section name (needs a single project)")] = None,
         label: Annotated[str | None, Field(description="Label name (needs a single project)")] = None,
         priority: Annotated[
-            list[Literal["urgent", "high", "medium", "low", "none"]] | None, Field(description="Priorities")
+            list[Literal["urgent", "high", "medium"]] | None,
+            Field(description="Priorities: urgent (Urgent), high (Important), medium (Normal)"),
         ] = None,
         text: Annotated[str | None, Field(description="Words in the task name, or a task number")] = None,
         order_by: Annotated[

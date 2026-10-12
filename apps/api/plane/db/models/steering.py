@@ -15,6 +15,8 @@ These tables live beside Plane's own models so that Plane's tables stay untouche
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 # Module imports
 from .base import BaseModel
@@ -196,3 +198,17 @@ class IssueSteering(BaseModel):
 
     class Meta:
         db_table = "issue_steerings"
+
+
+THREE_PRIORITIES = ("urgent", "high", "medium")
+
+
+@receiver(pre_save, sender="db.Issue")
+@receiver(pre_save, sender="db.DraftIssue")
+def keep_three_priorities(sender, instance, **kwargs):
+    """
+    The Group works with three priorities (§4): Urgent, Important (high) and Normal (medium). Low and
+    none, still accepted by Plane's API and clients, are saved as Normal whatever the path.
+    """
+    if instance.priority not in THREE_PRIORITIES:
+        instance.priority = "medium"

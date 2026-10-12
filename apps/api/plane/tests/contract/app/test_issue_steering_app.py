@@ -81,7 +81,7 @@ class TestIssueSteering:
         assert body["progress"] == 0
         assert body["entity_id"] is None
         assert body["project_entity_id"] == str(entities[0].id)
-        assert body["missing"] == ["category", "assignee", "supervisor", "approver", "priority", "target_date"]
+        assert body["missing"] == ["category", "assignee", "supervisor", "approver", "target_date"]
         assert not IssueSteering.objects.filter(issue=issue).exists()
 
     def test_fill_the_record_with_history(self, session_client, create_user, issue, entities, category):
@@ -183,3 +183,23 @@ class TestIssueSteering:
         slug = issue.workspace.slug
         assert session_client.delete(f"/api/workspaces/{slug}/steering/entities/{entities[1].id}/").status_code == 400
         assert session_client.delete(f"/api/workspaces/{slug}/steering/categories/{category.id}/").status_code == 400
+
+
+@pytest.mark.unit
+@pytest.mark.django_db
+class TestThreePriorities:
+    def test_low_and_none_are_saved_as_normal(self, project):
+        state = State.objects.get(project=project)
+        for priority in ("low", "none"):
+            issue = Issue.objects.create(
+                project=project, workspace=project.workspace, name=priority, state=state, priority=priority
+            )
+            assert issue.priority == "medium"
+        kept = Issue.objects.create(
+            project=project, workspace=project.workspace, name="u", state=state, priority="urgent"
+        )
+        assert kept.priority == "urgent"
+        assert (
+            Issue.objects.create(project=project, workspace=project.workspace, name="d", state=state).priority
+            == "medium"
+        )

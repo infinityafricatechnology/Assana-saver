@@ -102,6 +102,10 @@ _Éviter_ : manager, collaborateur
 La personne qui valide une tâche ; c'est le PDG lorsque la tâche requiert sa décision.
 _Éviter_ : valideur, reviewer
 
+**Priorité** :
+L'importance d'une tâche, parmi trois valeurs : Urgent, Important, Normal. Elle range la File PDG et les retards ; le Cabinet ou le PDG peut la requalifier pour la File PDG sans changer celle déclarée par l'entité.
+_Éviter_ : high, medium, low, aucune priorité
+
 **Point de situation** :
 Un texte libre et daté qui résume où en est une tâche.
 _Éviter_ : commentaire, note, statut

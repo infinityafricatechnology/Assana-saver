@@ -18,7 +18,8 @@ UPDATE = ToolAnnotations(readOnlyHint=False, destructiveHint=False, idempotentHi
 DELETE = ToolAnnotations(readOnlyHint=False, destructiveHint=True, idempotentHint=True, openWorldHint=False)
 
 MAX_BATCH = 100
-Priority = Literal["urgent", "high", "medium", "low", "none"]
+# The Group keeps three priorities: urgent (Urgent), high (Important), medium (Normal).
+Priority = Literal["urgent", "high", "medium"]
 DATE_OR_NONE = r"^(\d{4}-\d{2}-\d{2}|none)$"
 TaskRef = Annotated[str, Field(description="Task identifier, e.g. IAT-12")]
 

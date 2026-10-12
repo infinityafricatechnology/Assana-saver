@@ -142,7 +142,7 @@ class Issue(ChangeTrackerMixin, ProjectBaseModel):
         max_length=30,
         choices=PRIORITY_CHOICES,
         verbose_name="Issue Priority",
-        default="none",
+        default="medium",  # Infinity Planning: three priorities, Normal by default
     )
     start_date = models.DateField(null=True, blank=True)
     target_date = models.DateField(null=True, blank=True)
@@ -693,7 +693,7 @@ class IssueVersion(ProjectBaseModel):
         max_length=30,
         choices=PRIORITY_CHOICES,
         verbose_name="Issue Priority",
-        default="none",
+        default="medium",  # Infinity Planning: three priorities, Normal by default
     )
     start_date = models.DateField(null=True, blank=True)
     target_date = models.DateField(null=True, blank=True)

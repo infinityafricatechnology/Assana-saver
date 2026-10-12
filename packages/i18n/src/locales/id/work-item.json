@@ -48,8 +48,8 @@
     },
     "priority": {
       "urgent": "Mendesak",
-      "high": "Tinggi",
-      "medium": "Sedang",
+      "high": "Penting",
+      "medium": "Normal",
       "low": "Rendah"
     },
     "display": {

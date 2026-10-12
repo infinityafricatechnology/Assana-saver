@@ -48,8 +48,8 @@
     },
     "priority": {
       "urgent": "Acil",
-      "high": "Yüksek",
-      "medium": "Orta",
+      "high": "Önemli",
+      "medium": "Normal",
       "low": "Düşük"
     },
     "display": {
