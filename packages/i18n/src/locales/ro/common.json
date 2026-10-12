@@ -1104,6 +1104,9 @@
         "save": "Fișa de coordonare nu a putut fi salvată.",
         "progress": "Progresul este un număr întreg de la 0 la 100."
       }
+    },
+    "dependencies": {
+      "circular": "Această dependență ar crea o buclă: celălalt element de lucru depinde deja de acesta."
     }
   },
   "activity_via_claude": "prin Claude",

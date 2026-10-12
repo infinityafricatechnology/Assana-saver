@@ -1104,6 +1104,9 @@
         "save": "No se pudo guardar la ficha de seguimiento.",
         "progress": "El avance es un número entero de 0 a 100."
       }
+    },
+    "dependencies": {
+      "circular": "Esta dependencia crearía un bucle: el otro elemento de trabajo ya depende de este."
     }
   },
   "activity_via_claude": "vía Claude",

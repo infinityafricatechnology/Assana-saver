@@ -1104,6 +1104,9 @@
         "save": "无法保存管理记录。",
         "progress": "进度是 0 到 100 之间的整数。"
       }
+    },
+    "dependencies": {
+      "circular": "此依赖关系会形成循环：另一个工作项已依赖于此工作项。"
     }
   },
   "activity_via_claude": "通过 Claude",

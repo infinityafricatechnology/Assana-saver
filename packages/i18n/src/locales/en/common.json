@@ -1104,6 +1104,9 @@
         "save": "The steering record could not be saved.",
         "progress": "Progress is a whole number from 0 to 100."
       }
+    },
+    "dependencies": {
+      "circular": "This dependency would create a loop: the other work item already depends on this one."
     }
   },
   "activity_via_claude": "via Claude",

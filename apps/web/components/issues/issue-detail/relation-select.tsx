@@ -25,6 +25,7 @@ import { usePlatformOS } from "@/hooks/use-platform-os";
 import { useTimeLineRelationOptions } from "@/components/relations";
 import type { TIssueRelationTypes } from "@plane/types";
 import type { TRelationObject } from "../issue-detail-widgets/relations";
+import { useRelationErrorToast } from "@/components/steering/relation-error";
 
 type TIssueRelationSelect = {
   className?: string;
@@ -51,6 +52,7 @@ export const IssueRelationSelect = observer(function IssueRelationSelect(props: 
   const relationIssueIds = getRelationByIssueIdRelationType(issueId, relationKey);
   const ISSUE_RELATION_OPTIONS = useTimeLineRelationOptions();
 
+  const notifyRelationError = useRelationErrorToast();
   const onSubmit = async (data: ISearchIssueResponse[]) => {
     if (data.length === 0) {
       setToast({
@@ -61,13 +63,18 @@ export const IssueRelationSelect = observer(function IssueRelationSelect(props: 
       return;
     }
 
-    await createRelation(
-      workspaceSlug,
-      projectId,
-      issueId,
-      relationKey,
-      data.map((i) => i.id)
-    );
+    try {
+      await createRelation(
+        workspaceSlug,
+        projectId,
+        issueId,
+        relationKey,
+        data.map((i) => i.id)
+      );
+    } catch (error) {
+      notifyRelationError(error);
+      return;
+    }
 
     toggleRelationModal(null, null);
   };

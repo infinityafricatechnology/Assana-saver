@@ -88,6 +88,7 @@ from plane.utils.order_queryset import (
 from plane.bgtasks.storage_metadata_task import get_asset_object_metadata
 from .base import BaseAPIView
 from plane.utils.host import base_host
+from plane.utils.steering_rules import creates_circular_dependency
 from plane.utils.issue_relation_mapper import get_actual_relation
 from plane.bgtasks.webhook_task import model_activity
 from plane.app.permissions import ROLE
@@ -2554,6 +2555,13 @@ class IssueRelationListCreateAPIEndpoint(BaseAPIView):
                 pk__in=issues,
             ).values_list("id", flat=True)
         )
+
+        # Infinity Planning (cahier des charges §7): a dependency loop is refused.
+        if creates_circular_dependency(project.workspace_id, relation_type, issue_id, issues):
+            return Response(
+                {"error": "This dependency would create a loop.", "code": "circular_dependency"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         IssueRelation.objects.bulk_create(
             [

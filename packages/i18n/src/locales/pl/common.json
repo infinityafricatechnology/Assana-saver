@@ -1104,6 +1104,9 @@
         "save": "Nie udało się zapisać karty zarządczej.",
         "progress": "Postęp to liczba całkowita od 0 do 100."
       }
+    },
+    "dependencies": {
+      "circular": "Ta zależność utworzyłaby pętlę: drugi element pracy już zależy od tego."
     }
   },
   "activity_via_claude": "przez Claude",

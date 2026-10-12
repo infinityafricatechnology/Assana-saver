@@ -1104,6 +1104,9 @@
         "save": "Không thể lưu hồ sơ điều hành.",
         "progress": "Tiến độ là số nguyên từ 0 đến 100."
       }
+    },
+    "dependencies": {
+      "circular": "Phụ thuộc này sẽ tạo thành vòng lặp: mục công việc kia đã phụ thuộc vào mục này."
     }
   },
   "activity_via_claude": "qua Claude",

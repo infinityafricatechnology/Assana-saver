@@ -1104,6 +1104,9 @@
         "save": "De sturingsfiche kon niet worden opgeslagen.",
         "progress": "De voortgang is een geheel getal van 0 tot 100."
       }
+    },
+    "dependencies": {
+      "circular": "Deze afhankelijkheid zou een lus vormen: het andere werkitem hangt al van dit werkitem af."
     }
   },
   "activity_via_claude": "via Claude",

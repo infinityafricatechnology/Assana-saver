@@ -18,6 +18,7 @@ import { IssueLinkCreateUpdateModal } from "../issue-detail/links/create-update-
 import { CreateUpdateIssueModal } from "../issue-modal/modal";
 import { useLinkOperations } from "./links/helper";
 import { useSubIssueOperations } from "./sub-issues/helper";
+import { useRelationErrorToast } from "@/components/steering/relation-error";
 
 type Props = {
   workspaceSlug: string;
@@ -106,6 +107,7 @@ export const IssueDetailWidgetModals = observer(function IssueDetailWidgetModals
     setLastWidgetAction("relations");
   };
 
+  const notifyRelationError = useRelationErrorToast();
   const handleExistingIssueModalOnSubmit = async (data: ISearchIssueResponse[]) => {
     if (!relationKey) return;
     if (data.length === 0) {
@@ -117,13 +119,18 @@ export const IssueDetailWidgetModals = observer(function IssueDetailWidgetModals
       return;
     }
 
-    await createRelation(
-      workspaceSlug,
-      projectId,
-      issueId,
-      relationKey,
-      data.map((i) => i.id)
-    );
+    try {
+      await createRelation(
+        workspaceSlug,
+        projectId,
+        issueId,
+        relationKey,
+        data.map((i) => i.id)
+      );
+    } catch (error) {
+      notifyRelationError(error);
+      return;
+    }
 
     toggleRelationModal(null, null);
   };

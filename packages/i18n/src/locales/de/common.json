@@ -1104,6 +1104,9 @@
         "save": "Der Steuerungsdatensatz konnte nicht gespeichert werden.",
         "progress": "Der Fortschritt ist eine ganze Zahl von 0 bis 100."
       }
+    },
+    "dependencies": {
+      "circular": "Diese Abhängigkeit würde eine Schleife bilden: Das andere Arbeitselement hängt bereits von diesem ab."
     }
   },
   "activity_via_claude": "über Claude",

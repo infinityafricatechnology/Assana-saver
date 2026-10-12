@@ -1104,6 +1104,9 @@
         "save": "Non è stato possibile salvare la scheda di controllo.",
         "progress": "L'avanzamento è un numero intero da 0 a 100."
       }
+    },
+    "dependencies": {
+      "circular": "Questa dipendenza creerebbe un ciclo: l'altro elemento di lavoro dipende già da questo."
     }
   },
   "activity_via_claude": "tramite Claude",

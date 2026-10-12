@@ -1104,6 +1104,9 @@
         "save": "Não foi possível salvar a ficha de acompanhamento.",
         "progress": "O andamento é um número inteiro de 0 a 100."
       }
+    },
+    "dependencies": {
+      "circular": "Esta dependência criaria um ciclo: o outro item de trabalho já depende deste."
     }
   },
   "activity_via_claude": "via Claude",

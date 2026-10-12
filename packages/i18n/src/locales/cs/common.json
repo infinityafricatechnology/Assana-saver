@@ -1104,6 +1104,9 @@
         "save": "Řídicí záznam se nepodařilo uložit.",
         "progress": "Postup je celé číslo od 0 do 100."
       }
+    },
+    "dependencies": {
+      "circular": "Tato závislost by vytvořila smyčku: druhá pracovní položka už na této závisí."
     }
   },
   "activity_via_claude": "přes Claude",

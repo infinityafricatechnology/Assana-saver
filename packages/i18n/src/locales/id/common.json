@@ -1104,6 +1104,9 @@
         "save": "Data pemantauan tidak dapat disimpan.",
         "progress": "Kemajuan adalah bilangan bulat dari 0 sampai 100."
       }
+    },
+    "dependencies": {
+      "circular": "Ketergantungan ini akan membentuk lingkaran: item kerja lain sudah bergantung pada item ini."
     }
   },
   "activity_via_claude": "melalui Claude",

@@ -30,6 +30,7 @@ from plane.db.models import (
     CycleIssue,
 )
 from plane.bgtasks.issue_activities_task import issue_activity
+from plane.utils.steering_rules import creates_circular_dependency
 from plane.utils.issue_relation_mapper import get_actual_relation
 from plane.utils.host import base_host
 
@@ -225,6 +226,13 @@ class IssueRelationViewSet(BaseViewSet):
                 pk__in=issues,
             ).values_list("id", flat=True)
         )
+
+        # Infinity Planning (cahier des charges §7): a dependency loop is refused.
+        if creates_circular_dependency(project.workspace_id, relation_type, issue_id, issues):
+            return Response(
+                {"error": "This dependency would create a loop.", "code": "circular_dependency"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         issue_relation = IssueRelation.objects.bulk_create(
             [

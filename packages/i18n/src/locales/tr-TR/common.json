@@ -1104,6 +1104,9 @@
         "save": "Yönetim kaydı kaydedilemedi.",
         "progress": "İlerleme 0 ile 100 arasında bir tam sayıdır."
       }
+    },
+    "dependencies": {
+      "circular": "Bu bağımlılık bir döngü oluşturur: diğer iş öğesi zaten bu öğeye bağlı."
     }
   },
   "activity_via_claude": "Claude üzerinden",

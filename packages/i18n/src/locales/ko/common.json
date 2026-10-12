@@ -1104,6 +1104,9 @@
         "save": "경영 관리 기록을 저장할 수 없습니다.",
         "progress": "진행률은 0부터 100까지의 정수입니다."
       }
+    },
+    "dependencies": {
+      "circular": "이 의존 관계는 순환을 만듭니다. 다른 작업 항목이 이미 이 항목에 의존합니다."
     }
   },
   "activity_via_claude": "Claude를 통해",
