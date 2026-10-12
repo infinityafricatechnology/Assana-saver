@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: el responsable recibe una notificación y un correo.",
         "remind_done": "Recordatorio enviado.",
         "optional_message": "Mensaje (opcional)"
-      }
+      },
+      "export_pdf": "Exportar PDF COMEX",
+      "export_excel": "Exportar a Excel",
+      "export_failed": "No se pudo generar la exportación."
     }
   },
   "activity_via_claude": "vía Claude",

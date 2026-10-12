@@ -306,3 +306,37 @@ class TestAccess:
         _, manager = _member(workspace, "entite@iag.com", "entity_manager", entity=group["entities"]["iat"])
         assert manager.get(f"{DASHBOARD}issues/{end.id}/").status_code == 404
         assert manager.get(f"{DASHBOARD}issues/{origin.id}/").status_code == 200
+
+
+@pytest.mark.contract
+@pytest.mark.django_db
+class TestExports:
+    def test_the_comex_pdf(self, session_client, workspace, group):
+        _task(group, "iat", "Tech", date(2026, 6, 30))
+        response = session_client.get(f"{DASHBOARD}export/comex/")
+        assert response.status_code == 200
+        assert response["Content-Type"] == "application/pdf"
+        assert response.content.startswith(b"%PDF")
+        finance = group["branches"]["finance"].id
+        assert session_client.get(f"{DASHBOARD}export/comex/?branch={finance}").content.startswith(b"%PDF")
+        _, nobody = _member(workspace, "membre@iag.com")
+        assert nobody.get(f"{DASHBOARD}export/comex/").status_code == 403
+
+    def test_the_excel_list_follows_the_screen(self, workspace, group):
+        import io
+
+        from openpyxl import load_workbook
+
+        first = _task(group, "capital", "Premier", date(2026, 12, 1))
+        second = _task(group, "securities", "Second", date(2026, 6, 30), priority="urgent")
+        outside = _task(group, "iat", "Hors périmètre", date(2026, 12, 1))
+        _, director = _member(workspace, "pole@iag.com", "branch_director", branch=group["branches"]["finance"])
+        ids = [str(second.id), str(outside.id), str(first.id)]
+        response = director.post(f"{DASHBOARD}export/tasks/", {"ids": ids}, format="json")
+        assert response.status_code == 200
+        sheet = load_workbook(io.BytesIO(response.content))["Tâches"]
+        rows = list(sheet.iter_rows(min_row=2, values_only=True))
+        assert [row[1] for row in rows] == ["Second", "Premier"]
+        assert rows[0][3] == "Finance & Capital Markets"
+        assert rows[0][10] == "Urgent"
+        assert director.post(f"{DASHBOARD}export/tasks/", {"ids": "x"}, format="json").status_code == 400

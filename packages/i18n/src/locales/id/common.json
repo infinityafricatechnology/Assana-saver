@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: penanggung jawab menerima notifikasi dan email.",
         "remind_done": "Pengingat terkirim.",
         "optional_message": "Pesan (opsional)"
-      }
+      },
+      "export_pdf": "Ekspor PDF COMEX",
+      "export_excel": "Ekspor ke Excel",
+      "export_failed": "Ekspor tidak dapat dibuat."
     }
   },
   "activity_via_claude": "melalui Claude",

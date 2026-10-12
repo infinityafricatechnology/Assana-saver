@@ -277,6 +277,8 @@ from .steering.circuit import (
     SubmissionDecisionEndpoint,
 )
 from .steering.dashboard import (
+    SteeringComexExportEndpoint,
+    SteeringTasksExportEndpoint,
     SteeringDashboardEndpoint,
     SteeringDashboardIssueEndpoint,
     SteeringDashboardVersionEndpoint,

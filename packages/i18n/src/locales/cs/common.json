@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: odpovědná osoba dostane oznámení a e-mail.",
         "remind_done": "Připomínka odeslána.",
         "optional_message": "Zpráva (nepovinná)"
-      }
+      },
+      "export_pdf": "Exportovat PDF COMEX",
+      "export_excel": "Exportovat do Excelu",
+      "export_failed": "Export se nepodařilo vytvořit."
     }
   },
   "activity_via_claude": "přes Claude",

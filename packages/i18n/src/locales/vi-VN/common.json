@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: người phụ trách nhận được thông báo và email.",
         "remind_done": "Đã gửi lời nhắc.",
         "optional_message": "Tin nhắn (không bắt buộc)"
-      }
+      },
+      "export_pdf": "Xuất PDF COMEX",
+      "export_excel": "Xuất ra Excel",
+      "export_failed": "Không thể tạo tệp xuất."
     }
   },
   "activity_via_claude": "qua Claude",

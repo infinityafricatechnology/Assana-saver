@@ -5,6 +5,8 @@
 from django.urls import path
 
 from plane.app.views import (
+    SteeringComexExportEndpoint,
+    SteeringTasksExportEndpoint,
     SteeringDashboardEndpoint,
     SteeringDashboardIssueEndpoint,
     SteeringDashboardVersionEndpoint,
@@ -101,5 +103,15 @@ urlpatterns = [
         "workspaces/<str:slug>/steering/dashboard/issues/<uuid:issue_id>/",
         SteeringDashboardIssueEndpoint.as_view(),
         name="steering-dashboard-issue",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/dashboard/export/comex/",
+        SteeringComexExportEndpoint.as_view(),
+        name="steering-dashboard-export-comex",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/dashboard/export/tasks/",
+        SteeringTasksExportEndpoint.as_view(),
+        name="steering-dashboard-export-tasks",
     ),
 ]

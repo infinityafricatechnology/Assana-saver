@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: odpowiedzialny otrzyma powiadomienie i e-mail.",
         "remind_done": "Wysłano przypomnienie.",
         "optional_message": "Wiadomość (opcjonalna)"
-      }
+      },
+      "export_pdf": "Eksportuj PDF COMEX",
+      "export_excel": "Eksportuj do Excela",
+      "export_failed": "Nie udało się wygenerować eksportu."
     }
   },
   "activity_via_claude": "przez Claude",

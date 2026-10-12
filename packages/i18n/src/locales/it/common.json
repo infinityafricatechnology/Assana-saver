@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: il responsabile riceve una notifica e un'e-mail.",
         "remind_done": "Sollecito inviato.",
         "optional_message": "Messaggio (facoltativo)"
-      }
+      },
+      "export_pdf": "Esporta PDF COMEX",
+      "export_excel": "Esporta in Excel",
+      "export_failed": "Impossibile generare l'esportazione."
     }
   },
   "activity_via_claude": "tramite Claude",

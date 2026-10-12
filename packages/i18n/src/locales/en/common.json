@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: the assignee gets a notification and an e-mail.",
         "remind_done": "Reminder sent.",
         "optional_message": "Message (optional)"
-      }
+      },
+      "export_pdf": "Export COMEX PDF",
+      "export_excel": "Export to Excel",
+      "export_failed": "The export could not be generated."
     }
   },
   "activity_via_claude": "via Claude",

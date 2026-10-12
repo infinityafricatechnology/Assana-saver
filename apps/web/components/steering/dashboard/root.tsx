@@ -5,13 +5,14 @@
  */
 
 import { useRef, useState } from "react";
-import type { KeyboardEvent, ReactNode } from "react";
+import type { KeyboardEvent } from "react";
 import { useParams } from "next/navigation";
 import { useTranslation } from "@plane/i18n";
 // local imports
 import type { TDashboardAction } from "./action-dialogs";
 import { DashboardActionDialog } from "./action-dialogs";
 import { DeadlinesTab } from "./deadlines-tab";
+import { ComexExportButton } from "./exports";
 import type { TTaskFilter, TTaskFilterPreset } from "./filters";
 import { DEFAULT_TASK_FILTER } from "./filters";
 import { SteeringDashboardHeader } from "./header";
@@ -25,13 +26,8 @@ import { useDashboardIndex, useSteeringDashboard } from "./use-dashboard";
 const TABS = ["synthesis", "tasks", "queue", "deadlines", "review"] as const;
 type TTab = (typeof TABS)[number];
 
-type TSteeringDashboardRootProps = {
-  /** Export buttons of the header and of the task list (§6.7, §12), given the current filters. */
-  renderExports?: (context: { branchId: string | null; filter: TTaskFilter | null }) => ReactNode;
-};
-
 /** The steering space (cahier des charges §6): five tabs, a work item sheet, read only. */
-export function SteeringDashboardRoot(props: TSteeringDashboardRootProps) {
+export function SteeringDashboardRoot() {
   const { t } = useTranslation();
   const { workspaceSlug } = useParams();
   const slug = workspaceSlug?.toString() ?? "";
@@ -102,7 +98,7 @@ export function SteeringDashboardRoot(props: TSteeringDashboardRootProps) {
         branchId={branchId}
         isLive={isLive}
         onBranchChange={setBranchId}
-        actions={props.renderExports?.({ branchId, filter: null })}
+        actions={<ComexExportButton workspaceSlug={slug} branchId={branchId} today={data.today} />}
       />
       <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-4 pt-4 sm:px-8">
         <div
@@ -156,7 +152,7 @@ export function SteeringDashboardRoot(props: TSteeringDashboardRootProps) {
               filter={taskFilter}
               onFilterChange={setTaskFilter}
               onOpenTask={setSheetId}
-              actions={props.renderExports?.({ branchId, filter: taskFilter })}
+              workspaceSlug={slug}
             />
           )}
           {tab === "queue" && (

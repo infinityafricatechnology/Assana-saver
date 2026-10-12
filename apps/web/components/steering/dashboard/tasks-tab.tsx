@@ -13,6 +13,7 @@ import type { TDashboard, TDashboardTask } from "@/services/steering-dashboard.s
 import { STEERING_STATUSES } from "@/services/steering.service";
 // local imports
 import type { TTaskFilter, TTaskFilterPreset } from "./filters";
+import { TasksExportButton } from "./exports";
 import { DEFAULT_TASK_FILTER, TASK_FILTER_PRESETS, filterTasks } from "./filters";
 import { BlockedByLines, Card, EmptyLine, SignalBadge, TaskTitle, formatDate, useDelayLabel } from "./shared";
 import type { TDashboardIndex } from "./use-dashboard";
@@ -28,7 +29,7 @@ type TTasksTabProps = {
   filter: TTaskFilter;
   onFilterChange: (filter: TTaskFilter) => void;
   onOpenTask: (id: string) => void;
-  actions?: ReactNode;
+  workspaceSlug: string;
 };
 
 const selectClassName =
@@ -36,7 +37,7 @@ const selectClassName =
 
 /** §6.2: grouped by entity or as a flat list, with search, filters and sortable columns. */
 export function TasksTab(props: TTasksTabProps) {
-  const { data, index, branchId, filter, onFilterChange, onOpenTask, actions } = props;
+  const { data, index, branchId, filter, onFilterChange, onOpenTask, workspaceSlug } = props;
   const { t } = useTranslation();
   const [grouped, setGrouped] = useState(true);
   const [sort, setSort] = useState<{ key: TSortKey; descending: boolean }>({ key: "signal", descending: false });
@@ -220,7 +221,7 @@ export function TasksTab(props: TTasksTabProps) {
                 </button>
               </div>
             )}
-            {actions}
+            <TasksExportButton workspaceSlug={workspaceSlug} ids={tasks.map((task) => task.id)} today={data.today} />
           </div>
         </div>
       </div>

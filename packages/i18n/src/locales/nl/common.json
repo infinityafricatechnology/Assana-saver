@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: de verantwoordelijke krijgt een melding en een e-mail.",
         "remind_done": "Herinnering verstuurd.",
         "optional_message": "Bericht (optioneel)"
-      }
+      },
+      "export_pdf": "COMEX-pdf exporteren",
+      "export_excel": "Exporteren naar Excel",
+      "export_failed": "De export kon niet worden gemaakt."
     }
   },
   "activity_via_claude": "via Claude",

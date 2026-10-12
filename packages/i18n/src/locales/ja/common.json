@@ -1358,7 +1358,10 @@
         "remind_description": "{name}：担当者に通知とメールが届きます。",
         "remind_done": "催促を送信しました。",
         "optional_message": "メッセージ（任意）"
-      }
+      },
+      "export_pdf": "COMEX用PDFを書き出す",
+      "export_excel": "Excelに書き出す",
+      "export_failed": "書き出しファイルを作成できませんでした。"
     }
   },
   "activity_via_claude": "Claude 経由",

@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: responsabilul primește o notificare și un e-mail.",
         "remind_done": "Reamintire trimisă.",
         "optional_message": "Mesaj (opțional)"
-      }
+      },
+      "export_pdf": "Exportă PDF COMEX",
+      "export_excel": "Exportă în Excel",
+      "export_failed": "Exportul nu a putut fi generat."
     }
   },
   "activity_via_claude": "prin Claude",

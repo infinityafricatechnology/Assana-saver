@@ -118,6 +118,22 @@ _Éviter_ : high, medium, low, aucune priorité
 Un texte libre et daté qui résume où en est une tâche.
 _Éviter_ : commentaire, note, statut
 
+**Signal** :
+L'état d'une tâche ouverte selon son échéance, calculé chaque jour : Critique (plus de 30 jours de retard), En retard, Échéance proche (14 jours ou moins), Dans les délais. Il se lit par un libellé et une couleur.
+_Éviter_ : alerte (réservée aux notifications), statut
+
+**Fiche dormante** :
+Une tâche ouverte que personne n'a mise à jour depuis plus de 14 jours, hors tâches En attente et tâches en File PDG.
+_Éviter_ : tâche oubliée, tâche inactive
+
+**Incohérence** :
+Une fiche dont les données se contredisent : avancement à 100 % sans clôture, ou échéance dépassée et statut toujours « À démarrer ».
+_Éviter_ : erreur, anomalie
+
+**Rapport COMEX** :
+L'export PDF de l'espace de pilotage, en A4 paysage et marqué « Confidentiel ». Le rapport hebdomadaire part de lui.
+_Éviter_ : export, tableau de bord
+
 **Profil de pilotage** :
 Ce qu'une personne voit dans l'espace de pilotage : tout le Groupe (PDG, Cabinet de la Présidence), un pôle (directeur de pôle) ou une entité (responsable d'entité). Une personne peut en avoir plusieurs.
 _Éviter_ : rôle (réservé aux droits dans l'organisation et les projets)

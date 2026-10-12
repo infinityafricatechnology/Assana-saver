@@ -165,6 +165,23 @@ export class SteeringDashboardService extends APIService {
     return this.unwrap(this.get(`/api/workspaces/${workspaceSlug}/steering/dashboard/version/`));
   }
 
+  /** §6.7: the COMEX PDF of the viewer's scope, on one branch if given. */
+  downloadComex(workspaceSlug: string, branchId?: string | null): Promise<Blob> {
+    return this.unwrap(
+      this.get(`/api/workspaces/${workspaceSlug}/steering/dashboard/export/comex/`, {
+        params: branchId ? { branch: branchId } : {},
+        responseType: "blob",
+      })
+    );
+  }
+
+  /** §12: the work items of the filtered list, in the order of the screen, as an Excel file. */
+  downloadTasks(workspaceSlug: string, ids: string[]): Promise<Blob> {
+    return this.unwrap(
+      this.post(`/api/workspaces/${workspaceSlug}/steering/dashboard/export/tasks/`, { ids }, { responseType: "blob" })
+    );
+  }
+
   getSheet(workspaceSlug: string, issueId: string): Promise<TDashboardSheet> {
     return this.unwrap(this.get(`/api/workspaces/${workspaceSlug}/steering/dashboard/issues/${issueId}/`));
   }

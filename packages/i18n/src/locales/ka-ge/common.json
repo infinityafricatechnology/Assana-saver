@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: პასუხისმგებელი მიიღებს შეტყობინებას და ელფოსტას.",
         "remind_done": "შეხსენება გაიგზავნა.",
         "optional_message": "შეტყობინება (არასავალდებულო)"
-      }
+      },
+      "export_pdf": "COMEX PDF-ის ექსპორტი",
+      "export_excel": "Excel-ში ექსპორტი",
+      "export_failed": "ექსპორტის შექმნა ვერ მოხერხდა."
     }
   },
   "activity_via_claude": "Claude-ის მეშვეობით",

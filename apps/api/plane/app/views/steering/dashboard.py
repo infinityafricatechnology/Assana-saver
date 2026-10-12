@@ -14,6 +14,7 @@ from typing import Any, Dict, List
 
 # Django imports
 from django.db.models import Count, Max
+from django.http import HttpResponse
 
 # Third party imports
 from rest_framework import status
@@ -45,6 +46,7 @@ from plane.utils.steering_dashboard import (
     today_in_abidjan,
     viewer_scope,
 )
+from plane.utils.steering_exports import comex_pdf, tasks_xlsx
 from plane.utils.steering_rules import blocked_by_graph, blocking_chain, is_closed
 
 from ..base import BaseAPIView
@@ -221,3 +223,43 @@ class SteeringDashboardIssueEndpoint(BaseAPIView):
             for activity in activities
         ]
         return Response({"chain": chain, "history": history}, status=status.HTTP_200_OK)
+
+
+def _attachment(content: bytes, content_type: str, filename: str) -> HttpResponse:
+    response = HttpResponse(content, content_type=content_type)
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
+    return response
+
+
+class SteeringComexExportEndpoint(BaseAPIView):
+    """§6.7: the COMEX PDF of the viewer's scope, following the branch filter (``?branch=``)."""
+
+    @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST], level="WORKSPACE")
+    def get(self, request, slug):
+        workspace = Workspace.objects.get(slug=slug)
+        scope = viewer_scope(request.user, workspace.id)
+        if not scope:
+            return _no_access()
+        portfolio = Portfolio(workspace.id, scope)
+        content = comex_pdf(portfolio, request.query_params.get("branch") or None)
+        return _attachment(content, "application/pdf", f"pilotage-comex-{portfolio.today.isoformat()}.pdf")
+
+
+class SteeringTasksExportEndpoint(BaseAPIView):
+    """§12 « Export de données »: the filtered list as the screen shows it (``ids`` in order), in Excel."""
+
+    @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST], level="WORKSPACE")
+    def post(self, request, slug):
+        workspace = Workspace.objects.get(slug=slug)
+        scope = viewer_scope(request.user, workspace.id)
+        if not scope:
+            return _no_access()
+        ids = request.data.get("ids")
+        if ids is not None and not (isinstance(ids, list) and all(isinstance(item, str) for item in ids)):
+            return Response({"error": "'ids' must be a list of work item ids."}, status=status.HTTP_400_BAD_REQUEST)
+        portfolio = Portfolio(workspace.id, scope)
+        return _attachment(
+            tasks_xlsx(portfolio, ids),
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            f"pilotage-taches-{portfolio.today.isoformat()}.xlsx",
+        )

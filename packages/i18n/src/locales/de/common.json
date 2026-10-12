@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: Der Verantwortliche erhält eine Benachrichtigung und eine E-Mail.",
         "remind_done": "Erinnerung gesendet.",
         "optional_message": "Nachricht (optional)"
-      }
+      },
+      "export_pdf": "COMEX-PDF exportieren",
+      "export_excel": "Nach Excel exportieren",
+      "export_failed": "Der Export konnte nicht erstellt werden."
     }
   },
   "activity_via_claude": "über Claude",

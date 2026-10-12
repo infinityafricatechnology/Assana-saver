@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: відповідальний отримає сповіщення та лист.",
         "remind_done": "Нагадування надіслано.",
         "optional_message": "Повідомлення (необов'язково)"
-      }
+      },
+      "export_pdf": "Експорт PDF для COMEX",
+      "export_excel": "Експорт в Excel",
+      "export_failed": "Не вдалося сформувати експорт."
     }
   },
   "activity_via_claude": "через Claude",

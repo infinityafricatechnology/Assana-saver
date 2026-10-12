@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: 담당자에게 알림과 이메일이 전송됩니다.",
         "remind_done": "독촉을 보냈습니다.",
         "optional_message": "메시지(선택)"
-      }
+      },
+      "export_pdf": "COMEX PDF 내보내기",
+      "export_excel": "Excel로 내보내기",
+      "export_failed": "내보내기 파일을 만들 수 없습니다."
     }
   },
   "activity_via_claude": "Claude를 통해",

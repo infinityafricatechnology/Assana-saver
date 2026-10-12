@@ -1358,7 +1358,10 @@
         "remind_description": "{name}: sorumlu bir bildirim ve bir e-posta alır.",
         "remind_done": "Hatırlatma gönderildi.",
         "optional_message": "Mesaj (isteğe bağlı)"
-      }
+      },
+      "export_pdf": "COMEX PDF'ini dışa aktar",
+      "export_excel": "Excel'e aktar",
+      "export_failed": "Dışa aktarma oluşturulamadı."
     }
   },
   "activity_via_claude": "Claude üzerinden",

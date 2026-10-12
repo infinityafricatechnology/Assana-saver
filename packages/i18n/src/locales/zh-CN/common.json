@@ -1358,7 +1358,10 @@
         "remind_description": "{name}：负责人将收到通知和电子邮件。",
         "remind_done": "催办已发送。",
         "optional_message": "留言（选填）"
-      }
+      },
+      "export_pdf": "导出 COMEX PDF",
+      "export_excel": "导出为 Excel",
+      "export_failed": "无法生成导出文件。"
     }
   },
   "activity_via_claude": "通过 Claude",
