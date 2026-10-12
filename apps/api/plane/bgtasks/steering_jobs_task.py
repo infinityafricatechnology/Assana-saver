@@ -15,6 +15,7 @@ from plane.utils.steering_jobs import (
     unblock_alerts,
     weekly_reminders,
 )
+from plane.utils.steering_report import prepare_report
 
 
 @shared_task
@@ -35,7 +36,17 @@ def steering_weekly_reminders():
     return run_for_steered_workspaces(weekly_reminders)
 
 
+def _snapshot_and_report(workspace_id):
+    take_snapshot(workspace_id)
+    report, created = prepare_report(workspace_id)
+    if created:
+        from plane.bgtasks.steering_report_email_task import steering_report_ready_email
+
+        steering_report_ready_email.delay(str(report.id))
+    return str(report.id)
+
+
 @shared_task
 def steering_friday_noon():
-    """§9.3: on Fridays at noon, the weekly snapshot is frozen."""
-    run_for_steered_workspaces(take_snapshot)
+    """§9.3: on Fridays at noon, the weekly snapshot is frozen and the draft of the report prepared."""
+    return run_for_steered_workspaces(_snapshot_and_report)

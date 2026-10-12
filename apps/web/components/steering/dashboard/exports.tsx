@@ -11,7 +11,7 @@ import { cn } from "@plane/utils";
 // local imports
 import { steeringDashboardService } from "./use-dashboard";
 
-const saveBlob = (blob: Blob, filename: string) => {
+export const saveBlob = (blob: Blob, filename: string) => {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;

@@ -5,6 +5,11 @@
 from django.urls import path
 
 from plane.app.views import (
+    SteeringReportEndpoint,
+    SteeringReportPdfEndpoint,
+    SteeringReportRefreshEndpoint,
+    SteeringReportSendEndpoint,
+    SteeringReportsEndpoint,
     SteeringComexExportEndpoint,
     SteeringTasksExportEndpoint,
     SteeringDashboardEndpoint,
@@ -113,5 +118,26 @@ urlpatterns = [
         "workspaces/<str:slug>/steering/dashboard/export/tasks/",
         SteeringTasksExportEndpoint.as_view(),
         name="steering-dashboard-export-tasks",
+    ),
+    path("workspaces/<str:slug>/steering/reports/", SteeringReportsEndpoint.as_view(), name="steering-reports"),
+    path(
+        "workspaces/<str:slug>/steering/reports/<uuid:report_id>/",
+        SteeringReportEndpoint.as_view(),
+        name="steering-report",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/reports/<uuid:report_id>/refresh/",
+        SteeringReportRefreshEndpoint.as_view(),
+        name="steering-report-refresh",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/reports/<uuid:report_id>/pdf/",
+        SteeringReportPdfEndpoint.as_view(),
+        name="steering-report-pdf",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/reports/<uuid:report_id>/send/",
+        SteeringReportSendEndpoint.as_view(),
+        name="steering-report-send",
     ),
 ]

@@ -33,8 +33,10 @@ from plane.db.models import (
     PriorityRequalification,
     ProjectSteering,
     SteeringReminder,
+    SteeringReportStatus,
     SteeringSnapshot,
     SteeringSubmission,
+    SteeringWeeklyReport,
     User,
     Workspace,
 )
@@ -86,6 +88,7 @@ def dashboard_version(workspace_id) -> str:
         PriorityRequalification.objects.filter(workspace_id=workspace_id),
         SteeringReminder.objects.filter(workspace_id=workspace_id),
         SteeringSnapshot.objects.filter(workspace_id=workspace_id),
+        SteeringWeeklyReport.objects.filter(workspace_id=workspace_id),
         ProjectSteering.objects.filter(workspace_id=workspace_id),
         Entity.objects.filter(workspace_id=workspace_id),
         Branch.objects.filter(workspace_id=workspace_id),
@@ -93,6 +96,17 @@ def dashboard_version(workspace_id) -> str:
         totals = queryset.aggregate(count=Count("id"), last=Max("updated_at"))
         stamps += [totals["count"], totals["last"]]
     return hashlib.sha1(json.dumps(stamps, default=str).encode()).hexdigest()[:16]
+
+
+def _report_ready(workspace_id, scope: Scope, today) -> Any:
+    """« Projet de rapport hebdomadaire prêt » (§9.2), shown in the platform to the Cabinet and the CEO."""
+    if not (scope.is_ceo or scope.is_cabinet):
+        return None
+    year, week, _ = today.isocalendar()
+    report = SteeringWeeklyReport.objects.filter(
+        workspace_id=workspace_id, year=year, week=week, status=SteeringReportStatus.DRAFT
+    ).first()
+    return {"id": str(report.id), "week": report.week} if report else None
 
 
 class SteeringDashboardEndpoint(BaseAPIView):
@@ -119,6 +133,7 @@ class SteeringDashboardEndpoint(BaseAPIView):
                 "summary": portfolio.summary(branch_id),
                 "queue": [row["id"] for row in portfolio.queue()],
                 "trend": trend(workspace.id, scope, entity_branches, branch_id),
+                "report_ready": _report_ready(workspace.id, scope, portfolio.today),
             },
             status=status.HTTP_200_OK,
         )

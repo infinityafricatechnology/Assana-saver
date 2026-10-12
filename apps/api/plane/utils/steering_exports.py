@@ -11,6 +11,7 @@ report built on the PDF (§9.3).
 # Python imports
 import io
 import os
+from dataclasses import dataclass, field
 from datetime import date, datetime
 from typing import Any, Dict, Iterable, List, Optional
 from xml.sax.saxutils import escape
@@ -30,7 +31,6 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
-    KeepTogether,
     PageTemplate,
     Paragraph,
     Spacer,
@@ -154,6 +154,9 @@ def _styles() -> Dict[str, ParagraphStyle]:
         ),
         "kpi_label": ParagraphStyle("kpi_label", parent=base, textColor=TEXT_2, fontSize=7.5),
         "empty": ParagraphStyle("empty", parent=base, textColor=TEXT_2),
+        "comment": ParagraphStyle("comment", parent=base, textColor=TEXT_2, leftIndent=8),
+        "section_comment": ParagraphStyle("section_comment", parent=base, fontSize=9, leading=12, spaceAfter=4),
+        "intro": ParagraphStyle("intro", parent=base, fontSize=10, leading=14, spaceAfter=4),
     }
 
 
@@ -165,7 +168,12 @@ def _p(text: Any, style: ParagraphStyle, color: Optional[colors.Color] = None) -
 
 
 def _table(
-    header: List[str], rows: List[List[Any]], widths: List[float], styles, edges: Optional[List] = None
+    header: List[str],
+    rows: List[List[Any]],
+    widths: List[float],
+    styles,
+    edges: Optional[List] = None,
+    extra: Optional[List] = None,
 ) -> Table:
     data = [[_p(label, styles["header"]) for label in header], *rows]
     table = Table(data, colWidths=widths, repeatRows=1)
@@ -182,7 +190,7 @@ def _table(
     for position, color in enumerate(edges or [], start=1):
         if color is not None:
             commands.append(("LINEBEFORE", (0, position), (0, position), 2.5, color))
-    table.setStyle(TableStyle(commands))
+    table.setStyle(TableStyle(commands + (extra or [])))
     return table
 
 
@@ -212,32 +220,169 @@ class _NumberedCanvas(canvas.Canvas):
         super().save()
 
 
-def comex_pdf(portfolio: Portfolio, branch_id: Optional[str] = None) -> bytes:
+SECTIONS = ("kpis", "situation", "delays", "queue", "blocking")
+SECTION_TITLES = {
+    "kpis": "Indicateurs",
+    "situation": "Situation par entité",
+    "delays": "Retards les plus lourds",
+    "queue": "File PDG",
+    "blocking": "Annexe — Tâches bloquantes",
+}
+HIGHLIGHT = colors.HexColor("#FBF3DC")
+
+
+def comex_data(portfolio: Portfolio, branch_id: Optional[str] = None) -> Dict[str, Any]:
     """
-    The COMEX export: banner and situation date, the six indicators, the situation by entity (the
-    ten most late at least, with their branch), the heaviest delays, the CEO queue in the order of
-    the tab with priority and risk, and the blocking work items in appendix. It follows the
-    branch filter of the screen.
+    What the COMEX export shows, as plain data: the weekly report freezes it until « Actualiser »
+    (§9.3), so that its figures do not move while the Cabinet comments them.
     """
-    _register_fonts()
-    styles = _styles()
     summary = portfolio.summary(branch_id)
     rows = {row["id"]: row for row in portfolio.rows}
     branch_name = portfolio.branches.get(branch_id, {}).get("name") if branch_id else None
-    situation = (
-        f"Situation au {french_date(portfolio.today)} à "
-        f"{portfolio.generated_at.astimezone(ABIDJAN).strftime('%H:%M')}"
-        + (f" · Pôle {branch_name}" if branch_name else " · Tout le Groupe")
-    )
-    page_width, page_height = landscape(A4)
-    content_width = page_width - 24 * mm
     entity_name = lambda entity_id: portfolio.entities.get(entity_id, {}).get("name", "")  # noqa: E731
     people = lambda ids: ", ".join(portfolio.people.get(i, {}).get("name", "") for i in ids)  # noqa: E731
+    key_of = lambda item_id: (rows.get(item_id) or portfolio.related.get(item_id) or {}).get("key", "")  # noqa: E731
 
-    story: List[Any] = []
+    entities = [{**entity, "branch": branch["name"]} for branch in summary["branches"] for entity in branch["entities"]]
+    entities.sort(key=lambda entity: (-entity["late"], -entity["critical"], entity["name"]))
+    delays = sorted(
+        (row for row in portfolio.rows_for(branch_id) if row["is_open"] and row["days_late"] > 0),
+        key=lambda row: (PRIORITY_RANK.get(row["priority"], 2), -row["days_late"]),
+    )[:15]
+    queue = [row for row in portfolio.queue() if not branch_id or row["branch_id"] == branch_id]
+    blocking = [(rows[item["id"]], item) for item in summary["blocking"]]
+    return {
+        "situation": (
+            f"Situation au {french_date(portfolio.today)} à "
+            f"{portfolio.generated_at.astimezone(ABIDJAN).strftime('%H:%M')}"
+            + (f" · Pôle {branch_name}" if branch_name else " · Tout le Groupe")
+        ),
+        "today": portfolio.today.isoformat(),
+        "kpis": summary["kpis"],
+        "entities": [
+            {
+                key: entity[key]
+                for key in ("id", "name", "branch", "open", "late", "critical", "blocked", "queue", "state")
+            }
+            for entity in entities
+        ],
+        "delays": [
+            {
+                "id": row["id"],
+                "key": row["key"],
+                "name": row["name"],
+                "entity": entity_name(row["entity_id"]),
+                "assignees": people(row["assignee_ids"]),
+                "priority": PRIORITY_LABELS.get(row["priority"], ""),
+                "deadline": french_date(row["target_date"]),
+                "delay": delay_label(row),
+                "signal": row["signal"],
+            }
+            for row in delays
+        ],
+        "queue": [
+            {
+                "id": row["id"],
+                "key": row["key"],
+                "name": row["name"],
+                "entity": entity_name(row["entity_id"]),
+                "priority": PRIORITY_LABELS.get(row["retained_priority"], "")
+                + (
+                    f" (requalifiée par {ROLE_LABELS.get(row['requalification']['by_role'], '')})"
+                    if row["requalification"]
+                    else ""
+                ),
+                "deadline": f"{french_date(row['target_date'])} {delay_label(row)}".strip(),
+                "waiting": f"{row['submission']['waiting_days']} j",
+                "risk": risk_label(row)
+                + (f" — {row['risk']['description']}" if row["risk"] and row["risk"]["description"] else ""),
+                "risk_soon": bool(row["risk"] and row["risk"]["soon"]),
+            }
+            for row in queue
+        ],
+        "blocking": [
+            {
+                "id": row["id"],
+                "key": row["key"],
+                "name": row["name"],
+                "entity": entity_name(row["entity_id"]),
+                "state": delay_label(row) if row["days_late"] > 0 else STATUS_LABELS.get(row["status"], ""),
+                "late": row["days_late"] > 0,
+                "signal": row["signal"],
+                "count": item["count"],
+                "blocked": ", ".join(key_of(blocked) for blocked in row["blocking"]),
+            }
+            for row, item in blocking
+        ],
+    }
+
+
+@dataclass
+class ReportOptions:
+    """What the Cabinet adds to the COMEX data in the weekly report (§9.3)."""
+
+    title: str = "Espace de pilotage — Rapport COMEX"
+    intro: str = ""
+    sections: List[Dict[str, Any]] = field(default_factory=lambda: [{"key": key, "visible": True} for key in SECTIONS])
+    section_comments: Dict[str, str] = field(default_factory=dict)
+    entity_comments: Dict[str, str] = field(default_factory=dict)
+    task_comments: Dict[str, str] = field(default_factory=dict)
+    highlighted_tasks: List[str] = field(default_factory=list)
+    highlighted_entities: List[str] = field(default_factory=list)
+
+
+def _with_comments(
+    table_rows: List[List[Any]],
+    items: List[Dict[str, Any]],
+    comments: Dict[str, str],
+    highlighted: Iterable[str],
+    styles,
+    columns: int,
+):
+    """Adds a comment line under the commented rows; returns the rows, their edges and the style commands."""
+    rows, owners, commands = [], [], []
+    highlighted = set(highlighted)
+    for cells, item in zip(table_rows, items):
+        rows.append(cells)
+        owners.append(item)
+        position = len(rows)
+        if item["id"] in highlighted:
+            commands.append(("BACKGROUND", (0, position), (-1, position), HIGHLIGHT))
+        comment = (comments.get(item["id"]) or "").strip()
+        if comment:
+            rows.append([_p(f"Commentaire : {comment}", styles["comment"])] + [""] * (columns - 1))
+            owners.append(item)
+            line = len(rows)
+            commands += [("SPAN", (0, line), (-1, line)), ("LINEABOVE", (0, line), (-1, line), 0, colors.white)]
+            if item["id"] in highlighted:
+                commands.append(("BACKGROUND", (0, line), (-1, line), HIGHLIGHT))
+    return rows, owners, commands
+
+
+def render_comex_pdf(data: Dict[str, Any], options: Optional[ReportOptions] = None) -> bytes:
+    """
+    The COMEX export (§6.7): banner and situation date, the six indicators, the situation by entity
+    (the ten most late at least, with their branch), the heaviest delays, the CEO queue in the order
+    of the tab with priority and risk, and the blocking work items in appendix. The weekly report
+    adds an introduction, comments, highlights and its own order of sections.
+    """
+    _register_fonts()
+    options = options or ReportOptions()
+    styles = _styles()
+    situation = data["situation"]
+    page_width, page_height = landscape(A4)
+    content_width = page_width - 24 * mm
+    blocks: Dict[str, List[Any]] = {}
+
+    def section_head(key: str) -> List[Any]:
+        head: List[Any] = [_p(SECTION_TITLES[key], styles["title"])]
+        comment = (options.section_comments.get(key) or "").strip()
+        if comment:
+            head.append(_p(comment, styles["section_comment"]))
+        return head
 
     # Six indicators (§6.1)
-    kpis = summary["kpis"]
+    kpis = data["kpis"]
     tiles = [
         ("Tâches ouvertes", kpis["open"], TEXT, f"Avancement moyen {kpis['average_progress']} %"),
         ("En retard", kpis["late"], SIGNAL_COLORS["late"], f"{kpis['late_share']} % des ouvertes"),
@@ -247,11 +392,15 @@ def comex_pdf(portfolio: Portfolio, branch_id: Optional[str] = None) -> bytes:
         ("Échéances à 14 jours", kpis["due_soon"], SIGNAL_COLORS["soon"], ""),
     ]
     value_style = ParagraphStyle("kpi_value", parent=styles["cell_bold"], fontSize=20, leading=24)
-    kpi_cells = [
-        [_p(label, styles["kpi_label"]), _p(value, value_style, color), _p(detail, styles["kpi_label"])]
-        for label, value, color, detail in tiles
-    ]
-    kpi_table = Table([kpi_cells], colWidths=[content_width / 6] * 6)
+    kpi_table = Table(
+        [
+            [
+                [_p(label, styles["kpi_label"]), _p(value, value_style, color), _p(detail, styles["kpi_label"])]
+                for label, value, color, detail in tiles
+            ]
+        ],
+        colWidths=[content_width / 6] * 6,
+    )
     kpi_table.setStyle(
         TableStyle(
             [
@@ -264,141 +413,135 @@ def comex_pdf(portfolio: Portfolio, branch_id: Optional[str] = None) -> bytes:
             ]
         )
     )
-    story += [kpi_table, Spacer(1, 6)]
+    kpi_comment = (options.section_comments.get("kpis") or "").strip()
+    blocks["kpis"] = [kpi_table] + ([Spacer(1, 3), _p(kpi_comment, styles["section_comment"])] if kpi_comment else [])
 
-    # Situation by entity: the ten most late at least (§6.7)
-    entities = [{**entity, "branch": branch["name"]} for branch in summary["branches"] for entity in branch["entities"]]
-    entities.sort(key=lambda entity: (-entity["late"], -entity["critical"], entity["name"]))
-    entity_rows = [
-        [
-            _p(entity["name"], styles["cell_bold"]),
-            _p(entity["branch"], styles["cell_muted"]),
-            _p(entity["open"], styles["cell"]),
-            _p(entity["late"], styles["cell"], SIGNAL_COLORS["late"] if entity["late"] else None),
-            _p(entity["critical"], styles["cell"], SIGNAL_COLORS["critical"] if entity["critical"] else None),
-            _p(entity["blocked"], styles["cell"], SIGNAL_COLORS["critical"] if entity["blocked"] else None),
-            _p(entity["queue"], styles["cell"], SIGNAL_COLORS["queue"] if entity["queue"] else None),
-            _p(STATE_LABELS[entity["state"]], styles["cell"], STATE_COLORS[entity["state"]]),
-        ]
-        for entity in entities[: max(10, sum(entity["late"] > 0 for entity in entities))]
+    # Situation by entity: the ten most late at least (§6.7), and every entity the report highlights
+    entities = data["entities"]
+    shown = [
+        entity
+        for position, entity in enumerate(entities)
+        if position < max(10, sum(item["late"] > 0 for item in entities))
+        or entity["id"] in options.highlighted_entities
+        or (options.entity_comments.get(entity["id"]) or "").strip()
     ]
-    story.append(_p("Situation par entité", styles["title"]))
-    if entity_rows:
-        widths = [0.26, 0.2, 0.08, 0.08, 0.08, 0.08, 0.08, 0.14]
-        story.append(
+    blocks["situation"] = section_head("situation")
+    if shown:
+        cells = [
+            [
+                _p(entity["name"], styles["cell_bold"]),
+                _p(entity["branch"], styles["cell_muted"]),
+                _p(entity["open"], styles["cell"]),
+                _p(entity["late"], styles["cell"], SIGNAL_COLORS["late"] if entity["late"] else None),
+                _p(entity["critical"], styles["cell"], SIGNAL_COLORS["critical"] if entity["critical"] else None),
+                _p(entity["blocked"], styles["cell"], SIGNAL_COLORS["critical"] if entity["blocked"] else None),
+                _p(entity["queue"], styles["cell"], SIGNAL_COLORS["queue"] if entity["queue"] else None),
+                _p(STATE_LABELS[entity["state"]], styles["cell"], STATE_COLORS[entity["state"]]),
+            ]
+            for entity in shown
+        ]
+        rows, owners, commands = _with_comments(
+            cells, shown, options.entity_comments, options.highlighted_entities, styles, 8
+        )
+        blocks["situation"].append(
             _table(
                 ["Entité", "Pôle", "Ouvertes", "En retard", "Critiques", "Bloquées", "File PDG", "État"],
-                entity_rows,
+                rows,
+                [content_width * width for width in (0.26, 0.2, 0.08, 0.08, 0.08, 0.08, 0.08, 0.14)],
+                styles,
+                [STATE_COLORS[owner["state"]] for owner in owners],
+                commands,
+            )
+        )
+    else:
+        blocks["situation"].append(_p("Aucune entité dans le périmètre.", styles["empty"]))
+
+    def task_table(key: str, items: List[Dict[str, Any]], header, widths, cells, edge, empty: str) -> None:
+        blocks[key] = section_head(key)
+        if not items:
+            blocks[key].append(_p(empty, styles["empty"]))
+            return
+        rows, owners, commands = _with_comments(
+            [cells(item) for item in items],
+            items,
+            options.task_comments,
+            options.highlighted_tasks,
+            styles,
+            len(header),
+        )
+        blocks[key].append(
+            _table(
+                header,
+                rows,
                 [content_width * width for width in widths],
                 styles,
-                [STATE_COLORS[entity["state"]] for entity in entities[: len(entity_rows)]],
+                [edge(owner) for owner in owners],
+                commands,
             )
         )
-    else:
-        story.append(_p("Aucune entité dans le périmètre.", styles["empty"]))
 
-    # Heaviest delays, in the order of RG-12
-    delays = sorted(
-        (row for row in portfolio.rows_for(branch_id) if row["is_open"] and row["days_late"] > 0),
-        key=lambda row: (PRIORITY_RANK.get(row["priority"], 2), -row["days_late"]),
-    )[:15]
-    story.append(_p("Retards les plus lourds", styles["title"]))
-    if delays:
-        story.append(
-            _table(
-                ["Clé", "Tâche", "Entité", "Responsable", "Priorité", "Échéance", "Retard"],
-                [
-                    [
-                        _p(row["key"], styles["cell_muted"]),
-                        _p(row["name"], styles["cell_bold"]),
-                        _p(entity_name(row["entity_id"]), styles["cell"]),
-                        _p(people(row["assignee_ids"]), styles["cell"]),
-                        _p(PRIORITY_LABELS.get(row["priority"], ""), styles["cell"]),
-                        _p(french_date(row["target_date"]), styles["cell"]),
-                        _p(delay_label(row), styles["cell_bold"], SIGNAL_COLORS[row["signal"]]),
-                    ]
-                    for row in delays
-                ],
-                [content_width * width for width in (0.08, 0.34, 0.18, 0.16, 0.08, 0.1, 0.06)],
-                styles,
-                [SIGNAL_COLORS[row["signal"]] for row in delays],
-            )
-        )
-    else:
-        story.append(_p("Aucune tâche en retard.", styles["empty"]))
+    task_table(
+        "delays",
+        data["delays"],
+        ["Clé", "Tâche", "Entité", "Responsable", "Priorité", "Échéance", "Retard"],
+        (0.08, 0.34, 0.18, 0.16, 0.08, 0.1, 0.06),
+        lambda item: [
+            _p(item["key"], styles["cell_muted"]),
+            _p(item["name"], styles["cell_bold"]),
+            _p(item["entity"], styles["cell"]),
+            _p(item["assignees"], styles["cell"]),
+            _p(item["priority"], styles["cell"]),
+            _p(item["deadline"], styles["cell"]),
+            _p(item["delay"], styles["cell_bold"], SIGNAL_COLORS[item["signal"]]),
+        ],
+        lambda item: SIGNAL_COLORS[item["signal"]],
+        "Aucune tâche en retard.",
+    )
+    task_table(
+        "queue",
+        data["queue"],
+        ["Priorité retenue", "Clé", "Tâche", "Entité", "Échéance", "Attente", "Risque si non validée"],
+        (0.13, 0.07, 0.26, 0.14, 0.12, 0.06, 0.22),
+        lambda item: [
+            _p(item["priority"], styles["cell_bold"]),
+            _p(item["key"], styles["cell_muted"]),
+            _p(item["name"], styles["cell_bold"]),
+            _p(item["entity"], styles["cell"]),
+            _p(item["deadline"], styles["cell"]),
+            _p(item["waiting"], styles["cell"]),
+            _p(item["risk"], styles["cell"], SIGNAL_COLORS["critical"] if item["risk_soon"] else None),
+        ],
+        lambda item: SIGNAL_COLORS["queue"],
+        "Aucune tâche n'attend la décision du PDG.",
+    )
+    task_table(
+        "blocking",
+        data["blocking"],
+        ["Clé", "Tâche bloquante", "Entité", "État", "Bloque", "Tâches bloquées"],
+        (0.08, 0.34, 0.18, 0.12, 0.06, 0.22),
+        lambda item: [
+            _p(item["key"], styles["cell_muted"]),
+            _p(item["name"], styles["cell_bold"]),
+            _p(item["entity"], styles["cell"]),
+            _p(item["state"], styles["cell"], SIGNAL_COLORS[item["signal"]] if item["late"] else None),
+            _p(item["count"], styles["cell"]),
+            _p(item["blocked"], styles["cell"]),
+        ],
+        lambda item: SIGNAL_COLORS[item["signal"]] if item["late"] else None,
+        "Aucune tâche n'en bloque une autre.",
+    )
 
-    # CEO queue, in the order of the tab (RG-04)
-    queue = [row for row in portfolio.queue() if not branch_id or row["branch_id"] == branch_id]
-    story.append(_p("File PDG", styles["title"]))
-    if queue:
-        story.append(
-            _table(
-                ["Priorité retenue", "Clé", "Tâche", "Entité", "Échéance", "Attente", "Risque si non validée"],
-                [
-                    [
-                        _p(
-                            PRIORITY_LABELS.get(row["retained_priority"], "")
-                            + (
-                                f" (requalifiée par {ROLE_LABELS.get(row['requalification']['by_role'], '')})"
-                                if row["requalification"]
-                                else ""
-                            ),
-                            styles["cell_bold"],
-                        ),
-                        _p(row["key"], styles["cell_muted"]),
-                        _p(row["name"], styles["cell_bold"]),
-                        _p(entity_name(row["entity_id"]), styles["cell"]),
-                        _p(f"{french_date(row['target_date'])} {delay_label(row)}".strip(), styles["cell"]),
-                        _p(f"{row['submission']['waiting_days']} j", styles["cell"]),
-                        _p(
-                            risk_label(row)
-                            + (
-                                f" — {row['risk']['description']}" if row["risk"] and row["risk"]["description"] else ""
-                            ),
-                            styles["cell"],
-                            SIGNAL_COLORS["critical"] if row["risk"] and row["risk"]["soon"] else None,
-                        ),
-                    ]
-                    for row in queue
-                ],
-                [content_width * width for width in (0.13, 0.07, 0.26, 0.14, 0.12, 0.06, 0.22)],
-                styles,
-                [SIGNAL_COLORS["queue"]] * len(queue),
-            )
-        )
-    else:
-        story.append(_p("Aucune tâche n'attend la décision du PDG.", styles["empty"]))
-
-    # Appendix: blocking work items (§7)
-    blocking = [(rows[item["id"]], item) for item in summary["blocking"]]
-    story.append(_p("Annexe — Tâches bloquantes", styles["title"]))
-    if blocking:
-        key_of = lambda item_id: (rows.get(item_id) or portfolio.related.get(item_id) or {}).get("key", "")  # noqa: E731
-        story.append(
-            _table(
-                ["Clé", "Tâche bloquante", "Entité", "État", "Bloque", "Tâches bloquées"],
-                [
-                    [
-                        _p(row["key"], styles["cell_muted"]),
-                        _p(row["name"], styles["cell_bold"]),
-                        _p(entity_name(row["entity_id"]), styles["cell"]),
-                        _p(
-                            delay_label(row) if row["days_late"] > 0 else STATUS_LABELS.get(row["status"], ""),
-                            styles["cell"],
-                            SIGNAL_COLORS[row["signal"]] if row["days_late"] > 0 else None,
-                        ),
-                        _p(item["count"], styles["cell"]),
-                        _p(", ".join(key_of(blocked) for blocked in row["blocking"]), styles["cell"]),
-                    ]
-                    for row, item in blocking
-                ],
-                [content_width * width for width in (0.08, 0.34, 0.18, 0.12, 0.06, 0.22)],
-                styles,
-                [SIGNAL_COLORS[row["signal"]] if row["days_late"] > 0 else None for row, _ in blocking],
-            )
-        )
-    else:
-        story.append(_p("Aucune tâche n'en bloque une autre.", styles["empty"]))
+    story: List[Any] = []
+    if options.intro.strip():
+        story += [
+            _p(paragraph, styles["intro"]) for paragraph in options.intro.strip().split("\n") if paragraph.strip()
+        ]
+        story.append(Spacer(1, 6))
+    for section in options.sections:
+        if section.get("visible", True) and section.get("key") in blocks:
+            story += blocks[section["key"]]
+            if section["key"] == "kpis":
+                story.append(Spacer(1, 6))
 
     def first_page(pdf: canvas.Canvas, _doc) -> None:
         # The banner: anthracite, rounded at the bottom, with its gold line (§11).
@@ -420,7 +563,7 @@ def comex_pdf(portfolio: Portfolio, branch_id: Optional[str] = None) -> bytes:
         pdf.drawString(12 * mm, page_height - 8 * mm, "INFINITY AFRICA GROUP")
         pdf.setFillColor(colors.white)
         pdf.setFont(FONT_BOLD, 15)
-        pdf.drawString(12 * mm, page_height - 15 * mm, "Espace de pilotage — Rapport COMEX")
+        pdf.drawString(12 * mm, page_height - 15 * mm, options.title)
         pdf.setFillColor(colors.HexColor("#D9D3C4"))
         pdf.setFont(FONT, 8.5)
         pdf.drawString(12 * mm, page_height - 21 * mm, situation)
@@ -432,7 +575,7 @@ def comex_pdf(portfolio: Portfolio, branch_id: Optional[str] = None) -> bytes:
         pdf.saveState()
         pdf.setFont(FONT_BOLD, 8)
         pdf.setFillColor(TEXT)
-        pdf.drawString(12 * mm, page_height - 10 * mm, "Espace de pilotage — Rapport COMEX")
+        pdf.drawString(12 * mm, page_height - 10 * mm, options.title)
         pdf.setFont(FONT, 8)
         pdf.setFillColor(TEXT_2)
         pdf.drawRightString(page_width - 12 * mm, page_height - 10 * mm, situation)
@@ -450,7 +593,7 @@ def comex_pdf(portfolio: Portfolio, branch_id: Optional[str] = None) -> bytes:
     document = BaseDocTemplate(
         buffer,
         pagesize=(page_width, page_height),
-        title="Espace de pilotage — Rapport COMEX",
+        title=options.title,
         author="Infinity Planning",
         subject=situation,
     )
@@ -465,8 +608,13 @@ def comex_pdf(portfolio: Portfolio, branch_id: Optional[str] = None) -> bytes:
     class Footer(_NumberedCanvas):
         footer_text = footer
 
-    document.build([KeepTogether(story[:2]), *story[2:]], canvasmaker=Footer)
+    document.build(story or [_p("Aucune section n'est affichée.", styles["empty"])], canvasmaker=Footer)
     return buffer.getvalue()
+
+
+def comex_pdf(portfolio: Portfolio, branch_id: Optional[str] = None) -> bytes:
+    """The COMEX export of the screen, following its branch filter (§6.7)."""
+    return render_comex_pdf(comex_data(portfolio, branch_id))
 
 
 # ---------------------------------------------------------------------------------------------------

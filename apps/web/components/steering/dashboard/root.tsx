@@ -17,14 +17,15 @@ import type { TTaskFilter, TTaskFilterPreset } from "./filters";
 import { DEFAULT_TASK_FILTER } from "./filters";
 import { SteeringDashboardHeader } from "./header";
 import { QueueTab } from "./queue-tab";
+import { ReportTab } from "./report-tab";
 import { ReviewTab } from "./review-tab";
 import { SynthesisTab } from "./synthesis-tab";
 import { TaskSheet } from "./task-sheet";
 import { TasksTab } from "./tasks-tab";
 import { useDashboardIndex, useSteeringDashboard } from "./use-dashboard";
 
-const TABS = ["synthesis", "tasks", "queue", "deadlines", "review"] as const;
-type TTab = (typeof TABS)[number];
+const ALL_TABS = ["synthesis", "tasks", "queue", "deadlines", "review", "report"] as const;
+type TTab = (typeof ALL_TABS)[number];
 
 /** The steering space (cahier des charges §6): five tabs, a work item sheet, read only. */
 export function SteeringDashboardRoot() {
@@ -55,6 +56,9 @@ export function SteeringDashboardRoot() {
         <p className="text-13 text-[var(--iag-text-2)]">{error ? t("common.error.message") : t("common.loading")}</p>
       </div>
     );
+
+  // The weekly report is prepared and sent by the Cabinet and the CEO (§9.3, §10).
+  const TABS = ALL_TABS.filter((key) => key !== "report" || data.viewer.can_requalify);
 
   const showTasks = (filter: { preset?: TTaskFilterPreset; entityId?: string; assigneeId?: string }) => {
     setTaskFilter({
@@ -101,6 +105,17 @@ export function SteeringDashboardRoot() {
         actions={<ComexExportButton workspaceSlug={slug} branchId={branchId} today={data.today} />}
       />
       <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-4 pt-4 sm:px-8">
+        {data.report_ready && tab !== "report" && (
+          <div
+            role="status"
+            className="iag-card flex flex-wrap items-center justify-between gap-2 border-[var(--iag-gold)] px-4 py-3 text-13"
+          >
+            <span>{t("steering.report.ready_banner", { week: data.report_ready.week })}</span>
+            <button type="button" className="iag-pill iag-pill-gold iag-focus" onClick={() => setTab("report")}>
+              {t("steering.report.open")}
+            </button>
+          </div>
+        )}
         <div
           role="tablist"
           aria-label={t("steering.dashboard.title")}
@@ -122,7 +137,7 @@ export function SteeringDashboardRoot() {
               onKeyDown={handleTabKey}
               className="iag-pill iag-focus shrink-0"
             >
-              {t(`steering.dashboard.tabs.${key}`)}
+              {key === "report" ? t("steering.report.tab") : t(`steering.dashboard.tabs.${key}`)}
               {counts[key] !== undefined && <span className="iag-num opacity-75">{counts[key]}</span>}
             </button>
           ))}
@@ -161,6 +176,7 @@ export function SteeringDashboardRoot() {
           {tab === "deadlines" && (
             <DeadlinesTab data={data} index={index} branchId={branchId} onOpenTask={setSheetId} />
           )}
+          {tab === "report" && <ReportTab workspaceSlug={slug} initialReportId={data.report_ready?.id ?? null} />}
           {tab === "review" && (
             <ReviewTab data={data} index={index} branchId={branchId} onOpenTask={setSheetId} onAction={setAction} />
           )}

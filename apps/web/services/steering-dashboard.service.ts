@@ -125,6 +125,8 @@ export type TDashboard = {
   summary: TDashboardSummary;
   queue: string[];
   trend: TTrendPoint[];
+  /** For the Cabinet and the CEO: the draft of the week, when it waits to be sent. */
+  report_ready: { id: string; week: number } | null;
 };
 
 export type THistoryLine = {
@@ -137,6 +139,58 @@ export type THistoryLine = {
   actor: string | null;
   created_at: string;
 };
+
+export type TReportSectionKey = "kpis" | "situation" | "delays" | "queue" | "blocking";
+
+/** The COMEX figures frozen in a weekly report (§9.3), already in French. */
+export type TReportData = {
+  situation: string;
+  today: string;
+  kpis: TDashboardSummary["kpis"];
+  entities: (TEntitySituation & { branch: string })[];
+  delays: { id: string; key: string; name: string; entity: string; delay: string; signal: TSteeringSignal }[];
+  queue: { id: string; key: string; name: string; entity: string; priority: string }[];
+  blocking: { id: string; key: string; name: string; entity: string; count: number }[];
+};
+
+export type TReportSummary = {
+  id: string;
+  year: number;
+  week: number;
+  status: "draft" | "sent";
+  refreshed_at: string;
+  sent_at: string | null;
+  sent_by: string | null;
+  situation: string;
+};
+
+export type TReport = TReportSummary & {
+  intro: string;
+  sections: { key: TReportSectionKey; visible: boolean }[];
+  section_comments: Partial<Record<TReportSectionKey, string>>;
+  entity_comments: Record<string, string>;
+  task_comments: Record<string, string>;
+  highlighted_tasks: string[];
+  highlighted_entities: string[];
+  recipient_ids: string[];
+  extra_emails: string[];
+  data: TReportData;
+};
+
+export type TReportPatch = Partial<
+  Pick<
+    TReport,
+    | "intro"
+    | "sections"
+    | "section_comments"
+    | "entity_comments"
+    | "task_comments"
+    | "highlighted_tasks"
+    | "highlighted_entities"
+    | "recipient_ids"
+    | "extra_emails"
+  >
+>;
 
 export type TDashboardSheet = { chain: (TRelatedTask & { assignees?: string[] })[][]; history: THistoryLine[] };
 
@@ -180,6 +234,39 @@ export class SteeringDashboardService extends APIService {
     return this.unwrap(
       this.post(`/api/workspaces/${workspaceSlug}/steering/dashboard/export/tasks/`, { ids }, { responseType: "blob" })
     );
+  }
+
+  private reports(workspaceSlug: string, suffix = ""): string {
+    return `/api/workspaces/${workspaceSlug}/steering/reports/${suffix}`;
+  }
+
+  listReports(workspaceSlug: string): Promise<TReportSummary[]> {
+    return this.unwrap(this.get(this.reports(workspaceSlug)));
+  }
+
+  /** The draft of the week, prepared now if Friday's has not come yet. */
+  prepareReport(workspaceSlug: string): Promise<TReport> {
+    return this.unwrap(this.post(this.reports(workspaceSlug)));
+  }
+
+  getReport(workspaceSlug: string, reportId: string): Promise<TReport> {
+    return this.unwrap(this.get(this.reports(workspaceSlug, `${reportId}/`)));
+  }
+
+  updateReport(workspaceSlug: string, reportId: string, data: TReportPatch): Promise<TReport> {
+    return this.unwrap(this.patch(this.reports(workspaceSlug, `${reportId}/`), data));
+  }
+
+  refreshReport(workspaceSlug: string, reportId: string): Promise<TReport> {
+    return this.unwrap(this.post(this.reports(workspaceSlug, `${reportId}/refresh/`)));
+  }
+
+  sendReport(workspaceSlug: string, reportId: string): Promise<TReport> {
+    return this.unwrap(this.post(this.reports(workspaceSlug, `${reportId}/send/`)));
+  }
+
+  downloadReport(workspaceSlug: string, reportId: string): Promise<Blob> {
+    return this.unwrap(this.get(this.reports(workspaceSlug, `${reportId}/pdf/`), { responseType: "blob" }));
   }
 
   getSheet(workspaceSlug: string, issueId: string): Promise<TDashboardSheet> {

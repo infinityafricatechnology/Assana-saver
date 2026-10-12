@@ -353,6 +353,7 @@ CELERY_IMPORTS = (
     # Infinity Planning: the steering space and the « Personnes » page
     "plane.bgtasks.steering_alert_email_task",
     "plane.bgtasks.steering_jobs_task",
+    "plane.bgtasks.steering_report_email_task",
     "plane.bgtasks.person_welcome_email_task",
 )
 

@@ -283,3 +283,10 @@ from .steering.dashboard import (
     SteeringDashboardIssueEndpoint,
     SteeringDashboardVersionEndpoint,
 )
+from .steering.report import (
+    SteeringReportEndpoint,
+    SteeringReportPdfEndpoint,
+    SteeringReportRefreshEndpoint,
+    SteeringReportSendEndpoint,
+    SteeringReportsEndpoint,
+)
