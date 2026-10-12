@@ -98,11 +98,14 @@ from .steering import (
     SteeringProfileRole,
     SteeringReminder,
     SteeringReminderReason,
+    SteeringReportStatus,
     SteeringRiskNature,
+    SteeringSnapshot,
     SteeringStatus,
     SteeringSubmission,
     SteeringSubmissionStatus,
     SteeringWaitingFor,
+    SteeringWeeklyReport,
 )
 from .custom_field import (
     CustomField,

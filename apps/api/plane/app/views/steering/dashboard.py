@@ -33,6 +33,7 @@ from plane.db.models import (
     PriorityRequalification,
     ProjectSteering,
     SteeringReminder,
+    SteeringSnapshot,
     SteeringSubmission,
     User,
     Workspace,
@@ -47,6 +48,7 @@ from plane.utils.steering_dashboard import (
     viewer_scope,
 )
 from plane.utils.steering_exports import comex_pdf, tasks_xlsx
+from plane.utils.steering_jobs import trend
 from plane.utils.steering_rules import blocked_by_graph, blocking_chain, is_closed
 
 from ..base import BaseAPIView
@@ -83,6 +85,7 @@ def dashboard_version(workspace_id) -> str:
         SteeringSubmission.objects.filter(workspace_id=workspace_id),
         PriorityRequalification.objects.filter(workspace_id=workspace_id),
         SteeringReminder.objects.filter(workspace_id=workspace_id),
+        SteeringSnapshot.objects.filter(workspace_id=workspace_id),
         ProjectSteering.objects.filter(workspace_id=workspace_id),
         Entity.objects.filter(workspace_id=workspace_id),
         Branch.objects.filter(workspace_id=workspace_id),
@@ -102,6 +105,8 @@ class SteeringDashboardEndpoint(BaseAPIView):
         if not scope:
             return _no_access()
         portfolio = Portfolio(workspace.id, scope)
+        branch_id = request.query_params.get("branch") or None
+        entity_branches = {entity_id: entity["branch_id"] for entity_id, entity in portfolio.entities.items()}
         return Response(
             {
                 "generated_at": portfolio.generated_at.isoformat(),
@@ -111,9 +116,9 @@ class SteeringDashboardEndpoint(BaseAPIView):
                 **portfolio.referential_payload(),
                 "tasks": portfolio.rows,
                 "related": portfolio.related,
-                "summary": portfolio.summary(request.query_params.get("branch") or None),
+                "summary": portfolio.summary(branch_id),
                 "queue": [row["id"] for row in portfolio.queue()],
-                "trend": [],
+                "trend": trend(workspace.id, scope, entity_branches, branch_id),
             },
             status=status.HTTP_200_OK,
         )

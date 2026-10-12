@@ -326,6 +326,76 @@ class SteeringEmailPreference(models.Model):
         db_table = "steering_email_preferences"
 
 
+class SteeringSnapshot(BaseModel):
+    """
+    The weekly picture of the portfolio, frozen on Fridays at noon (§9.3) for the trend (§6.1). The
+    counts are kept per entity, so that each profile reads the trend of its own scope.
+    """
+
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="steering_snapshots")
+    date = models.DateField()
+    # {entity id: {"open", "late", "critical", "blocked", "queue"}}
+    entities = models.JSONField(default=dict)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["workspace", "date"],
+                condition=Q(deleted_at__isnull=True),
+                name="steering_snapshot_once_a_day",
+            )
+        ]
+        db_table = "steering_snapshots"
+        ordering = ("date",)
+
+
+class SteeringReportStatus(models.TextChoices):
+    DRAFT = "draft", "Projet"
+    SENT = "sent", "Envoyé"
+
+
+class SteeringWeeklyReport(BaseModel):
+    """
+    The weekly report (§9.3): a draft prepared on Fridays at noon from the COMEX export, which the
+    Cabinet or the CEO comment, arrange and send. Its figures come from the entities' spaces and do
+    not change until « Actualiser »; the version sent is archived as it was.
+    """
+
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="steering_reports")
+    year = models.PositiveSmallIntegerField()
+    week = models.PositiveSmallIntegerField()
+    status = models.CharField(max_length=10, choices=SteeringReportStatus.choices, default=SteeringReportStatus.DRAFT)
+    # The COMEX data, frozen at ``refreshed_at``.
+    data = models.JSONField(default=dict)
+    refreshed_at = models.DateTimeField()
+    intro = models.TextField(blank=True, default="")
+    # [{"key": section, "visible": bool}], in the order of the report
+    sections = models.JSONField(default=list)
+    section_comments = models.JSONField(default=dict)
+    entity_comments = models.JSONField(default=dict)
+    task_comments = models.JSONField(default=dict)
+    highlighted_tasks = models.JSONField(default=list)
+    highlighted_entities = models.JSONField(default=list)
+    recipient_ids = models.JSONField(default=list)
+    extra_emails = models.JSONField(default=list)
+    sent_at = models.DateTimeField(null=True, blank=True)
+    sent_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="+"
+    )
+    sent_pdf = models.BinaryField(null=True, blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["workspace", "year", "week"],
+                condition=Q(deleted_at__isnull=True),
+                name="steering_report_once_a_week",
+            )
+        ]
+        db_table = "steering_weekly_reports"
+        ordering = ("-year", "-week")
+
+
 THREE_PRIORITIES = ("urgent", "high", "medium")
 
 
