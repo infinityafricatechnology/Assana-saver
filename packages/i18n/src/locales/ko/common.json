@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "Claude를 통해"
+  "activity_via_claude": "Claude를 통해",
+  "people": {
+    "title": "사용자",
+    "description": "조직의 모든 사용자: 첫 로그인 전에 등록하고, 역할·경영 관리 프로필·프로젝트를 설정하고, 퇴사를 기록합니다.",
+    "search": "이름 또는 이메일로 검색",
+    "add": "사용자 추가",
+    "export": "내보내기",
+    "select_all": "모두 선택",
+    "empty": "이 필터에 맞는 사용자가 없습니다.",
+    "actions": "작업:",
+    "edit": "편집",
+    "reactivate": "다시 활성화",
+    "add_to_projects": "프로젝트에 추가",
+    "add_to_projects_selected": "{count, plural, one {#명을 프로젝트에 추가} other {#명을 프로젝트에 추가}}",
+    "project_count": "{count, plural, one {프로젝트 #개} other {프로젝트 #개}}",
+    "filters": {
+      "label": "상태",
+      "all": "전체({count})",
+      "active": "활성({count})",
+      "pending": "로그인한 적 없음({count})",
+      "departed": "퇴사({count})"
+    },
+    "status": {
+      "active": "활성",
+      "pending": "로그인한 적 없음",
+      "departed": "퇴사"
+    },
+    "roles": {
+      "admin": "관리자",
+      "member": "멤버"
+    },
+    "fields": {
+      "name": "이름",
+      "first_name": "이름",
+      "last_name": "성",
+      "email": "이메일",
+      "role": "역할",
+      "projects": "프로젝트",
+      "projects_placeholder": "프로젝트 선택",
+      "project_role": "이 프로젝트에서의 역할",
+      "status": "상태",
+      "last_login": "마지막 로그인",
+      "send_email": "로그인 안내가 담긴 환영 이메일 보내기"
+    },
+    "dialog": {
+      "add_title": "사용자 추가",
+      "add_description": "바로 접근할 수 있으며 업무용 이메일로 로그인합니다.",
+      "edit_title": "사용자 편집"
+    },
+    "projects_dialog": {
+      "title": "프로젝트에 추가",
+      "description": "{count, plural, one {#명} other {#명}}",
+      "admin_hint": "조직 관리자는 항상 해당 프로젝트의 관리자입니다.",
+      "submit": "추가"
+    },
+    "departure": {
+      "action": "퇴사 기록",
+      "title": "{name} 퇴사",
+      "description": "모든 접근(로그인, 프로젝트, Claude 토큰)이 차단됩니다. 기록은 유지되며 나중에 다시 활성화할 수 있습니다.",
+      "open_work_items": "{count, plural, one {열린 작업 항목 #개가 배정되어 있습니다. 누가 이어받습니까?} other {열린 작업 항목 #개가 배정되어 있습니다. 누가 이어받습니까?}}",
+      "no_open_work_items": "배정된 열린 작업 항목이 없습니다.",
+      "reassign_placeholder": "인계 대상…",
+      "nobody": "없음(담당자 없이 두기)",
+      "confirm": "퇴사 확인"
+    },
+    "import": {
+      "button": "가져오기",
+      "title": "사용자 목록 가져오기",
+      "description": "템플릿 열이 있는 .csv 또는 .xlsx 파일입니다. 확인하기 전에는 아무것도 생성되지 않습니다.",
+      "choose": "파일 선택",
+      "template": "템플릿 다운로드",
+      "summary": "준비됨: {valid} · 오류: {invalid}",
+      "line": "행",
+      "result": "결과",
+      "ready": "준비됨",
+      "submit": "{count, plural, one {#명 가져오기} other {#명 가져오기}}",
+      "done": "{count, plural, one {#명을 가져왔습니다.} other {#명을 가져왔습니다.}}",
+      "errors": {
+        "invalid_email": "잘못된 이메일",
+        "missing_first_name": "이름 없음",
+        "invalid_role": "알 수 없는 역할",
+        "invalid_profile": "알 수 없는 프로필",
+        "unknown_branch": "알 수 없는 사업 부문",
+        "unknown_entity": "알 수 없는 조직",
+        "unknown_project": "알 수 없는 프로젝트",
+        "duplicate_in_file": "파일에 중복됨",
+        "already_member": "이미 멤버임",
+        "departed": "퇴사함: 목록에서 다시 활성화하십시오"
+      }
+    },
+    "toasts": {
+      "added": "사용자를 추가했습니다.",
+      "added_with_email": "사용자를 추가했습니다. 환영 이메일을 보내는 중입니다.",
+      "updated": "변경 사항을 저장했습니다.",
+      "projects_added": "프로젝트를 업데이트했습니다.",
+      "departed": "퇴사를 기록했습니다.",
+      "reactivated": "접근을 복원했습니다."
+    },
+    "errors": {
+      "generic": "변경 사항을 저장할 수 없습니다.",
+      "invalid_email": "유효하지 않은 이메일 주소입니다.",
+      "missing_first_name": "이름은 필수입니다.",
+      "invalid_role": "알 수 없는 역할입니다.",
+      "profile_scope": "사업 부문장에게는 사업 부문이, 조직 책임자에게는 조직이 필요합니다.",
+      "invalid_profile": "알 수 없는 경영 관리 프로필입니다.",
+      "invalid_project": "알 수 없는 프로젝트입니다.",
+      "already_member": "이 사용자는 이미 멤버입니다.",
+      "departed": "이 사용자는 조직을 떠났습니다. 목록에서 다시 활성화하십시오.",
+      "self": "본인 계정에는 할 수 없습니다.",
+      "last_admin": "조직에는 관리자가 최소 한 명 있어야 합니다.",
+      "missing_selection": "사용자와 프로젝트를 선택하십시오.",
+      "inactive_member": "활성 멤버만 프로젝트에 참여할 수 있습니다.",
+      "invalid_reassign": "작업 항목을 활성 멤버에게 인계하십시오.",
+      "forbidden": "조직 관리자만 사용자를 관리합니다.",
+      "missing_file": "파일을 선택하십시오.",
+      "file_too_large": "파일이 너무 큽니다(최대 2 MB).",
+      "unreadable_file": "이 파일을 읽을 수 없습니다.",
+      "unsupported_file": ".csv 또는 .xlsx 파일을 사용하십시오.",
+      "missing_columns": "파일에는 최소한 Prénom 및 E-mail 열이 있어야 합니다.",
+      "empty_file": "파일이 비어 있습니다.",
+      "too_many_rows": "한 번에 최대 1,000명까지 가져올 수 있습니다."
+    }
+  }
 }

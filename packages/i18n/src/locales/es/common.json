@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "vía Claude"
+  "activity_via_claude": "vía Claude",
+  "people": {
+    "title": "Personas",
+    "description": "Todas las personas de la organización: regístrelas antes de su primer inicio de sesión, defina su rol, sus perfiles de seguimiento y sus proyectos, y registre las salidas.",
+    "search": "Buscar por nombre o correo",
+    "add": "Añadir una persona",
+    "export": "Exportar",
+    "select_all": "Seleccionar todo",
+    "empty": "Nadie coincide con estos filtros.",
+    "actions": "Acciones para",
+    "edit": "Editar",
+    "reactivate": "Reactivar",
+    "add_to_projects": "Añadir a proyectos",
+    "add_to_projects_selected": "{count, plural, one {Añadir # persona a proyectos} other {Añadir # personas a proyectos}}",
+    "project_count": "{count, plural, one {# proyecto} other {# proyectos}}",
+    "filters": {
+      "label": "Estado",
+      "all": "Todos ({count})",
+      "active": "Activos ({count})",
+      "pending": "Nunca conectados ({count})",
+      "departed": "Se fueron ({count})"
+    },
+    "status": {
+      "active": "Activo",
+      "pending": "Nunca conectado",
+      "departed": "Se fue"
+    },
+    "roles": {
+      "admin": "Administrador",
+      "member": "Miembro"
+    },
+    "fields": {
+      "name": "Nombre",
+      "first_name": "Nombre",
+      "last_name": "Apellidos",
+      "email": "Correo",
+      "role": "Rol",
+      "projects": "Proyectos",
+      "projects_placeholder": "Elegir proyectos",
+      "project_role": "Rol en estos proyectos",
+      "status": "Estado",
+      "last_login": "Último inicio de sesión",
+      "send_email": "Enviar un correo de bienvenida con las instrucciones de acceso"
+    },
+    "dialog": {
+      "add_title": "Añadir una persona",
+      "add_description": "La persona tiene acceso de inmediato e inicia sesión con su correo profesional.",
+      "edit_title": "Editar la persona"
+    },
+    "projects_dialog": {
+      "title": "Añadir a proyectos",
+      "description": "{count, plural, one {# persona} other {# personas}}",
+      "admin_hint": "Los administradores de la organización son siempre administradores de sus proyectos.",
+      "submit": "Añadir"
+    },
+    "departure": {
+      "action": "Registrar una salida",
+      "title": "Salida de {name}",
+      "description": "Se cierran todos sus accesos (inicio de sesión, proyectos, tokens de Claude). Su historial se conserva y podrá reactivarse más adelante.",
+      "open_work_items": "{count, plural, one {Tiene # elemento de trabajo abierto. ¿Quién lo retoma?} other {Tiene # elementos de trabajo abiertos. ¿Quién los retoma?}}",
+      "no_open_work_items": "No tiene ningún elemento de trabajo abierto.",
+      "reassign_placeholder": "Confiar a…",
+      "nobody": "Nadie (dejar sin responsable)",
+      "confirm": "Confirmar la salida"
+    },
+    "import": {
+      "button": "Importar",
+      "title": "Importar una lista de personas",
+      "description": "Un archivo .csv o .xlsx con las columnas de la plantilla. No se crea nada antes de su confirmación.",
+      "choose": "Elegir un archivo",
+      "template": "Descargar la plantilla",
+      "summary": "Listas: {valid} · Con errores: {invalid}",
+      "line": "Línea",
+      "result": "Resultado",
+      "ready": "Lista",
+      "submit": "{count, plural, one {Importar # persona} other {Importar # personas}}",
+      "done": "{count, plural, one {# persona importada.} other {# personas importadas.}}",
+      "errors": {
+        "invalid_email": "correo no válido",
+        "missing_first_name": "falta el nombre",
+        "invalid_role": "rol desconocido",
+        "invalid_profile": "perfil desconocido",
+        "unknown_branch": "división desconocida",
+        "unknown_entity": "entidad desconocida",
+        "unknown_project": "proyecto desconocido",
+        "duplicate_in_file": "duplicado en el archivo",
+        "already_member": "ya es miembro",
+        "departed": "se fue: reactívela desde la lista"
+      }
+    },
+    "toasts": {
+      "added": "Persona añadida.",
+      "added_with_email": "Persona añadida. Se le envía un correo de bienvenida.",
+      "updated": "Cambios guardados.",
+      "projects_added": "Proyectos actualizados.",
+      "departed": "Salida registrada.",
+      "reactivated": "Acceso restablecido."
+    },
+    "errors": {
+      "generic": "No se pudo guardar el cambio.",
+      "invalid_email": "Este correo no es válido.",
+      "missing_first_name": "El nombre es obligatorio.",
+      "invalid_role": "Rol desconocido.",
+      "profile_scope": "Un director de división necesita una división; un responsable de entidad, una entidad.",
+      "invalid_profile": "Perfil de seguimiento desconocido.",
+      "invalid_project": "Proyecto desconocido.",
+      "already_member": "Esta persona ya es miembro.",
+      "departed": "Esta persona dejó la organización: reactívela desde la lista.",
+      "self": "No es posible con su propia cuenta.",
+      "last_admin": "La organización necesita al menos un administrador.",
+      "missing_selection": "Elija personas y proyectos.",
+      "inactive_member": "Solo los miembros activos pueden unirse a proyectos.",
+      "invalid_reassign": "Confíe los elementos de trabajo a un miembro activo.",
+      "forbidden": "Solo los administradores de la organización gestionan las personas.",
+      "missing_file": "Elija un archivo.",
+      "file_too_large": "El archivo es demasiado grande (2 MB como máximo).",
+      "unreadable_file": "No se puede leer este archivo.",
+      "unsupported_file": "Use un archivo .csv o .xlsx.",
+      "missing_columns": "El archivo necesita al menos las columnas Prénom y E-mail.",
+      "empty_file": "El archivo está vacío.",
+      "too_many_rows": "Como máximo 1000 personas por importación."
+    }
+  }
 }

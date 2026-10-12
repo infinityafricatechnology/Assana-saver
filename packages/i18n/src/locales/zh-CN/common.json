@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "通过 Claude"
+  "activity_via_claude": "通过 Claude",
+  "people": {
+    "title": "人员",
+    "description": "组织中的所有人员：在首次登录前登记，设置其角色、管理角色和项目，并记录离职。",
+    "search": "按姓名或邮箱搜索",
+    "add": "添加人员",
+    "export": "导出",
+    "select_all": "全选",
+    "empty": "没有符合这些筛选条件的人员。",
+    "actions": "操作：",
+    "edit": "编辑",
+    "reactivate": "重新启用",
+    "add_to_projects": "添加到项目",
+    "add_to_projects_selected": "{count, plural, one {将 # 人添加到项目} other {将 # 人添加到项目}}",
+    "project_count": "{count, plural, one {# 个项目} other {# 个项目}}",
+    "filters": {
+      "label": "状态",
+      "all": "全部（{count}）",
+      "active": "在职（{count}）",
+      "pending": "从未登录（{count}）",
+      "departed": "已离职（{count}）"
+    },
+    "status": {
+      "active": "在职",
+      "pending": "从未登录",
+      "departed": "已离职"
+    },
+    "roles": {
+      "admin": "管理员",
+      "member": "成员"
+    },
+    "fields": {
+      "name": "姓名",
+      "first_name": "名",
+      "last_name": "姓",
+      "email": "邮箱",
+      "role": "角色",
+      "projects": "项目",
+      "projects_placeholder": "选择项目",
+      "project_role": "在这些项目中的角色",
+      "status": "状态",
+      "last_login": "最近登录",
+      "send_email": "发送包含登录说明的欢迎邮件"
+    },
+    "dialog": {
+      "add_title": "添加人员",
+      "add_description": "此人立即获得访问权限，并使用工作邮箱登录。",
+      "edit_title": "编辑人员"
+    },
+    "projects_dialog": {
+      "title": "添加到项目",
+      "description": "{count, plural, one {# 人} other {# 人}}",
+      "admin_hint": "组织管理员始终是其项目的管理员。",
+      "submit": "添加"
+    },
+    "departure": {
+      "action": "登记离职",
+      "title": "{name} 离职",
+      "description": "所有访问（登录、项目、Claude 令牌）都将关闭。历史记录会保留，之后可以重新启用。",
+      "open_work_items": "{count, plural, one {有 # 个未完成的工作项分配给此人。由谁接手？} other {有 # 个未完成的工作项分配给此人。由谁接手？}}",
+      "no_open_work_items": "没有分配给此人的未完成工作项。",
+      "reassign_placeholder": "移交给…",
+      "nobody": "无人（保留为无负责人）",
+      "confirm": "确认离职"
+    },
+    "import": {
+      "button": "导入",
+      "title": "导入人员名单",
+      "description": "包含模板各列的 .csv 或 .xlsx 文件。在您确认之前不会创建任何内容。",
+      "choose": "选择文件",
+      "template": "下载模板",
+      "summary": "就绪：{valid} · 有错误：{invalid}",
+      "line": "行",
+      "result": "结果",
+      "ready": "就绪",
+      "submit": "{count, plural, one {导入 # 人} other {导入 # 人}}",
+      "done": "{count, plural, one {已导入 # 人。} other {已导入 # 人。}}",
+      "errors": {
+        "invalid_email": "邮箱无效",
+        "missing_first_name": "缺少名",
+        "invalid_role": "未知角色",
+        "invalid_profile": "未知管理角色",
+        "unknown_branch": "未知业务板块",
+        "unknown_entity": "未知单位",
+        "unknown_project": "未知项目",
+        "duplicate_in_file": "文件中重复",
+        "already_member": "已是成员",
+        "departed": "已离职：请从列表中重新启用"
+      }
+    },
+    "toasts": {
+      "added": "已添加人员。",
+      "added_with_email": "已添加人员。欢迎邮件正在发送。",
+      "updated": "更改已保存。",
+      "projects_added": "项目已更新。",
+      "departed": "离职已登记。",
+      "reactivated": "访问已恢复。"
+    },
+    "errors": {
+      "generic": "无法保存更改。",
+      "invalid_email": "此邮箱地址无效。",
+      "missing_first_name": "名为必填项。",
+      "invalid_role": "未知角色。",
+      "profile_scope": "板块负责人需要一个业务板块，单位负责人需要一个单位。",
+      "invalid_profile": "未知管理角色。",
+      "invalid_project": "未知项目。",
+      "already_member": "此人已是成员。",
+      "departed": "此人已离开组织：请从列表中重新启用。",
+      "self": "无法对自己的账户执行此操作。",
+      "last_admin": "组织至少需要一名管理员。",
+      "missing_selection": "请选择人员和项目。",
+      "inactive_member": "只有在职成员可以加入项目。",
+      "invalid_reassign": "请将工作项移交给在职成员。",
+      "forbidden": "只有组织管理员可以管理人员。",
+      "missing_file": "请选择文件。",
+      "file_too_large": "文件过大（最大 2 MB）。",
+      "unreadable_file": "无法读取此文件。",
+      "unsupported_file": "请使用 .csv 或 .xlsx 文件。",
+      "missing_columns": "文件至少需要 Prénom 和 E-mail 两列。",
+      "empty_file": "文件为空。",
+      "too_many_rows": "每次导入最多 1,000 人。"
+    }
+  }
 }

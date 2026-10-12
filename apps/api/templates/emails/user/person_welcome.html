@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load email_brand %}
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Votre accès à Infinity Planning</title>
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #f4f5f7; font-family: Arial, Helvetica, sans-serif; color: #1f2937">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f5f7; padding: 32px 0">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width: 560px; width: 100%; background-color: #ffffff; border-radius: 8px">
+            <tr>
+              <td style="padding: 32px 32px 8px 32px">
+                <img src="{% email_logo_url %}" alt="Infinity Planning" height="36" style="display: block; height: 36px" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 16px 32px 0 32px; font-size: 15px; line-height: 1.6">
+                <p style="margin: 0 0 16px 0">Bonjour {{ first_name }},</p>
+                <p style="margin: 0 0 16px 0">
+                  {{ added_by }} vous a ouvert un accès à l'organisation <strong>{{ workspace_name }}</strong> sur Infinity Planning, l'outil de gestion du travail du Groupe.
+                </p>
+                <p style="margin: 0 0 24px 0">
+                  Pour vous connecter, ouvrez Infinity Planning et saisissez votre adresse <strong>{{ email }}</strong> : vous recevrez un code de connexion par e-mail. Aucun mot de passe n'est nécessaire.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0 32px 32px 32px">
+                <a href="{{ sign_in_url }}" style="display: inline-block; background-color: #1f2937; color: #ffffff; text-decoration: none; font-size: 15px; padding: 12px 20px; border-radius: 6px">Ouvrir Infinity Planning</a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 16px 32px 32px 32px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #6b7280">
+                Vous recevez ce message parce qu'un administrateur vous a ajouté à Infinity Planning. Si vous pensez qu'il s'agit d'une erreur, ignorez-le.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -16,7 +16,7 @@ export type TProfileSettingsTabs =
   | "connect-claude"
   | "api-tokens";
 
-export type TWorkspaceSettingsTabs = "general" | "members" | "referential" | "export" | "webhooks";
+export type TWorkspaceSettingsTabs = "general" | "people" | "members" | "referential" | "export" | "webhooks";
 export type TWorkspaceSettingsItem = {
   key: TWorkspaceSettingsTabs;
   i18n_label: string;

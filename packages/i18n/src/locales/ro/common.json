@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "prin Claude"
+  "activity_via_claude": "prin Claude",
+  "people": {
+    "title": "Persoane",
+    "description": "Toate persoanele organizației: înregistrați-le înainte de prima conectare, stabiliți rolul, profilurile de coordonare și proiectele și înregistrați plecările.",
+    "search": "Căutați după nume sau e-mail",
+    "add": "Adăugați o persoană",
+    "export": "Exportați",
+    "select_all": "Selectați tot",
+    "empty": "Nimeni nu corespunde acestor filtre.",
+    "actions": "Acțiuni pentru",
+    "edit": "Editați",
+    "reactivate": "Reactivați",
+    "add_to_projects": "Adăugați la proiecte",
+    "add_to_projects_selected": "{count, plural, one {Adăugați # persoană la proiecte} few {Adăugați # persoane la proiecte} other {Adăugați # de persoane la proiecte}}",
+    "project_count": "{count, plural, one {# proiect} few {# proiecte} other {# de proiecte}}",
+    "filters": {
+      "label": "Stare",
+      "all": "Toți ({count})",
+      "active": "Activi ({count})",
+      "pending": "Neconectați niciodată ({count})",
+      "departed": "Plecați ({count})"
+    },
+    "status": {
+      "active": "Activ",
+      "pending": "Neconectat niciodată",
+      "departed": "Plecat"
+    },
+    "roles": {
+      "admin": "Administrator",
+      "member": "Membru"
+    },
+    "fields": {
+      "name": "Nume",
+      "first_name": "Prenume",
+      "last_name": "Nume de familie",
+      "email": "E-mail",
+      "role": "Rol",
+      "projects": "Proiecte",
+      "projects_placeholder": "Alegeți proiecte",
+      "project_role": "Rol în aceste proiecte",
+      "status": "Stare",
+      "last_login": "Ultima conectare",
+      "send_email": "Trimiteți un e-mail de bun venit cu instrucțiunile de conectare"
+    },
+    "dialog": {
+      "add_title": "Adăugați o persoană",
+      "add_description": "Persoana are acces imediat și se conectează cu adresa de serviciu.",
+      "edit_title": "Editați persoana"
+    },
+    "projects_dialog": {
+      "title": "Adăugați la proiecte",
+      "description": "{count, plural, one {# persoană} few {# persoane} other {# de persoane}}",
+      "admin_hint": "Administratorii organizației sunt întotdeauna administratori ai proiectelor lor.",
+      "submit": "Adăugați"
+    },
+    "departure": {
+      "action": "Înregistrați o plecare",
+      "title": "Plecarea lui {name}",
+      "description": "Toate accesele sunt închise (conectare, proiecte, tokenuri Claude). Istoricul se păstrează, iar persoana poate fi reactivată ulterior.",
+      "open_work_items": "{count, plural, one {Are atribuit # element de lucru deschis. Cine îl preia?} few {Are atribuite # elemente de lucru deschise. Cine le preia?} other {Are atribuite # de elemente de lucru deschise. Cine le preia?}}",
+      "no_open_work_items": "Nu are atribuit niciun element de lucru deschis.",
+      "reassign_placeholder": "Predați către…",
+      "nobody": "Nimeni (fără responsabil)",
+      "confirm": "Confirmați plecarea"
+    },
+    "import": {
+      "button": "Importați",
+      "title": "Importați o listă de persoane",
+      "description": "Un fișier .csv sau .xlsx cu coloanele modelului. Nimic nu este creat înainte de confirmarea dvs.",
+      "choose": "Alegeți un fișier",
+      "template": "Descărcați modelul",
+      "summary": "Gata: {valid} · Cu erori: {invalid}",
+      "line": "Linie",
+      "result": "Rezultat",
+      "ready": "Gata",
+      "submit": "{count, plural, one {Importați # persoană} few {Importați # persoane} other {Importați # de persoane}}",
+      "done": "{count, plural, one {# persoană importată.} few {# persoane importate.} other {# de persoane importate.}}",
+      "errors": {
+        "invalid_email": "e-mail invalid",
+        "missing_first_name": "lipsește prenumele",
+        "invalid_role": "rol necunoscut",
+        "invalid_profile": "profil necunoscut",
+        "unknown_branch": "divizie necunoscută",
+        "unknown_entity": "entitate necunoscută",
+        "unknown_project": "proiect necunoscut",
+        "duplicate_in_file": "apare de două ori în fișier",
+        "already_member": "deja membru",
+        "departed": "plecat: reactivați din listă"
+      }
+    },
+    "toasts": {
+      "added": "Persoană adăugată.",
+      "added_with_email": "Persoană adăugată. Un e-mail de bun venit este pe drum.",
+      "updated": "Modificări salvate.",
+      "projects_added": "Proiecte actualizate.",
+      "departed": "Plecare înregistrată.",
+      "reactivated": "Acces restabilit."
+    },
+    "errors": {
+      "generic": "Modificarea nu a putut fi salvată.",
+      "invalid_email": "Această adresă de e-mail nu este validă.",
+      "missing_first_name": "Prenumele este obligatoriu.",
+      "invalid_role": "Rol necunoscut.",
+      "profile_scope": "Un director de divizie are nevoie de o divizie, un responsabil de entitate de o entitate.",
+      "invalid_profile": "Profil de coordonare necunoscut.",
+      "invalid_project": "Proiect necunoscut.",
+      "already_member": "Această persoană este deja membru.",
+      "departed": "Această persoană a plecat din organizație: reactivați-o din listă.",
+      "self": "Nu este posibil pentru propriul cont.",
+      "last_admin": "Organizația are nevoie de cel puțin un administrator.",
+      "missing_selection": "Alegeți persoane și proiecte.",
+      "inactive_member": "Doar membrii activi se pot alătura proiectelor.",
+      "invalid_reassign": "Predați elementele de lucru unui membru activ.",
+      "forbidden": "Doar administratorii organizației gestionează persoanele.",
+      "missing_file": "Alegeți un fișier.",
+      "file_too_large": "Fișierul este prea mare (maximum 2 MB).",
+      "unreadable_file": "Acest fișier nu poate fi citit.",
+      "unsupported_file": "Folosiți un fișier .csv sau .xlsx.",
+      "missing_columns": "Fișierul trebuie să conțină cel puțin coloanele Prénom și E-mail.",
+      "empty_file": "Fișierul este gol.",
+      "too_many_rows": "Cel mult 1.000 de persoane per import."
+    }
+  }
 }

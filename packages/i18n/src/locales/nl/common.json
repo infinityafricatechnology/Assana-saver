@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "via Claude"
+  "activity_via_claude": "via Claude",
+  "people": {
+    "title": "Personen",
+    "description": "Iedereen in de organisatie: registreer mensen vóór hun eerste aanmelding, stel hun rol, sturingsprofielen en projecten in en leg vertrekken vast.",
+    "search": "Zoeken op naam of e-mail",
+    "add": "Persoon toevoegen",
+    "export": "Exporteren",
+    "select_all": "Alles selecteren",
+    "empty": "Niemand voldoet aan deze filters.",
+    "actions": "Acties voor",
+    "edit": "Bewerken",
+    "reactivate": "Opnieuw activeren",
+    "add_to_projects": "Aan projecten toevoegen",
+    "add_to_projects_selected": "{count, plural, one {# persoon aan projecten toevoegen} other {# personen aan projecten toevoegen}}",
+    "project_count": "{count, plural, one {# project} other {# projecten}}",
+    "filters": {
+      "label": "Status",
+      "all": "Iedereen ({count})",
+      "active": "Actief ({count})",
+      "pending": "Nooit aangemeld ({count})",
+      "departed": "Vertrokken ({count})"
+    },
+    "status": {
+      "active": "Actief",
+      "pending": "Nooit aangemeld",
+      "departed": "Vertrokken"
+    },
+    "roles": {
+      "admin": "Beheerder",
+      "member": "Lid"
+    },
+    "fields": {
+      "name": "Naam",
+      "first_name": "Voornaam",
+      "last_name": "Achternaam",
+      "email": "E-mail",
+      "role": "Rol",
+      "projects": "Projecten",
+      "projects_placeholder": "Kies projecten",
+      "project_role": "Rol in deze projecten",
+      "status": "Status",
+      "last_login": "Laatste aanmelding",
+      "send_email": "Welkomstmail met aanmeldinstructies sturen"
+    },
+    "dialog": {
+      "add_title": "Persoon toevoegen",
+      "add_description": "De persoon heeft meteen toegang en meldt zich aan met het werkadres.",
+      "edit_title": "Persoon bewerken"
+    },
+    "projects_dialog": {
+      "title": "Aan projecten toevoegen",
+      "description": "{count, plural, one {# persoon} other {# personen}}",
+      "admin_hint": "Beheerders van de organisatie zijn altijd beheerder van hun projecten.",
+      "submit": "Toevoegen"
+    },
+    "departure": {
+      "action": "Vertrek vastleggen",
+      "title": "Vertrek van {name}",
+      "description": "Alle toegang wordt gesloten (aanmelding, projecten, Claude-tokens). De geschiedenis blijft bewaard en de persoon kan later opnieuw worden geactiveerd.",
+      "open_work_items": "{count, plural, one {Er is # open werkitem aan deze persoon toegewezen. Wie neemt het over?} other {Er zijn # open werkitems aan deze persoon toegewezen. Wie neemt ze over?}}",
+      "no_open_work_items": "Er is geen open werkitem aan deze persoon toegewezen.",
+      "reassign_placeholder": "Overdragen aan…",
+      "nobody": "Niemand (zonder verantwoordelijke laten)",
+      "confirm": "Vertrek bevestigen"
+    },
+    "import": {
+      "button": "Importeren",
+      "title": "Een lijst met personen importeren",
+      "description": "Een .csv- of .xlsx-bestand met de kolommen van het sjabloon. Er wordt niets aangemaakt vóór uw bevestiging.",
+      "choose": "Bestand kiezen",
+      "template": "Sjabloon downloaden",
+      "summary": "Klaar: {valid} · Met fouten: {invalid}",
+      "line": "Regel",
+      "result": "Resultaat",
+      "ready": "Klaar",
+      "submit": "{count, plural, one {# persoon importeren} other {# personen importeren}}",
+      "done": "{count, plural, one {# persoon geïmporteerd.} other {# personen geïmporteerd.}}",
+      "errors": {
+        "invalid_email": "ongeldig e-mailadres",
+        "missing_first_name": "voornaam ontbreekt",
+        "invalid_role": "onbekende rol",
+        "invalid_profile": "onbekend profiel",
+        "unknown_branch": "onbekende divisie",
+        "unknown_entity": "onbekende eenheid",
+        "unknown_project": "onbekend project",
+        "duplicate_in_file": "staat dubbel in het bestand",
+        "already_member": "al lid",
+        "departed": "vertrokken: opnieuw activeren via de lijst"
+      }
+    },
+    "toasts": {
+      "added": "Persoon toegevoegd.",
+      "added_with_email": "Persoon toegevoegd. Er is een welkomstmail onderweg.",
+      "updated": "Wijzigingen opgeslagen.",
+      "projects_added": "Projecten bijgewerkt.",
+      "departed": "Vertrek vastgelegd.",
+      "reactivated": "Toegang hersteld."
+    },
+    "errors": {
+      "generic": "De wijziging kon niet worden opgeslagen.",
+      "invalid_email": "Dit e-mailadres is ongeldig.",
+      "missing_first_name": "De voornaam is verplicht.",
+      "invalid_role": "Onbekende rol.",
+      "profile_scope": "Een divisiedirecteur heeft een divisie nodig, een verantwoordelijke van een eenheid een eenheid.",
+      "invalid_profile": "Onbekend sturingsprofiel.",
+      "invalid_project": "Onbekend project.",
+      "already_member": "Deze persoon is al lid.",
+      "departed": "Deze persoon heeft de organisatie verlaten: activeer hem of haar opnieuw via de lijst.",
+      "self": "Niet mogelijk met uw eigen account.",
+      "last_admin": "De organisatie heeft minstens één beheerder nodig.",
+      "missing_selection": "Kies personen en projecten.",
+      "inactive_member": "Alleen actieve leden kunnen aan projecten deelnemen.",
+      "invalid_reassign": "Draag de werkitems over aan een actief lid.",
+      "forbidden": "Alleen de beheerders van de organisatie beheren personen.",
+      "missing_file": "Kies een bestand.",
+      "file_too_large": "Het bestand is te groot (maximaal 2 MB).",
+      "unreadable_file": "Dit bestand kan niet worden gelezen.",
+      "unsupported_file": "Gebruik een .csv- of .xlsx-bestand.",
+      "missing_columns": "Het bestand heeft minstens de kolommen Prénom en E-mail nodig.",
+      "empty_file": "Het bestand is leeg.",
+      "too_many_rows": "Maximaal 1.000 personen per import."
+    }
+  }
 }

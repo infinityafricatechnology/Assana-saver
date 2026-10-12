@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "via Claude"
+  "activity_via_claude": "via Claude",
+  "people": {
+    "title": "People",
+    "description": "Everyone in the organisation: add people before their first sign-in, set their role, steering profiles and projects, and record departures.",
+    "search": "Search by name or e-mail",
+    "add": "Add a person",
+    "export": "Export",
+    "select_all": "Select all",
+    "empty": "Nobody matches these filters.",
+    "actions": "Actions for",
+    "edit": "Edit",
+    "reactivate": "Reactivate",
+    "add_to_projects": "Add to projects",
+    "add_to_projects_selected": "{count, plural, one {Add # person to projects} other {Add # people to projects}}",
+    "project_count": "{count, plural, one {# project} other {# projects}}",
+    "filters": {
+      "label": "Status",
+      "all": "Everyone ({count})",
+      "active": "Active ({count})",
+      "pending": "Never signed in ({count})",
+      "departed": "Left ({count})"
+    },
+    "status": {
+      "active": "Active",
+      "pending": "Never signed in",
+      "departed": "Left"
+    },
+    "roles": {
+      "admin": "Admin",
+      "member": "Member"
+    },
+    "fields": {
+      "name": "Name",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "E-mail",
+      "role": "Role",
+      "projects": "Projects",
+      "projects_placeholder": "Choose projects",
+      "project_role": "Role in these projects",
+      "status": "Status",
+      "last_login": "Last sign-in",
+      "send_email": "Send a welcome e-mail with sign-in instructions"
+    },
+    "dialog": {
+      "add_title": "Add a person",
+      "add_description": "The person gets their access right away and signs in with their work e-mail.",
+      "edit_title": "Edit the person"
+    },
+    "projects_dialog": {
+      "title": "Add to projects",
+      "description": "{count, plural, one {# person} other {# people}}",
+      "admin_hint": "Organisation admins are always admins of their projects.",
+      "submit": "Add"
+    },
+    "departure": {
+      "action": "Record a departure",
+      "title": "Departure of {name}",
+      "description": "Their access is closed everywhere (sign-in, projects, Claude tokens). Their history is kept and they can be reactivated later.",
+      "open_work_items": "{count, plural, one {# open work item is assigned to them. Who takes it over?} other {# open work items are assigned to them. Who takes them over?}}",
+      "no_open_work_items": "No open work item is assigned to them.",
+      "reassign_placeholder": "Hand over to…",
+      "nobody": "Nobody (leave unassigned)",
+      "confirm": "Confirm the departure"
+    },
+    "import": {
+      "button": "Import",
+      "title": "Import a list of people",
+      "description": "A .csv or .xlsx file with the columns of the template. Nothing is created before you confirm.",
+      "choose": "Choose a file",
+      "template": "Download the template",
+      "summary": "Ready: {valid} · With errors: {invalid}",
+      "line": "Line",
+      "result": "Result",
+      "ready": "Ready",
+      "submit": "{count, plural, one {Import # person} other {Import # people}}",
+      "done": "{count, plural, one {# person imported.} other {# people imported.}}",
+      "errors": {
+        "invalid_email": "invalid e-mail",
+        "missing_first_name": "first name missing",
+        "invalid_role": "unknown role",
+        "invalid_profile": "unknown profile",
+        "unknown_branch": "unknown branch",
+        "unknown_entity": "unknown entity",
+        "unknown_project": "unknown project",
+        "duplicate_in_file": "appears twice in the file",
+        "already_member": "already a member",
+        "departed": "has left: reactivate them instead"
+      }
+    },
+    "toasts": {
+      "added": "Person added.",
+      "added_with_email": "Person added. A welcome e-mail is on its way.",
+      "updated": "Changes saved.",
+      "projects_added": "Projects updated.",
+      "departed": "Departure recorded.",
+      "reactivated": "Access restored."
+    },
+    "errors": {
+      "generic": "The change could not be saved.",
+      "invalid_email": "This e-mail address is not valid.",
+      "missing_first_name": "The first name is required.",
+      "invalid_role": "Unknown role.",
+      "profile_scope": "A branch director needs a branch, an entity manager an entity.",
+      "invalid_profile": "Unknown steering profile.",
+      "invalid_project": "Unknown project.",
+      "already_member": "This person is already a member.",
+      "departed": "This person has left the organisation: reactivate them from the list.",
+      "self": "You cannot do this on your own account.",
+      "last_admin": "The organisation needs at least one admin.",
+      "missing_selection": "Choose people and projects.",
+      "inactive_member": "Only active members can join projects.",
+      "invalid_reassign": "Hand the work items over to an active member.",
+      "forbidden": "Only the organisation's admins manage people.",
+      "missing_file": "Choose a file.",
+      "file_too_large": "The file is too large (2 MB at most).",
+      "unreadable_file": "This file cannot be read.",
+      "unsupported_file": "Use a .csv or .xlsx file.",
+      "missing_columns": "The file needs at least the columns Prénom and E-mail.",
+      "empty_file": "The file is empty.",
+      "too_many_rows": "At most 1,000 people per import."
+    }
+  }
 }

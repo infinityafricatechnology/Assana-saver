@@ -15,6 +15,7 @@ import {
   WORKSPACE_SETTINGS_CATEGORY_LABELS,
 } from "@plane/constants";
 import { useTranslation } from "@plane/i18n";
+import { EUserWorkspaceRoles } from "@plane/types";
 import { joinUrlPath } from "@plane/utils";
 // components
 import { SettingsSidebarItem } from "@/components/settings/sidebar/item";
@@ -29,6 +30,7 @@ export const WorkspaceSettingsSidebarItemCategories = observer(function Workspac
   const pathname = usePathname();
   // store hooks
   const { allowPermissions } = useUserPermissions();
+  const isAdmin = allowPermissions([EUserWorkspaceRoles.ADMIN], EUserPermissionsLevel.WORKSPACE, workspaceSlug);
   // translation
   const { t } = useTranslation();
 
@@ -36,8 +38,11 @@ export const WorkspaceSettingsSidebarItemCategories = observer(function Workspac
     <div className="mt-3 flex flex-col divide-y divide-subtle px-3">
       {WORKSPACE_SETTINGS_CATEGORIES.map((category) => {
         const categoryItems = GROUPED_WORKSPACE_SETTINGS[category];
-        const accessibleItems = categoryItems.filter((item) =>
-          allowPermissions(item.access, EUserPermissionsLevel.WORKSPACE, workspaceSlug)
+        const accessibleItems = categoryItems.filter(
+          (item) =>
+            allowPermissions(item.access, EUserPermissionsLevel.WORKSPACE, workspaceSlug) &&
+            // Administrators manage everyone from « Personnes »; « Membres » stays the members' read-only list.
+            !(item.key === "members" && isAdmin)
         );
 
         if (accessibleItems.length === 0) return null;

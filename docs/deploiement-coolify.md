@@ -64,12 +64,14 @@ Pour vérifier que tout tourne :
 
 ## 5. Première configuration
 
-1. **Administrateur de l'instance** : ouvrez `https://planning.infinity-africa.com/god-mode/` et créez le compte administrateur.
-2. **E-mails** (invitations, notifications) : _Email_, avec le serveur SMTP du groupe.
-3. **Assistant IA** : _AI → Claude (Anthropic)_, avec la clé d'API Anthropic.
-4. **Organisation** : depuis `https://planning.infinity-africa.com`, créez votre compte puis l'organisation. Donnez-lui l'identifiant `infinity-africa-group`, ou reportez l'identifiant choisi dans `INFINITY_WORKSPACE_SLUG` puis redéployez.
-5. **Référentiel du Groupe** : _Réglages de l'organisation → Référentiel du Groupe → Charger le référentiel du Groupe_, puis attribuez les profils de pilotage.
-6. **Claude** : chacun relie Claude depuis _Réglages du profil → Connecter Claude_. L'adresse du connecteur est `https://planning.infinity-africa.com/mcp`.
+1. **Administrateur de l'instance** : ouvrez `https://planning.infinity-africa.com/god-mode/` et créez le compte administrateur. Le mot de passe doit être long et difficile à deviner (au moins 12 caractères, sans nom ni année) : un mot de passe qui ne satisfait que les critères affichés peut être refusé.
+2. **E-mails** (codes de connexion, notifications) : _Email_, avec le serveur SMTP du groupe.
+3. **Connexion** : dans _Authentication_, activez les **codes uniques par e-mail** (_Unique codes_) et désactivez l'**inscription libre** (_Allow anyone to sign up_). Seules les personnes pré-inscrites depuis la page « Personnes » pourront alors entrer.
+4. **Assistant IA** : _AI → Claude (Anthropic)_, avec la clé d'API Anthropic.
+5. **Organisation** : depuis `https://planning.infinity-africa.com`, créez votre compte puis l'organisation. Donnez-lui l'identifiant `infinity-africa-group`, ou reportez l'identifiant choisi dans `INFINITY_WORKSPACE_SLUG` puis redéployez.
+6. **Référentiel du Groupe** : _Réglages de l'organisation → Référentiel du Groupe → Charger le référentiel du Groupe_.
+7. **Personnes** : _Réglages de l'organisation → Personnes_. Ajoutez les testeurs un par un, ou importez une liste, avec leur rôle, leurs profils de pilotage et leurs projets. Chacun reçoit un e-mail et se connecte avec un code.
+8. **Claude** : chacun relie Claude depuis _Réglages du profil → Connecter Claude_. L'adresse du connecteur est `https://planning.infinity-africa.com/mcp`.
 
 ## Mettre à jour
 

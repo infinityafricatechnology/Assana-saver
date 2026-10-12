@@ -10,6 +10,7 @@ import {
   ExportOutline,
   HierarchyOutline,
   MembersOutline,
+  UserCogOutline,
   WebhooksOutline,
 } from "@makeplane/propel/icons";
 // plane imports
@@ -18,6 +19,7 @@ import type { TWorkspaceSettingsTabs } from "@plane/types";
 
 export const WORKSPACE_SETTINGS_ICONS: Record<TWorkspaceSettingsTabs, LucideIcon | React.FC<ISvgIcons>> = {
   general: BuildingOutline,
+  people: UserCogOutline,
   members: MembersOutline,
   referential: HierarchyOutline,
   export: ExportOutline,

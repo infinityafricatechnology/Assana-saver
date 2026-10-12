@@ -1106,5 +1106,127 @@
       }
     }
   },
-  "activity_via_claude": "Claude üzerinden"
+  "activity_via_claude": "Claude üzerinden",
+  "people": {
+    "title": "Kişiler",
+    "description": "Organizasyondaki herkes: kişileri ilk girişlerinden önce kaydedin, rollerini, yönetim profillerini ve projelerini belirleyin, ayrılışları kaydedin.",
+    "search": "Ad veya e-postaya göre ara",
+    "add": "Kişi ekle",
+    "export": "Dışa aktar",
+    "select_all": "Tümünü seç",
+    "empty": "Bu filtrelere uyan kimse yok.",
+    "actions": "İşlemler:",
+    "edit": "Düzenle",
+    "reactivate": "Yeniden etkinleştir",
+    "add_to_projects": "Projelere ekle",
+    "add_to_projects_selected": "{count, plural, one {# kişiyi projelere ekle} other {# kişiyi projelere ekle}}",
+    "project_count": "{count, plural, one {# proje} other {# proje}}",
+    "filters": {
+      "label": "Durum",
+      "all": "Herkes ({count})",
+      "active": "Etkin ({count})",
+      "pending": "Hiç giriş yapmadı ({count})",
+      "departed": "Ayrıldı ({count})"
+    },
+    "status": {
+      "active": "Etkin",
+      "pending": "Hiç giriş yapmadı",
+      "departed": "Ayrıldı"
+    },
+    "roles": {
+      "admin": "Yönetici",
+      "member": "Üye"
+    },
+    "fields": {
+      "name": "Ad",
+      "first_name": "Ad",
+      "last_name": "Soyad",
+      "email": "E-posta",
+      "role": "Rol",
+      "projects": "Projeler",
+      "projects_placeholder": "Proje seçin",
+      "project_role": "Bu projelerdeki rol",
+      "status": "Durum",
+      "last_login": "Son giriş",
+      "send_email": "Giriş talimatlarını içeren bir hoş geldin e-postası gönder"
+    },
+    "dialog": {
+      "add_title": "Kişi ekle",
+      "add_description": "Kişi hemen erişim kazanır ve iş e-postasıyla giriş yapar.",
+      "edit_title": "Kişiyi düzenle"
+    },
+    "projects_dialog": {
+      "title": "Projelere ekle",
+      "description": "{count, plural, one {# kişi} other {# kişi}}",
+      "admin_hint": "Organizasyon yöneticileri her zaman projelerinin de yöneticisidir.",
+      "submit": "Ekle"
+    },
+    "departure": {
+      "action": "Ayrılışı kaydet",
+      "title": "{name} ayrılıyor",
+      "description": "Tüm erişimler kapatılır (giriş, projeler, Claude anahtarları). Geçmiş korunur ve kişi daha sonra yeniden etkinleştirilebilir.",
+      "open_work_items": "{count, plural, one {Bu kişiye atanmış # açık iş öğesi var. Kim devralacak?} other {Bu kişiye atanmış # açık iş öğesi var. Kim devralacak?}}",
+      "no_open_work_items": "Bu kişiye atanmış açık iş öğesi yok.",
+      "reassign_placeholder": "Devret…",
+      "nobody": "Kimse (sorumlusuz bırak)",
+      "confirm": "Ayrılışı onayla"
+    },
+    "import": {
+      "button": "İçe aktar",
+      "title": "Kişi listesini içe aktar",
+      "description": "Şablondaki sütunları içeren bir .csv veya .xlsx dosyası. Siz onaylamadan hiçbir şey oluşturulmaz.",
+      "choose": "Dosya seçin",
+      "template": "Şablonu indir",
+      "summary": "Hazır: {valid} · Hatalı: {invalid}",
+      "line": "Satır",
+      "result": "Sonuç",
+      "ready": "Hazır",
+      "submit": "{count, plural, one {# kişiyi içe aktar} other {# kişiyi içe aktar}}",
+      "done": "{count, plural, one {# kişi içe aktarıldı.} other {# kişi içe aktarıldı.}}",
+      "errors": {
+        "invalid_email": "geçersiz e-posta",
+        "missing_first_name": "ad eksik",
+        "invalid_role": "bilinmeyen rol",
+        "invalid_profile": "bilinmeyen profil",
+        "unknown_branch": "bilinmeyen iş kolu",
+        "unknown_entity": "bilinmeyen birim",
+        "unknown_project": "bilinmeyen proje",
+        "duplicate_in_file": "dosyada iki kez geçiyor",
+        "already_member": "zaten üye",
+        "departed": "ayrıldı: listeden yeniden etkinleştirin"
+      }
+    },
+    "toasts": {
+      "added": "Kişi eklendi.",
+      "added_with_email": "Kişi eklendi. Hoş geldin e-postası yolda.",
+      "updated": "Değişiklikler kaydedildi.",
+      "projects_added": "Projeler güncellendi.",
+      "departed": "Ayrılış kaydedildi.",
+      "reactivated": "Erişim geri verildi."
+    },
+    "errors": {
+      "generic": "Değişiklik kaydedilemedi.",
+      "invalid_email": "Bu e-posta adresi geçerli değil.",
+      "missing_first_name": "Ad zorunludur.",
+      "invalid_role": "Bilinmeyen rol.",
+      "profile_scope": "İş kolu direktörü için bir iş kolu, birim sorumlusu için bir birim gerekir.",
+      "invalid_profile": "Bilinmeyen yönetim profili.",
+      "invalid_project": "Bilinmeyen proje.",
+      "already_member": "Bu kişi zaten üye.",
+      "departed": "Bu kişi organizasyondan ayrıldı: listeden yeniden etkinleştirin.",
+      "self": "Kendi hesabınızda yapılamaz.",
+      "last_admin": "Organizasyonda en az bir yönetici kalmalı.",
+      "missing_selection": "Kişi ve proje seçin.",
+      "inactive_member": "Projelere yalnızca etkin üyeler katılabilir.",
+      "invalid_reassign": "İş öğelerini etkin bir üyeye devredin.",
+      "forbidden": "Kişileri yalnızca organizasyon yöneticileri yönetir.",
+      "missing_file": "Bir dosya seçin.",
+      "file_too_large": "Dosya çok büyük (en fazla 2 MB).",
+      "unreadable_file": "Bu dosya okunamıyor.",
+      "unsupported_file": ".csv veya .xlsx dosyası kullanın.",
+      "missing_columns": "Dosyada en az Prénom ve E-mail sütunları olmalı.",
+      "empty_file": "Dosya boş.",
+      "too_many_rows": "İçe aktarma başına en fazla 1.000 kişi."
+    }
+  }
 }
