@@ -5,6 +5,9 @@
 from django.urls import path
 
 from plane.app.views import (
+    SteeringDashboardEndpoint,
+    SteeringDashboardIssueEndpoint,
+    SteeringDashboardVersionEndpoint,
     IssueReminderEndpoint,
     IssueRequalificationEndpoint,
     IssueSubmissionEndpoint,
@@ -87,5 +90,16 @@ urlpatterns = [
         "workspaces/<str:slug>/steering/issues/<uuid:issue_id>/reminders/",
         IssueReminderEndpoint.as_view(),
         name="steering-issue-reminders",
+    ),
+    path("workspaces/<str:slug>/steering/dashboard/", SteeringDashboardEndpoint.as_view(), name="steering-dashboard"),
+    path(
+        "workspaces/<str:slug>/steering/dashboard/version/",
+        SteeringDashboardVersionEndpoint.as_view(),
+        name="steering-dashboard-version",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/dashboard/issues/<uuid:issue_id>/",
+        SteeringDashboardIssueEndpoint.as_view(),
+        name="steering-dashboard-issue",
     ),
 ]

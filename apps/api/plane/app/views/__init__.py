@@ -276,3 +276,8 @@ from .steering.circuit import (
     IssueSubmissionEndpoint,
     SubmissionDecisionEndpoint,
 )
+from .steering.dashboard import (
+    SteeringDashboardEndpoint,
+    SteeringDashboardIssueEndpoint,
+    SteeringDashboardVersionEndpoint,
+)
