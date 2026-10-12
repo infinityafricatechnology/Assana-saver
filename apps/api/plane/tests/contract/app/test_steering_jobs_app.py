@@ -216,3 +216,14 @@ class TestWeekly:
         _task(setup, "Retard", timezone.now().date() - timedelta(days=4))
         steering_friday_noon()
         assert SteeringSnapshot.objects.filter(workspace=workspace).count() == 1
+
+
+def test_the_worker_imports_the_steering_tasks():
+    """Celery only registers the modules of CELERY_IMPORTS; a task outside it is refused by the worker."""
+    from django.conf import settings
+
+    assert {
+        "plane.bgtasks.steering_alert_email_task",
+        "plane.bgtasks.steering_jobs_task",
+        "plane.bgtasks.person_welcome_email_task",
+    } <= set(settings.CELERY_IMPORTS)
