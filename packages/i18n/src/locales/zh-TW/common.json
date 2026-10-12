@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "無法儲存管理記錄。",
         "progress": "進度是 0 到 100 之間的整數。"
-      }
+      },
+      "risk_label": "風險"
     },
     "dependencies": {
       "circular": "此相依關係會形成循環：另一個工作項目已相依於此工作項目。"
+    },
+    "circuit": {
+      "submit": "提交執行長審批",
+      "submit_title": "提交執行長審批",
+      "submit_description": "工作項目進入執行長審批佇列，並維持「核准中」直到作出決定。",
+      "message": "給執行長的留言",
+      "link": "待審批文件的連結",
+      "document_hint": "請填寫連結或選擇工作項目的附件。",
+      "attachment": "待審批的附件",
+      "attachment_placeholder": "選擇附件",
+      "risk_title": "未獲核准時的風險（選填）",
+      "submitted_toast": "已提交執行長審批。",
+      "pending": "{name} 於 {date} 提交執行長審批 · 等待決定",
+      "open_document": "開啟文件",
+      "validated": "執行長於 {date} 核准",
+      "returned": "執行長於 {date} 退回",
+      "requalified": "由{by}重新定級：{declared} → {retained}",
+      "reminders": "{count, plural, one {已催辦 # 次} other {已催辦 # 次}}，最近一次 {date}",
+      "errors": {
+        "not_assignee": "只有工作項目負責人可以提交審批。",
+        "closed": "已關閉的工作項目無法提交審批。",
+        "already_submitted": "此工作項目已在等待執行長的決定。",
+        "missing_message": "請填寫給執行長的留言。",
+        "missing_document": "請填寫待審批的連結或附件。",
+        "invalid_link": "連結必須是網址（https://…）。",
+        "invalid_attachment": "此附件已不存在。",
+        "no_ceo": "集團基礎資料中未設定執行長。",
+        "invalid_steering": "無法更新管理記錄。"
+      }
+    },
+    "history": {
+      "submitted": "提交了執行長審批",
+      "validated": "核准了工作項目",
+      "returned": "退回了工作項目",
+      "requalified": "重新定級了執行長審批佇列中的優先順序：{old} → {new}",
+      "requalification_cancelled": "取消了優先順序重新定級",
+      "reminded": "催辦了負責人",
+      "reminded_auto": "已向負責人傳送自動催辦"
+    },
+    "alerts": {
+      "deadline_soon": "距截止日期 3 天",
+      "late": "工作項目已逾期",
+      "critical": "嚴重工作項目：逾期超過 30 天",
+      "blocker_late": "阻擋您工作項目的工作項目已逾期",
+      "unblocked": "阻擋已解除",
+      "submitted": "向您提交了待審批的工作項目",
+      "validated": "核准了工作項目",
+      "returned": "退回了工作項目",
+      "submission_overdue": "提交執行長審批已 7 天，尚無決定",
+      "risk_soon": "風險將在 7 天後發生",
+      "requalified": "重新定級了執行長審批佇列中的優先順序",
+      "reminder": "就此工作項目催辦您",
+      "reminder_auto": "自動催辦：請更新此工作項目"
     }
   },
   "activity_via_claude": "透過 Claude",

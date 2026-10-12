@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "La fiche de pilotage n'a pas pu être enregistrée.",
         "progress": "L'avancement est un nombre entier de 0 à 100."
-      }
+      },
+      "risk_label": "Risque"
     },
     "dependencies": {
       "circular": "Cette dépendance créerait une boucle : l'autre tâche dépend déjà de celle-ci."
+    },
+    "circuit": {
+      "submit": "Soumettre au PDG",
+      "submit_title": "Soumettre au PDG",
+      "submit_description": "La tâche entre dans la File PDG et reste « En validation » jusqu'à la décision.",
+      "message": "Message au PDG",
+      "link": "Lien du document à valider",
+      "document_hint": "Indiquez un lien ou choisissez une pièce jointe de la tâche.",
+      "attachment": "Pièce jointe à valider",
+      "attachment_placeholder": "Choisir une pièce jointe",
+      "risk_title": "Risque si la tâche n'est pas validée (facultatif)",
+      "submitted_toast": "Tâche soumise au PDG.",
+      "pending": "Soumise au PDG le {date} par {name} · en attente de décision",
+      "open_document": "Ouvrir le document",
+      "validated": "Validée par le PDG le {date}",
+      "returned": "Renvoyée par le PDG le {date}",
+      "requalified": "Requalifiée par le {by} : {declared} → {retained}",
+      "reminders": "{count, plural, one {Relancée # fois} many {Relancée # fois} other {Relancée # fois}}, dernière le {date}",
+      "errors": {
+        "not_assignee": "Seul le responsable de la tâche peut la soumettre.",
+        "closed": "Une tâche terminée ou annulée ne peut pas être soumise.",
+        "already_submitted": "Cette tâche attend déjà la décision du PDG.",
+        "missing_message": "Écrivez un message pour le PDG.",
+        "missing_document": "Indiquez le lien ou la pièce jointe à valider.",
+        "invalid_link": "Le lien doit être une adresse web (https://…).",
+        "invalid_attachment": "Cette pièce jointe n'existe plus.",
+        "no_ceo": "Aucun PDG n'est défini dans le référentiel du Groupe.",
+        "invalid_steering": "La fiche de pilotage n'a pas pu être mise à jour."
+      }
+    },
+    "history": {
+      "submitted": "a soumis la tâche au PDG",
+      "validated": "a validé la tâche",
+      "returned": "a renvoyé la tâche",
+      "requalified": "a requalifié la priorité pour la File PDG : {old} → {new}",
+      "requalification_cancelled": "a annulé la requalification de la priorité",
+      "reminded": "a relancé le responsable",
+      "reminded_auto": "Relance automatique envoyée au responsable"
+    },
+    "alerts": {
+      "deadline_soon": "Échéance dans 3 jours",
+      "late": "Tâche en retard",
+      "critical": "Tâche critique : plus de 30 jours de retard",
+      "blocker_late": "Une tâche qui bloque la vôtre est en retard",
+      "unblocked": "Blocage levé",
+      "submitted": "vous a soumis une tâche à valider",
+      "validated": "a validé la tâche",
+      "returned": "a renvoyé la tâche",
+      "submission_overdue": "Soumise au PDG il y a 7 jours, sans décision",
+      "risk_soon": "Le risque prend effet dans 7 jours",
+      "requalified": "a requalifié la priorité pour la File PDG",
+      "reminder": "vous relance sur cette tâche",
+      "reminder_auto": "Relance automatique : fiche à mettre à jour"
     }
   },
   "activity_via_claude": "via Claude",

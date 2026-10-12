@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "Non è stato possibile salvare la scheda di controllo.",
         "progress": "L'avanzamento è un numero intero da 0 a 100."
-      }
+      },
+      "risk_label": "Rischio"
     },
     "dependencies": {
       "circular": "Questa dipendenza creerebbe un ciclo: l'altro elemento di lavoro dipende già da questo."
+    },
+    "circuit": {
+      "submit": "Sottoponi al CEO",
+      "submit_title": "Sottoponi al CEO",
+      "submit_description": "L'elemento di lavoro entra nella coda del CEO e resta « In validazione » fino alla decisione.",
+      "message": "Messaggio al CEO",
+      "link": "Link del documento da approvare",
+      "document_hint": "Indichi un link o scelga un allegato dell'elemento di lavoro.",
+      "attachment": "Allegato da approvare",
+      "attachment_placeholder": "Scegli un allegato",
+      "risk_title": "Rischio se l'elemento di lavoro non viene approvato (facoltativo)",
+      "submitted_toast": "Elemento di lavoro sottoposto al CEO.",
+      "pending": "Sottoposto al CEO il {date} da {name} · in attesa di decisione",
+      "open_document": "Apri il documento",
+      "validated": "Approvato dal CEO il {date}",
+      "returned": "Rinviato dal CEO il {date}",
+      "requalified": "Riqualificato da {by}: {declared} → {retained}",
+      "reminders": "{count, plural, one {Sollecitato # volta} many {Sollecitato # volte} other {Sollecitato # volte}}, l'ultima il {date}",
+      "errors": {
+        "not_assignee": "Solo il responsabile dell'elemento di lavoro può sottoporlo.",
+        "closed": "Un elemento di lavoro chiuso non può essere sottoposto.",
+        "already_submitted": "Questo elemento di lavoro attende già la decisione del CEO.",
+        "missing_message": "Scriva un messaggio per il CEO.",
+        "missing_document": "Indichi il link o l'allegato da approvare.",
+        "invalid_link": "Il link deve essere un indirizzo web (https://…).",
+        "invalid_attachment": "Questo allegato non esiste più.",
+        "no_ceo": "Nessun CEO è definito nel referenziale del Gruppo.",
+        "invalid_steering": "Non è stato possibile aggiornare la scheda di controllo."
+      }
+    },
+    "history": {
+      "submitted": "ha sottoposto l'elemento di lavoro al CEO",
+      "validated": "ha approvato l'elemento di lavoro",
+      "returned": "ha rinviato l'elemento di lavoro",
+      "requalified": "ha riqualificato la priorità per la coda del CEO: {old} → {new}",
+      "requalification_cancelled": "ha annullato la riqualificazione della priorità",
+      "reminded": "ha sollecitato il responsabile",
+      "reminded_auto": "Sollecito automatico inviato al responsabile"
+    },
+    "alerts": {
+      "deadline_soon": "Scadenza tra 3 giorni",
+      "late": "Elemento di lavoro in ritardo",
+      "critical": "Elemento di lavoro critico: più di 30 giorni di ritardo",
+      "blocker_late": "Un elemento di lavoro che blocca il suo è in ritardo",
+      "unblocked": "Blocco rimosso",
+      "submitted": "le ha sottoposto un elemento di lavoro da approvare",
+      "validated": "ha approvato l'elemento di lavoro",
+      "returned": "ha rinviato l'elemento di lavoro",
+      "submission_overdue": "Sottoposto al CEO 7 giorni fa, senza decisione",
+      "risk_soon": "Il rischio si concretizza tra 7 giorni",
+      "requalified": "ha riqualificato la priorità per la coda del CEO",
+      "reminder": "la sollecita su questo elemento di lavoro",
+      "reminder_auto": "Sollecito automatico: aggiorni questo elemento di lavoro"
     }
   },
   "activity_via_claude": "tramite Claude",

@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "Nie udało się zapisać karty zarządczej.",
         "progress": "Postęp to liczba całkowita od 0 do 100."
-      }
+      },
+      "risk_label": "Ryzyko"
     },
     "dependencies": {
       "circular": "Ta zależność utworzyłaby pętlę: drugi element pracy już zależy od tego."
+    },
+    "circuit": {
+      "submit": "Przekaż Prezesowi",
+      "submit_title": "Przekaż Prezesowi",
+      "submit_description": "Element pracy trafia do kolejki Prezesa i pozostaje « W zatwierdzaniu » do czasu decyzji.",
+      "message": "Wiadomość do Prezesa",
+      "link": "Link do dokumentu do zatwierdzenia",
+      "document_hint": "Podaj link lub wybierz załącznik elementu pracy.",
+      "attachment": "Załącznik do zatwierdzenia",
+      "attachment_placeholder": "Wybierz załącznik",
+      "risk_title": "Ryzyko, jeśli element pracy nie zostanie zatwierdzony (opcjonalnie)",
+      "submitted_toast": "Element pracy przekazany Prezesowi.",
+      "pending": "Przekazane Prezesowi {date} przez {name} · oczekuje na decyzję",
+      "open_document": "Otwórz dokument",
+      "validated": "Zatwierdzone przez Prezesa {date}",
+      "returned": "Zwrócone przez Prezesa {date}",
+      "requalified": "Przekwalifikowane przez {by}: {declared} → {retained}",
+      "reminders": "{count, plural, one {Przypomniano # raz} few {Przypomniano # razy} many {Przypomniano # razy} other {Przypomniano # razy}}, ostatnio {date}",
+      "errors": {
+        "not_assignee": "Przekazać go może tylko osoba odpowiedzialna.",
+        "closed": "Zamkniętego elementu pracy nie można przekazać.",
+        "already_submitted": "Ten element pracy już czeka na decyzję Prezesa.",
+        "missing_message": "Napisz wiadomość do Prezesa.",
+        "missing_document": "Podaj link lub załącznik do zatwierdzenia.",
+        "invalid_link": "Link musi być adresem internetowym (https://…).",
+        "invalid_attachment": "Ten załącznik już nie istnieje.",
+        "no_ceo": "W danych referencyjnych Grupy nie ustawiono Prezesa.",
+        "invalid_steering": "Nie udało się zaktualizować karty zarządczej."
+      }
+    },
+    "history": {
+      "submitted": "przekazał(a) element pracy Prezesowi",
+      "validated": "zatwierdził(a) element pracy",
+      "returned": "zwrócił(a) element pracy",
+      "requalified": "przekwalifikował(a) priorytet w kolejce Prezesa: {old} → {new}",
+      "requalification_cancelled": "anulował(a) przekwalifikowanie priorytetu",
+      "reminded": "przypomniał(a) osobie odpowiedzialnej",
+      "reminded_auto": "Wysłano automatyczne przypomnienie do osoby odpowiedzialnej"
+    },
+    "alerts": {
+      "deadline_soon": "Termin za 3 dni",
+      "late": "Element pracy po terminie",
+      "critical": "Krytyczny element pracy: ponad 30 dni opóźnienia",
+      "blocker_late": "Element pracy, który blokuje Twój, jest opóźniony",
+      "unblocked": "Blokada zniesiona",
+      "submitted": "przekazał(a) Ci element pracy do zatwierdzenia",
+      "validated": "zatwierdził(a) element pracy",
+      "returned": "zwrócił(a) element pracy",
+      "submission_overdue": "Przekazane Prezesowi 7 dni temu, bez decyzji",
+      "risk_soon": "Ryzyko zmaterializuje się za 7 dni",
+      "requalified": "przekwalifikował(a) priorytet w kolejce Prezesa",
+      "reminder": "przypomina Ci o tym elemencie pracy",
+      "reminder_auto": "Automatyczne przypomnienie: zaktualizuj ten element pracy"
     }
   },
   "activity_via_claude": "przez Claude",

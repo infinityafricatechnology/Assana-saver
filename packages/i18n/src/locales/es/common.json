@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "No se pudo guardar la ficha de seguimiento.",
         "progress": "El avance es un número entero de 0 a 100."
-      }
+      },
+      "risk_label": "Riesgo"
     },
     "dependencies": {
       "circular": "Esta dependencia crearía un bucle: el otro elemento de trabajo ya depende de este."
+    },
+    "circuit": {
+      "submit": "Someter al CEO",
+      "submit_title": "Someter al CEO",
+      "submit_description": "El elemento de trabajo entra en la cola del CEO y queda « En validación » hasta la decisión.",
+      "message": "Mensaje al CEO",
+      "link": "Enlace del documento a validar",
+      "document_hint": "Indique un enlace o elija un adjunto del elemento de trabajo.",
+      "attachment": "Adjunto a validar",
+      "attachment_placeholder": "Elegir un adjunto",
+      "risk_title": "Riesgo si el elemento de trabajo no se valida (opcional)",
+      "submitted_toast": "Elemento de trabajo sometido al CEO.",
+      "pending": "Sometido al CEO el {date} por {name} · pendiente de decisión",
+      "open_document": "Abrir el documento",
+      "validated": "Validado por el CEO el {date}",
+      "returned": "Devuelto por el CEO el {date}",
+      "requalified": "Recalificado por {by}: {declared} → {retained}",
+      "reminders": "{count, plural, one {Recordado # vez} other {Recordado # veces}}, la última el {date}",
+      "errors": {
+        "not_assignee": "Solo el responsable del elemento de trabajo puede someterlo.",
+        "closed": "Un elemento de trabajo cerrado no se puede someter.",
+        "already_submitted": "Este elemento de trabajo ya espera la decisión del CEO.",
+        "missing_message": "Escriba un mensaje para el CEO.",
+        "missing_document": "Indique el enlace o el adjunto a validar.",
+        "invalid_link": "El enlace debe ser una dirección web (https://…).",
+        "invalid_attachment": "Este adjunto ya no existe.",
+        "no_ceo": "No hay ningún CEO definido en el referencial del Grupo.",
+        "invalid_steering": "No se pudo actualizar la ficha de seguimiento."
+      }
+    },
+    "history": {
+      "submitted": "sometió el elemento de trabajo al CEO",
+      "validated": "validó el elemento de trabajo",
+      "returned": "devolvió el elemento de trabajo",
+      "requalified": "recalificó la prioridad para la cola del CEO: {old} → {new}",
+      "requalification_cancelled": "anuló la recalificación de la prioridad",
+      "reminded": "envió un recordatorio al responsable",
+      "reminded_auto": "Recordatorio automático enviado al responsable"
+    },
+    "alerts": {
+      "deadline_soon": "Fecha límite en 3 días",
+      "late": "Elemento de trabajo atrasado",
+      "critical": "Elemento de trabajo crítico: más de 30 días de retraso",
+      "blocker_late": "Un elemento de trabajo que bloquea el suyo está atrasado",
+      "unblocked": "Bloqueo levantado",
+      "submitted": "le sometió un elemento de trabajo para validar",
+      "validated": "validó el elemento de trabajo",
+      "returned": "devolvió el elemento de trabajo",
+      "submission_overdue": "Sometido al CEO hace 7 días, sin decisión",
+      "risk_soon": "El riesgo se materializa en 7 días",
+      "requalified": "recalificó la prioridad para la cola del CEO",
+      "reminder": "le envía un recordatorio sobre este elemento de trabajo",
+      "reminder_auto": "Recordatorio automático: actualice este elemento de trabajo"
     }
   },
   "activity_via_claude": "vía Claude",

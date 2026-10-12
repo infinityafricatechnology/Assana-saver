@@ -102,6 +102,45 @@ export type TSteeringMissingField =
   | "waiting_for"
   | "closure";
 
+export type TSteeringPerson = { id: string; display_name: string };
+
+export type TSteeringSubmission = {
+  id: string;
+  status: "pending" | "validated" | "returned";
+  message: string;
+  link: string;
+  attachment_id: string | null;
+  submitted_by: TSteeringPerson | null;
+  submitted_at: string;
+  decided_by: TSteeringPerson | null;
+  decided_at: string | null;
+  decision_comment: string;
+};
+
+/** Where a work item stands in the CEO circuit (§8) and its reminders (§9.1). */
+export type TSteeringCircuit = {
+  submissions: TSteeringSubmission[];
+  pending_submission_id: string | null;
+  requalification: {
+    priority: string;
+    declared_priority: string;
+    comment: string;
+    by_role: "ceo" | "cabinet";
+    by: TSteeringPerson | null;
+    at: string;
+  } | null;
+  reminders: { count: number; last_at: string | null };
+};
+
+export type TSubmissionPayload = {
+  message: string;
+  link?: string;
+  attachment_id?: string | null;
+  risk_nature?: string | null;
+  risk_effective_date?: string | null;
+  risk_description?: string;
+};
+
 export type TIssueSteering = {
   issue_id: string;
   /** null: carried by the project's entity. */
@@ -123,6 +162,7 @@ export type TIssueSteering = {
   situation_updated_at: string | null;
   updated_at: string | null;
   missing: TSteeringMissingField[];
+  circuit: TSteeringCircuit;
 };
 
 export type TIssueSteeringPayload = Partial<
@@ -240,5 +280,39 @@ export class SteeringService extends APIService {
     return this.unwrap(
       this.patch(`/api/workspaces/${workspaceSlug}/projects/${projectId}/issues/${issueId}/steering/`, data)
     );
+  }
+
+  submitToCeo(
+    workspaceSlug: string,
+    projectId: string,
+    issueId: string,
+    data: TSubmissionPayload
+  ): Promise<TSteeringCircuit> {
+    return this.unwrap(
+      this.post(`/api/workspaces/${workspaceSlug}/projects/${projectId}/issues/${issueId}/steering/submission/`, data)
+    );
+  }
+
+  decide(
+    workspaceSlug: string,
+    submissionId: string,
+    decision: "validated" | "returned",
+    comment: string
+  ): Promise<TSteeringCircuit> {
+    return this.unwrap(
+      this.post(this.url(workspaceSlug, `submissions/${submissionId}/decision/`), { decision, comment })
+    );
+  }
+
+  requalify(workspaceSlug: string, issueId: string, priority: string, comment: string): Promise<TSteeringCircuit> {
+    return this.unwrap(this.post(this.url(workspaceSlug, `issues/${issueId}/requalification/`), { priority, comment }));
+  }
+
+  cancelRequalification(workspaceSlug: string, issueId: string): Promise<TSteeringCircuit> {
+    return this.unwrap(this.delete(this.url(workspaceSlug, `issues/${issueId}/requalification/`)));
+  }
+
+  remind(workspaceSlug: string, issueId: string, message: string): Promise<TSteeringCircuit> {
+    return this.unwrap(this.post(this.url(workspaceSlug, `issues/${issueId}/reminders/`), { message }));
   }
 }

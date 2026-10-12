@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "Der Steuerungsdatensatz konnte nicht gespeichert werden.",
         "progress": "Der Fortschritt ist eine ganze Zahl von 0 bis 100."
-      }
+      },
+      "risk_label": "Risiko"
     },
     "dependencies": {
       "circular": "Diese Abhängigkeit würde eine Schleife bilden: Das andere Arbeitselement hängt bereits von diesem ab."
+    },
+    "circuit": {
+      "submit": "Dem CEO vorlegen",
+      "submit_title": "Dem CEO vorlegen",
+      "submit_description": "Das Arbeitselement kommt in die CEO-Warteschlange und bleibt bis zur Entscheidung « In Prüfung ».",
+      "message": "Nachricht an den CEO",
+      "link": "Link zum zu genehmigenden Dokument",
+      "document_hint": "Geben Sie einen Link an oder wählen Sie einen Anhang des Arbeitselements.",
+      "attachment": "Zu genehmigender Anhang",
+      "attachment_placeholder": "Anhang auswählen",
+      "risk_title": "Risiko, falls das Arbeitselement nicht genehmigt wird (optional)",
+      "submitted_toast": "Arbeitselement dem CEO vorgelegt.",
+      "pending": "Am {date} von {name} dem CEO vorgelegt · Entscheidung ausstehend",
+      "open_document": "Dokument öffnen",
+      "validated": "Am {date} vom CEO genehmigt",
+      "returned": "Am {date} vom CEO zurückgegeben",
+      "requalified": "Neu eingestuft durch {by}: {declared} → {retained}",
+      "reminders": "{count, plural, one {# Mal erinnert} other {# Mal erinnert}}, zuletzt am {date}",
+      "errors": {
+        "not_assignee": "Nur der Verantwortliche des Arbeitselements kann es vorlegen.",
+        "closed": "Ein abgeschlossenes Arbeitselement kann nicht vorgelegt werden.",
+        "already_submitted": "Dieses Arbeitselement wartet bereits auf die Entscheidung des CEO.",
+        "missing_message": "Schreiben Sie eine Nachricht an den CEO.",
+        "missing_document": "Geben Sie den Link oder den Anhang zur Genehmigung an.",
+        "invalid_link": "Der Link muss eine Webadresse sein (https://…).",
+        "invalid_attachment": "Dieser Anhang existiert nicht mehr.",
+        "no_ceo": "In der Gruppenreferenz ist kein CEO festgelegt.",
+        "invalid_steering": "Der Steuerungsdatensatz konnte nicht aktualisiert werden."
+      }
+    },
+    "history": {
+      "submitted": "hat das Arbeitselement dem CEO vorgelegt",
+      "validated": "hat das Arbeitselement genehmigt",
+      "returned": "hat das Arbeitselement zurückgegeben",
+      "requalified": "hat die Priorität für die CEO-Warteschlange neu eingestuft: {old} → {new}",
+      "requalification_cancelled": "hat die Neueinstufung der Priorität aufgehoben",
+      "reminded": "hat den Verantwortlichen erinnert",
+      "reminded_auto": "Automatische Erinnerung an den Verantwortlichen gesendet"
+    },
+    "alerts": {
+      "deadline_soon": "Frist in 3 Tagen",
+      "late": "Arbeitselement überfällig",
+      "critical": "Kritisches Arbeitselement: mehr als 30 Tage Verzug",
+      "blocker_late": "Ein Arbeitselement, das Ihres blockiert, ist im Verzug",
+      "unblocked": "Blockade aufgehoben",
+      "submitted": "hat Ihnen ein Arbeitselement zur Genehmigung vorgelegt",
+      "validated": "hat das Arbeitselement genehmigt",
+      "returned": "hat das Arbeitselement zurückgegeben",
+      "submission_overdue": "Vor 7 Tagen dem CEO vorgelegt, ohne Entscheidung",
+      "risk_soon": "Das Risiko tritt in 7 Tagen ein",
+      "requalified": "hat die Priorität für die CEO-Warteschlange neu eingestuft",
+      "reminder": "erinnert Sie an dieses Arbeitselement",
+      "reminder_auto": "Automatische Erinnerung: bitte aktualisieren Sie dieses Arbeitselement"
     }
   },
   "activity_via_claude": "über Claude",

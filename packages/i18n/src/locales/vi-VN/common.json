@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "Không thể lưu hồ sơ điều hành.",
         "progress": "Tiến độ là số nguyên từ 0 đến 100."
-      }
+      },
+      "risk_label": "Rủi ro"
     },
     "dependencies": {
       "circular": "Phụ thuộc này sẽ tạo thành vòng lặp: mục công việc kia đã phụ thuộc vào mục này."
+    },
+    "circuit": {
+      "submit": "Trình Tổng giám đốc",
+      "submit_title": "Trình Tổng giám đốc",
+      "submit_description": "Mục công việc vào hàng chờ của Tổng giám đốc và giữ trạng thái « Đang phê duyệt » đến khi có quyết định.",
+      "message": "Lời nhắn gửi Tổng giám đốc",
+      "link": "Liên kết tài liệu cần phê duyệt",
+      "document_hint": "Nhập một liên kết hoặc chọn tệp đính kèm của mục công việc.",
+      "attachment": "Tệp đính kèm cần phê duyệt",
+      "attachment_placeholder": "Chọn tệp đính kèm",
+      "risk_title": "Rủi ro nếu mục công việc không được phê duyệt (không bắt buộc)",
+      "submitted_toast": "Đã trình Tổng giám đốc.",
+      "pending": "Trình Tổng giám đốc ngày {date} bởi {name} · đang chờ quyết định",
+      "open_document": "Mở tài liệu",
+      "validated": "Tổng giám đốc đã phê duyệt ngày {date}",
+      "returned": "Tổng giám đốc đã trả lại ngày {date}",
+      "requalified": "Được {by} xếp lại: {declared} → {retained}",
+      "reminders": "{count, plural, one {Đã nhắc # lần} other {Đã nhắc # lần}}, lần cuối ngày {date}",
+      "errors": {
+        "not_assignee": "Chỉ người phụ trách mục công việc mới có thể trình.",
+        "closed": "Không thể trình một mục công việc đã đóng.",
+        "already_submitted": "Mục công việc này đang chờ quyết định của Tổng giám đốc.",
+        "missing_message": "Hãy viết lời nhắn cho Tổng giám đốc.",
+        "missing_document": "Hãy nhập liên kết hoặc tệp đính kèm cần phê duyệt.",
+        "invalid_link": "Liên kết phải là địa chỉ web (https://…).",
+        "invalid_attachment": "Tệp đính kèm này không còn tồn tại.",
+        "no_ceo": "Chưa có Tổng giám đốc trong danh mục Tập đoàn.",
+        "invalid_steering": "Không thể cập nhật hồ sơ điều hành."
+      }
+    },
+    "history": {
+      "submitted": "đã trình mục công việc lên Tổng giám đốc",
+      "validated": "đã phê duyệt mục công việc",
+      "returned": "đã trả lại mục công việc",
+      "requalified": "đã xếp lại mức ưu tiên trong hàng chờ của Tổng giám đốc: {old} → {new}",
+      "requalification_cancelled": "đã hủy việc xếp lại mức ưu tiên",
+      "reminded": "đã nhắc người phụ trách",
+      "reminded_auto": "Đã gửi lời nhắc tự động đến người phụ trách"
+    },
+    "alerts": {
+      "deadline_soon": "Còn 3 ngày đến hạn",
+      "late": "Mục công việc trễ hạn",
+      "critical": "Mục công việc nghiêm trọng: trễ hơn 30 ngày",
+      "blocker_late": "Một mục công việc chặn mục của bạn đang trễ hạn",
+      "unblocked": "Đã gỡ chặn",
+      "submitted": "đã trình bạn một mục công việc cần phê duyệt",
+      "validated": "đã phê duyệt mục công việc",
+      "returned": "đã trả lại mục công việc",
+      "submission_overdue": "Đã trình Tổng giám đốc 7 ngày trước, chưa có quyết định",
+      "risk_soon": "Rủi ro sẽ xảy ra sau 7 ngày",
+      "requalified": "đã xếp lại mức ưu tiên trong hàng chờ của Tổng giám đốc",
+      "reminder": "nhắc bạn về mục công việc này",
+      "reminder_auto": "Nhắc tự động: hãy cập nhật mục công việc này"
     }
   },
   "activity_via_claude": "qua Claude",

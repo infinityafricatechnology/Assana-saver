@@ -270,3 +270,9 @@ from .people.base import (
     PersonDetailEndpoint,
     PersonReactivationEndpoint,
 )
+from .steering.circuit import (
+    IssueReminderEndpoint,
+    IssueRequalificationEndpoint,
+    IssueSubmissionEndpoint,
+    SubmissionDecisionEndpoint,
+)

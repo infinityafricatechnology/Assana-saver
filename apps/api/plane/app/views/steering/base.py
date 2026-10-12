@@ -42,6 +42,7 @@ from plane.utils.steering import (
 )
 
 from ..base import BaseAPIView
+from .circuit import circuit_payload
 
 # Starting referential from the specification (cahier des charges §3.1 and §4).
 DEFAULT_BRANCHES = [
@@ -450,6 +451,7 @@ def _issue_steering_payload(issue: Issue, steering: Optional[IssueSteering]) -> 
         "situation_updated_at": record.situation_updated_at,
         "updated_at": steering.updated_at if steering else None,
         "missing": missing_steering_fields(issue, steering, project_entity_id),
+        "circuit": circuit_payload(issue),
     }
 
 

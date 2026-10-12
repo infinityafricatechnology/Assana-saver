@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "Fișa de coordonare nu a putut fi salvată.",
         "progress": "Progresul este un număr întreg de la 0 la 100."
-      }
+      },
+      "risk_label": "Risc"
     },
     "dependencies": {
       "circular": "Această dependență ar crea o buclă: celălalt element de lucru depinde deja de acesta."
+    },
+    "circuit": {
+      "submit": "Supuneți CEO-ului",
+      "submit_title": "Supuneți CEO-ului",
+      "submit_description": "Elementul de lucru intră în coada CEO-ului și rămâne « În validare » până la decizie.",
+      "message": "Mesaj pentru CEO",
+      "link": "Linkul documentului de validat",
+      "document_hint": "Indicați un link sau alegeți un atașament al elementului de lucru.",
+      "attachment": "Atașament de validat",
+      "attachment_placeholder": "Alegeți un atașament",
+      "risk_title": "Risc dacă elementul de lucru nu este validat (opțional)",
+      "submitted_toast": "Element de lucru supus CEO-ului.",
+      "pending": "Supus CEO-ului la {date} de {name} · în așteptarea deciziei",
+      "open_document": "Deschideți documentul",
+      "validated": "Validat de CEO la {date}",
+      "returned": "Returnat de CEO la {date}",
+      "requalified": "Recalificat de {by}: {declared} → {retained}",
+      "reminders": "{count, plural, one {Reamintit o dată} few {Reamintit de # ori} other {Reamintit de # de ori}}, ultima dată la {date}",
+      "errors": {
+        "not_assignee": "Doar responsabilul elementului de lucru îl poate supune.",
+        "closed": "Un element de lucru închis nu poate fi supus.",
+        "already_submitted": "Acest element de lucru așteaptă deja decizia CEO-ului.",
+        "missing_message": "Scrieți un mesaj pentru CEO.",
+        "missing_document": "Indicați linkul sau atașamentul de validat.",
+        "invalid_link": "Linkul trebuie să fie o adresă web (https://…).",
+        "invalid_attachment": "Acest atașament nu mai există.",
+        "no_ceo": "Niciun CEO nu este definit în referențialul Grupului.",
+        "invalid_steering": "Fișa de coordonare nu a putut fi actualizată."
+      }
+    },
+    "history": {
+      "submitted": "a supus elementul de lucru CEO-ului",
+      "validated": "a validat elementul de lucru",
+      "returned": "a returnat elementul de lucru",
+      "requalified": "a recalificat prioritatea pentru coada CEO-ului: {old} → {new}",
+      "requalification_cancelled": "a anulat recalificarea priorității",
+      "reminded": "a trimis o reamintire responsabilului",
+      "reminded_auto": "Reamintire automată trimisă responsabilului"
+    },
+    "alerts": {
+      "deadline_soon": "Termen în 3 zile",
+      "late": "Element de lucru întârziat",
+      "critical": "Element de lucru critic: peste 30 de zile de întârziere",
+      "blocker_late": "Un element de lucru care îl blochează pe al dvs. este întârziat",
+      "unblocked": "Blocaj ridicat",
+      "submitted": "v-a supus un element de lucru spre validare",
+      "validated": "a validat elementul de lucru",
+      "returned": "a returnat elementul de lucru",
+      "submission_overdue": "Supus CEO-ului acum 7 zile, fără decizie",
+      "risk_soon": "Riscul intră în vigoare în 7 zile",
+      "requalified": "a recalificat prioritatea pentru coada CEO-ului",
+      "reminder": "vă reamintește de acest element de lucru",
+      "reminder_auto": "Reamintire automată: actualizați acest element de lucru"
     }
   },
   "activity_via_claude": "prin Claude",

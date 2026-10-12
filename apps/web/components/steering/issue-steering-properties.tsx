@@ -42,6 +42,7 @@ import type {
 } from "@/services/steering.service";
 import { STEERING_RISK_NATURES, STEERING_STATUSES, STEERING_WAITING_FOR } from "@/services/steering.service";
 // local imports
+import { SteeringCircuitSummary } from "./circuit-summary";
 import { SteeringStatusDialog } from "./status-dialog";
 
 export const STEERING_STATUS_COLORS: Record<TSteeringStatus, string> = {
@@ -223,6 +224,14 @@ export const IssueSteeringProperties = observer(function IssueSteeringProperties
         </p>
       )}
 
+      <SteeringCircuitSummary
+        workspaceSlug={workspaceSlug}
+        projectId={projectId}
+        issueId={issueId}
+        steering={steering}
+        disabled={disabled}
+      />
+
       <SidebarPropertyListItem icon={StateOutline} label={t("steering.task.fields.status")}>
         <ChoiceSelect
           fieldLabel={t("steering.task.fields.status")}
@@ -336,7 +345,7 @@ export const IssueSteeringProperties = observer(function IssueSteeringProperties
         />
       </SidebarPropertyListItem>
 
-      <SidebarPropertyListItem icon={WarningTriangleOutline} label={t("steering.task.fields.risk_nature")}>
+      <SidebarPropertyListItem icon={WarningTriangleOutline} label={t("steering.task.risk_label")}>
         <ChoiceSelect
           fieldLabel={t("steering.task.fields.risk_nature")}
           options={STEERING_RISK_NATURES.map((value) => ({ value, label: t(`steering.task.risk.${value}`) }))}

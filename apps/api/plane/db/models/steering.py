@@ -200,6 +200,132 @@ class IssueSteering(BaseModel):
         db_table = "issue_steerings"
 
 
+class SteeringSubmissionStatus(models.TextChoices):
+    PENDING = "pending", "En attente de décision"
+    VALIDATED = "validated", "Validée"
+    RETURNED = "returned", "Renvoyée"
+
+
+class SteeringSubmission(BaseModel):
+    """
+    A work item submitted to the CEO (§8.1): the assignee submits from the entity's space with a
+    message and the document to validate, the CEO validates or returns it from the steering space.
+    The submission date is frozen; every submission and decision is kept.
+    """
+
+    issue = models.ForeignKey("db.Issue", on_delete=models.CASCADE, related_name="steering_submissions")
+    project = models.ForeignKey("db.Project", on_delete=models.CASCADE, related_name="steering_submissions")
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="steering_submissions")
+    submitted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="steering_submissions"
+    )
+    submitted_at = models.DateTimeField()
+    message = models.TextField()
+    link = models.URLField(max_length=1000, blank=True, default="")
+    attachment = models.ForeignKey(
+        "db.FileAsset", on_delete=models.SET_NULL, null=True, blank=True, related_name="steering_submissions"
+    )
+    status = models.CharField(
+        max_length=20, choices=SteeringSubmissionStatus.choices, default=SteeringSubmissionStatus.PENDING
+    )
+    decided_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="steering_decisions"
+    )
+    decided_at = models.DateTimeField(null=True, blank=True)
+    decision_comment = models.TextField(blank=True, default="")
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["issue"],
+                condition=Q(status="pending", deleted_at__isnull=True),
+                name="steering_one_pending_submission_per_issue",
+            )
+        ]
+        db_table = "steering_submissions"
+        ordering = ("-submitted_at",)
+
+
+class PriorityRequalification(BaseModel):
+    """
+    The priority the Cabinet or the CEO retains for a work item in the CEO queue (§8.2). The priority
+    declared by the entity stays on the work item; a cancelled requalification no longer applies.
+    """
+
+    issue = models.ForeignKey("db.Issue", on_delete=models.CASCADE, related_name="priority_requalifications")
+    project = models.ForeignKey("db.Project", on_delete=models.CASCADE, related_name="priority_requalifications")
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="priority_requalifications")
+    priority = models.CharField(max_length=30)
+    declared_priority = models.CharField(max_length=30)
+    comment = models.TextField()
+    requalified_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="priority_requalifications"
+    )
+    by_role = models.CharField(max_length=30, choices=SteeringProfileRole.choices)
+    cancelled_at = models.DateTimeField(null=True, blank=True)
+    cancelled_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="+"
+    )
+
+    class Meta:
+        db_table = "steering_priority_requalifications"
+        ordering = ("-created_at",)
+
+
+class SteeringReminderReason(models.TextChoices):
+    MANUAL = "manual", "Relance manuelle"
+    DORMANT = "dormant", "Fiche dormante"
+    INCONSISTENT = "inconsistent", "Incohérence"
+    INCOMPLETE = "incomplete", "Fiche incomplète"
+
+
+class SteeringReminder(BaseModel):
+    """A reminder sent to the people in charge of a work item (§9.1), by the Cabinet, the CEO or the weekly run."""
+
+    issue = models.ForeignKey("db.Issue", on_delete=models.CASCADE, related_name="steering_reminders")
+    project = models.ForeignKey("db.Project", on_delete=models.CASCADE, related_name="steering_reminders")
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="steering_reminders")
+    # Null for the weekly automatic reminder.
+    sent_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="steering_reminders"
+    )
+    reason = models.CharField(max_length=20, choices=SteeringReminderReason.choices)
+    message = models.TextField(blank=True, default="")
+    recipient_ids = models.JSONField(default=list)
+
+    class Meta:
+        db_table = "steering_reminders"
+        ordering = ("-created_at",)
+
+
+class SteeringAlertLog(models.Model):
+    """One line per alert sent: « une même alerte n'est envoyée qu'une fois par tâche et par événement » (§9.2)."""
+
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="steering_alert_logs")
+    issue = models.ForeignKey("db.Issue", on_delete=models.CASCADE, related_name="steering_alert_logs")
+    event = models.CharField(max_length=40)
+    # What makes the event unique, e.g. the deadline it is about or the submission it follows.
+    key = models.CharField(max_length=100, blank=True, default="")
+    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="+")
+    sent_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["issue", "event", "key", "recipient"], name="steering_alert_once_per_event")
+        ]
+        db_table = "steering_alert_logs"
+
+
+class SteeringEmailPreference(models.Model):
+    """« Chaque utilisateur peut couper les e-mails, pas les alertes dans la plateforme » (§9.2)."""
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="steering_email")
+    emails_enabled = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = "steering_email_preferences"
+
+
 THREE_PRIORITIES = ("urgent", "high", "medium")
 
 

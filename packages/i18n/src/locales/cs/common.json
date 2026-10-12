@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "Řídicí záznam se nepodařilo uložit.",
         "progress": "Postup je celé číslo od 0 do 100."
-      }
+      },
+      "risk_label": "Riziko"
     },
     "dependencies": {
       "circular": "Tato závislost by vytvořila smyčku: druhá pracovní položka už na této závisí."
+    },
+    "circuit": {
+      "submit": "Předložit generálnímu řediteli",
+      "submit_title": "Předložit generálnímu řediteli",
+      "submit_description": "Pracovní položka vstoupí do fronty generálního ředitele a zůstane « Ve schvalování » až do rozhodnutí.",
+      "message": "Zpráva generálnímu řediteli",
+      "link": "Odkaz na dokument ke schválení",
+      "document_hint": "Uveďte odkaz nebo vyberte přílohu pracovní položky.",
+      "attachment": "Příloha ke schválení",
+      "attachment_placeholder": "Vyberte přílohu",
+      "risk_title": "Riziko, pokud pracovní položka nebude schválena (nepovinné)",
+      "submitted_toast": "Pracovní položka předložena generálnímu řediteli.",
+      "pending": "Předloženo generálnímu řediteli {date} ({name}) · čeká na rozhodnutí",
+      "open_document": "Otevřít dokument",
+      "validated": "Schváleno generálním ředitelem {date}",
+      "returned": "Vráceno generálním ředitelem {date}",
+      "requalified": "Přeřazeno ({by}): {declared} → {retained}",
+      "reminders": "{count, plural, one {Připomenuto # krát} few {Připomenuto # krát} many {Připomenuto # krát} other {Připomenuto # krát}}, naposledy {date}",
+      "errors": {
+        "not_assignee": "Předložit ji může jen odpovědná osoba.",
+        "closed": "Uzavřenou pracovní položku nelze předložit.",
+        "already_submitted": "Tato pracovní položka už čeká na rozhodnutí generálního ředitele.",
+        "missing_message": "Napište zprávu generálnímu řediteli.",
+        "missing_document": "Uveďte odkaz nebo přílohu ke schválení.",
+        "invalid_link": "Odkaz musí být webová adresa (https://…).",
+        "invalid_attachment": "Tato příloha už neexistuje.",
+        "no_ceo": "V referenčních údajích skupiny není nastaven generální ředitel.",
+        "invalid_steering": "Řídicí záznam se nepodařilo aktualizovat."
+      }
+    },
+    "history": {
+      "submitted": "předložil(a) pracovní položku generálnímu řediteli",
+      "validated": "schválil(a) pracovní položku",
+      "returned": "vrátil(a) pracovní položku",
+      "requalified": "přeřadil(a) prioritu pro frontu generálního ředitele: {old} → {new}",
+      "requalification_cancelled": "zrušil(a) přeřazení priority",
+      "reminded": "připomněl(a) se odpovědné osobě",
+      "reminded_auto": "Automatická připomínka odeslána odpovědné osobě"
+    },
+    "alerts": {
+      "deadline_soon": "Termín za 3 dny",
+      "late": "Pracovní položka po termínu",
+      "critical": "Kritická pracovní položka: více než 30 dní zpoždění",
+      "blocker_late": "Pracovní položka, která blokuje vaši, je po termínu",
+      "unblocked": "Blokace zrušena",
+      "submitted": "vám předložil(a) pracovní položku ke schválení",
+      "validated": "schválil(a) pracovní položku",
+      "returned": "vrátil(a) pracovní položku",
+      "submission_overdue": "Předloženo generálnímu řediteli před 7 dny bez rozhodnutí",
+      "risk_soon": "Riziko nastane za 7 dní",
+      "requalified": "přeřadil(a) prioritu pro frontu generálního ředitele",
+      "reminder": "vám připomíná tuto pracovní položku",
+      "reminder_auto": "Automatická připomínka: aktualizujte tuto pracovní položku"
     }
   },
   "activity_via_claude": "přes Claude",

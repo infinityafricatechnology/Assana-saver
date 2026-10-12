@@ -50,3 +50,45 @@ export const IssueSteeringActivity = observer(function IssueSteeringActivity(pro
     </IssueActivityBlockComponent>
   );
 });
+
+type TSteeringEvent = { event?: string; text?: string; role?: string; reason?: string };
+
+const readEvent = (comment: string | undefined): TSteeringEvent => {
+  try {
+    return JSON.parse(comment ?? "{}") as TSteeringEvent;
+  } catch {
+    return {};
+  }
+};
+
+/** A step of the CEO circuit or a reminder (§8, §9.1): the event and its comment travel as JSON. */
+export const IssueSteeringEventActivity = observer(function IssueSteeringEventActivity(props: TIssueSteeringActivity) {
+  const { activityId, ends } = props;
+  const { t } = useTranslation();
+  const {
+    activity: { getActivityById },
+  } = useIssueDetail();
+
+  const activity = getActivityById(activityId);
+  if (!activity) return <></>;
+
+  const { event = "", text } = readEvent(activity.comment);
+  const key = event === "reminded" && !activity.actor ? "reminded_auto" : event;
+  const sentence = t(`steering.history.${key}`, {
+    old: activity.old_value ? t(activity.old_value) : "",
+    new: activity.new_value ? t(activity.new_value) : "",
+  });
+
+  return (
+    <IssueActivityBlockComponent
+      icon={<StateOutline className="h-3.5 w-3.5 text-secondary" aria-hidden="true" />}
+      activityId={activityId}
+      ends={ends}
+    >
+      <>
+        {sentence}
+        {text && <span className="text-secondary">{` : « ${text} »`}</span>}
+      </>
+    </IssueActivityBlockComponent>
+  );
+});

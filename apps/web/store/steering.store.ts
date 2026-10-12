@@ -11,6 +11,8 @@ import { computedFn } from "mobx-utils";
 import type {
   TIssueSteering,
   TIssueSteeringPayload,
+  TSteeringCircuit,
+  TSubmissionPayload,
   TSteeringBranch,
   TSteeringEntity,
   TSteeringProfile,
@@ -56,6 +58,8 @@ export interface ISteeringStore {
     issueId: string,
     data: TIssueSteeringPayload
   ) => Promise<TIssueSteering>;
+  submitToCeo: (workspaceSlug: string, projectId: string, issueId: string, data: TSubmissionPayload) => Promise<void>;
+  setCircuit: (issueId: string, circuit: TSteeringCircuit) => void;
 }
 
 export class SteeringStore implements ISteeringStore {
@@ -91,6 +95,8 @@ export class SteeringStore implements ISteeringStore {
       setProjectEntity: action,
       fetchIssueSteering: action,
       updateIssueSteering: action,
+      submitToCeo: action,
+      setCircuit: action,
     });
   }
 
@@ -253,5 +259,16 @@ export class SteeringStore implements ISteeringStore {
       this.issueSteeringMap[issueId] = steering;
     });
     return steering;
+  };
+
+  setCircuit = (issueId: string, circuit: TSteeringCircuit) => {
+    const steering = this.issueSteeringMap[issueId];
+    if (steering) this.issueSteeringMap[issueId] = { ...steering, circuit };
+  };
+
+  /** The submission changes the status and the approver too: reload the whole record. */
+  submitToCeo = async (workspaceSlug: string, projectId: string, issueId: string, data: TSubmissionPayload) => {
+    await this.service.submitToCeo(workspaceSlug, projectId, issueId, data);
+    await this.fetchIssueSteering(workspaceSlug, projectId, issueId);
   };
 }

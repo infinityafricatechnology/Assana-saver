@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "De sturingsfiche kon niet worden opgeslagen.",
         "progress": "De voortgang is een geheel getal van 0 tot 100."
-      }
+      },
+      "risk_label": "Risico"
     },
     "dependencies": {
       "circular": "Deze afhankelijkheid zou een lus vormen: het andere werkitem hangt al van dit werkitem af."
+    },
+    "circuit": {
+      "submit": "Voorleggen aan de CEO",
+      "submit_title": "Voorleggen aan de CEO",
+      "submit_description": "Het werkitem komt in de CEO-wachtrij en blijft « In validatie » tot de beslissing.",
+      "message": "Bericht aan de CEO",
+      "link": "Link naar het goed te keuren document",
+      "document_hint": "Geef een link of kies een bijlage van het werkitem.",
+      "attachment": "Goed te keuren bijlage",
+      "attachment_placeholder": "Kies een bijlage",
+      "risk_title": "Risico als het werkitem niet wordt goedgekeurd (optioneel)",
+      "submitted_toast": "Werkitem voorgelegd aan de CEO.",
+      "pending": "Op {date} door {name} voorgelegd aan de CEO · beslissing afwachtend",
+      "open_document": "Document openen",
+      "validated": "Op {date} goedgekeurd door de CEO",
+      "returned": "Op {date} teruggestuurd door de CEO",
+      "requalified": "Opnieuw ingedeeld door {by}: {declared} → {retained}",
+      "reminders": "{count, plural, one {# keer herinnerd} other {# keer herinnerd}}, laatst op {date}",
+      "errors": {
+        "not_assignee": "Alleen de verantwoordelijke van het werkitem kan het voorleggen.",
+        "closed": "Een afgesloten werkitem kan niet worden voorgelegd.",
+        "already_submitted": "Dit werkitem wacht al op de beslissing van de CEO.",
+        "missing_message": "Schrijf een bericht voor de CEO.",
+        "missing_document": "Geef de link of de bijlage die moet worden goedgekeurd.",
+        "invalid_link": "De link moet een webadres zijn (https://…).",
+        "invalid_attachment": "Deze bijlage bestaat niet meer.",
+        "no_ceo": "Er is geen CEO ingesteld in de groepsreferentie.",
+        "invalid_steering": "De sturingsfiche kon niet worden bijgewerkt."
+      }
+    },
+    "history": {
+      "submitted": "heeft het werkitem voorgelegd aan de CEO",
+      "validated": "heeft het werkitem goedgekeurd",
+      "returned": "heeft het werkitem teruggestuurd",
+      "requalified": "heeft de prioriteit voor de CEO-wachtrij opnieuw ingedeeld: {old} → {new}",
+      "requalification_cancelled": "heeft de nieuwe indeling van de prioriteit geannuleerd",
+      "reminded": "heeft de verantwoordelijke herinnerd",
+      "reminded_auto": "Automatische herinnering verstuurd aan de verantwoordelijke"
+    },
+    "alerts": {
+      "deadline_soon": "Deadline over 3 dagen",
+      "late": "Werkitem te laat",
+      "critical": "Kritiek werkitem: meer dan 30 dagen te laat",
+      "blocker_late": "Een werkitem dat het uwe blokkeert, is te laat",
+      "unblocked": "Blokkade opgeheven",
+      "submitted": "heeft u een werkitem ter goedkeuring voorgelegd",
+      "validated": "heeft het werkitem goedgekeurd",
+      "returned": "heeft het werkitem teruggestuurd",
+      "submission_overdue": "7 dagen geleden voorgelegd aan de CEO, zonder beslissing",
+      "risk_soon": "Het risico treedt over 7 dagen in werking",
+      "requalified": "heeft de prioriteit voor de CEO-wachtrij opnieuw ingedeeld",
+      "reminder": "herinnert u aan dit werkitem",
+      "reminder_auto": "Automatische herinnering: werk dit werkitem bij"
     }
   },
   "activity_via_claude": "via Claude",

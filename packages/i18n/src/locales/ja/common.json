@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "経営管理の記録を保存できませんでした。",
         "progress": "進捗は 0 から 100 の整数です。"
-      }
+      },
+      "risk_label": "リスク"
     },
     "dependencies": {
       "circular": "この依存関係はループになります。もう一方の作業項目がすでにこの項目に依存しています。"
+    },
+    "circuit": {
+      "submit": "社長に承認依頼",
+      "submit_title": "社長に承認依頼",
+      "submit_description": "作業項目は社長承認待ちの一覧に入り、決定まで「承認待ち」のままになります。",
+      "message": "社長へのメッセージ",
+      "link": "承認する文書のリンク",
+      "document_hint": "リンクを入力するか、作業項目の添付ファイルを選択してください。",
+      "attachment": "承認する添付ファイル",
+      "attachment_placeholder": "添付ファイルを選択",
+      "risk_title": "承認されない場合のリスク（任意）",
+      "submitted_toast": "社長に承認を依頼しました。",
+      "pending": "{date} に {name} が社長に承認依頼 · 決定待ち",
+      "open_document": "文書を開く",
+      "validated": "{date} に社長が承認",
+      "returned": "{date} に社長が差し戻し",
+      "requalified": "{by}が再分類：{declared} → {retained}",
+      "reminders": "{count, plural, one {#回催促済み} other {#回催促済み}}、最終 {date}",
+      "errors": {
+        "not_assignee": "承認依頼できるのは作業項目の担当者のみです。",
+        "closed": "完了した作業項目は承認依頼できません。",
+        "already_submitted": "この作業項目はすでに社長の決定を待っています。",
+        "missing_message": "社長へのメッセージを入力してください。",
+        "missing_document": "承認するリンクまたは添付ファイルを指定してください。",
+        "invalid_link": "リンクは Web アドレス（https://…）にしてください。",
+        "invalid_attachment": "この添付ファイルはもう存在しません。",
+        "no_ceo": "グループ基準データに社長が設定されていません。",
+        "invalid_steering": "経営管理の記録を更新できませんでした。"
+      }
+    },
+    "history": {
+      "submitted": "作業項目を社長に承認依頼しました",
+      "validated": "作業項目を承認しました",
+      "returned": "作業項目を差し戻しました",
+      "requalified": "社長承認待ちの優先度を再分類しました：{old} → {new}",
+      "requalification_cancelled": "優先度の再分類を取り消しました",
+      "reminded": "担当者に催促しました",
+      "reminded_auto": "担当者に自動催促を送信しました"
+    },
+    "alerts": {
+      "deadline_soon": "期限まで3日",
+      "late": "作業項目が期限切れです",
+      "critical": "重大な作業項目：30日以上の遅延",
+      "blocker_late": "あなたの作業項目をブロックしている項目が遅れています",
+      "unblocked": "ブロックが解除されました",
+      "submitted": "承認依頼の作業項目を送りました",
+      "validated": "作業項目を承認しました",
+      "returned": "作業項目を差し戻しました",
+      "submission_overdue": "社長に承認依頼して7日経過、決定なし",
+      "risk_soon": "リスクが7日後に発生します",
+      "requalified": "社長承認待ちの優先度を再分類しました",
+      "reminder": "この作業項目について催促しています",
+      "reminder_auto": "自動催促：この作業項目を更新してください"
     }
   },
   "activity_via_claude": "Claude 経由",

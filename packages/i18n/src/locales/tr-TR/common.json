@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "Yönetim kaydı kaydedilemedi.",
         "progress": "İlerleme 0 ile 100 arasında bir tam sayıdır."
-      }
+      },
+      "risk_label": "Risk"
     },
     "dependencies": {
       "circular": "Bu bağımlılık bir döngü oluşturur: diğer iş öğesi zaten bu öğeye bağlı."
+    },
+    "circuit": {
+      "submit": "CEO onayına sun",
+      "submit_title": "CEO onayına sun",
+      "submit_description": "İş öğesi CEO kuyruğuna girer ve karar verilene kadar « Onayda » kalır.",
+      "message": "CEO'ya mesaj",
+      "link": "Onaylanacak belgenin bağlantısı",
+      "document_hint": "Bir bağlantı verin veya iş öğesinin bir ekini seçin.",
+      "attachment": "Onaylanacak ek",
+      "attachment_placeholder": "Ek seçin",
+      "risk_title": "İş öğesi onaylanmazsa risk (isteğe bağlı)",
+      "submitted_toast": "İş öğesi CEO onayına sunuldu.",
+      "pending": "{date} tarihinde {name} tarafından CEO onayına sunuldu · karar bekleniyor",
+      "open_document": "Belgeyi aç",
+      "validated": "{date} tarihinde CEO tarafından onaylandı",
+      "returned": "{date} tarihinde CEO tarafından geri gönderildi",
+      "requalified": "{by} tarafından yeniden sınıflandırıldı: {declared} → {retained}",
+      "reminders": "{count, plural, one {# kez hatırlatıldı} other {# kez hatırlatıldı}}, son: {date}",
+      "errors": {
+        "not_assignee": "Yalnızca iş öğesinin sorumlusu onaya sunabilir.",
+        "closed": "Kapalı bir iş öğesi onaya sunulamaz.",
+        "already_submitted": "Bu iş öğesi zaten CEO'nun kararını bekliyor.",
+        "missing_message": "CEO için bir mesaj yazın.",
+        "missing_document": "Onaylanacak bağlantıyı veya eki belirtin.",
+        "invalid_link": "Bağlantı bir web adresi olmalıdır (https://…).",
+        "invalid_attachment": "Bu ek artık mevcut değil.",
+        "no_ceo": "Grup referansında CEO tanımlı değil.",
+        "invalid_steering": "Yönetim kaydı güncellenemedi."
+      }
+    },
+    "history": {
+      "submitted": "iş öğesini CEO onayına sundu",
+      "validated": "iş öğesini onayladı",
+      "returned": "iş öğesini geri gönderdi",
+      "requalified": "CEO kuyruğu için önceliği yeniden sınıflandırdı: {old} → {new}",
+      "requalification_cancelled": "öncelik yeniden sınıflandırmasını iptal etti",
+      "reminded": "sorumluya hatırlatma gönderdi",
+      "reminded_auto": "Sorumluya otomatik hatırlatma gönderildi"
+    },
+    "alerts": {
+      "deadline_soon": "Son tarihe 3 gün",
+      "late": "İş öğesi gecikti",
+      "critical": "Kritik iş öğesi: 30 günden fazla gecikme",
+      "blocker_late": "Sizinkini engelleyen bir iş öğesi gecikti",
+      "unblocked": "Engel kaldırıldı",
+      "submitted": "onayınıza bir iş öğesi sundu",
+      "validated": "iş öğesini onayladı",
+      "returned": "iş öğesini geri gönderdi",
+      "submission_overdue": "7 gün önce CEO onayına sunuldu, karar yok",
+      "risk_soon": "Risk 7 gün içinde gerçekleşecek",
+      "requalified": "CEO kuyruğu için önceliği yeniden sınıflandırdı",
+      "reminder": "bu iş öğesi için size hatırlatma yapıyor",
+      "reminder_auto": "Otomatik hatırlatma: lütfen bu iş öğesini güncelleyin"
     }
   },
   "activity_via_claude": "Claude üzerinden",

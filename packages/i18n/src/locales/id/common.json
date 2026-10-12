@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "Data pemantauan tidak dapat disimpan.",
         "progress": "Kemajuan adalah bilangan bulat dari 0 sampai 100."
-      }
+      },
+      "risk_label": "Risiko"
     },
     "dependencies": {
       "circular": "Ketergantungan ini akan membentuk lingkaran: item kerja lain sudah bergantung pada item ini."
+    },
+    "circuit": {
+      "submit": "Ajukan ke CEO",
+      "submit_title": "Ajukan ke CEO",
+      "submit_description": "Item kerja masuk antrean CEO dan tetap « Dalam validasi » sampai ada keputusan.",
+      "message": "Pesan untuk CEO",
+      "link": "Tautan dokumen yang perlu divalidasi",
+      "document_hint": "Berikan tautan atau pilih lampiran item kerja.",
+      "attachment": "Lampiran yang perlu divalidasi",
+      "attachment_placeholder": "Pilih lampiran",
+      "risk_title": "Risiko jika item kerja tidak divalidasi (opsional)",
+      "submitted_toast": "Item kerja diajukan ke CEO.",
+      "pending": "Diajukan ke CEO pada {date} oleh {name} · menunggu keputusan",
+      "open_document": "Buka dokumen",
+      "validated": "Divalidasi oleh CEO pada {date}",
+      "returned": "Dikembalikan oleh CEO pada {date}",
+      "requalified": "Diklasifikasi ulang oleh {by}: {declared} → {retained}",
+      "reminders": "{count, plural, one {Diingatkan # kali} other {Diingatkan # kali}}, terakhir pada {date}",
+      "errors": {
+        "not_assignee": "Hanya penanggung jawab item kerja yang dapat mengajukannya.",
+        "closed": "Item kerja yang ditutup tidak dapat diajukan.",
+        "already_submitted": "Item kerja ini sudah menunggu keputusan CEO.",
+        "missing_message": "Tulis pesan untuk CEO.",
+        "missing_document": "Berikan tautan atau lampiran yang perlu divalidasi.",
+        "invalid_link": "Tautan harus berupa alamat web (https://…).",
+        "invalid_attachment": "Lampiran ini sudah tidak ada.",
+        "no_ceo": "Belum ada CEO di referensi Grup.",
+        "invalid_steering": "Data pemantauan tidak dapat diperbarui."
+      }
+    },
+    "history": {
+      "submitted": "mengajukan item kerja ke CEO",
+      "validated": "memvalidasi item kerja",
+      "returned": "mengembalikan item kerja",
+      "requalified": "mengklasifikasi ulang prioritas untuk antrean CEO: {old} → {new}",
+      "requalification_cancelled": "membatalkan klasifikasi ulang prioritas",
+      "reminded": "mengingatkan penanggung jawab",
+      "reminded_auto": "Pengingat otomatis dikirim ke penanggung jawab"
+    },
+    "alerts": {
+      "deadline_soon": "Tenggat dalam 3 hari",
+      "late": "Item kerja terlambat",
+      "critical": "Item kerja kritis: terlambat lebih dari 30 hari",
+      "blocker_late": "Item kerja yang menghambat milik Anda terlambat",
+      "unblocked": "Hambatan dicabut",
+      "submitted": "mengajukan item kerja untuk Anda validasi",
+      "validated": "memvalidasi item kerja",
+      "returned": "mengembalikan item kerja",
+      "submission_overdue": "Diajukan ke CEO 7 hari lalu, belum ada keputusan",
+      "risk_soon": "Risiko berlaku dalam 7 hari",
+      "requalified": "mengklasifikasi ulang prioritas untuk antrean CEO",
+      "reminder": "mengingatkan Anda tentang item kerja ini",
+      "reminder_auto": "Pengingat otomatis: perbarui item kerja ini"
     }
   },
   "activity_via_claude": "melalui Claude",

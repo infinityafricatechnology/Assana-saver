@@ -1103,10 +1103,64 @@
       "errors": {
         "save": "Não foi possível salvar a ficha de acompanhamento.",
         "progress": "O andamento é um número inteiro de 0 a 100."
-      }
+      },
+      "risk_label": "Risco"
     },
     "dependencies": {
       "circular": "Esta dependência criaria um ciclo: o outro item de trabalho já depende deste."
+    },
+    "circuit": {
+      "submit": "Submeter ao CEO",
+      "submit_title": "Submeter ao CEO",
+      "submit_description": "O item de trabalho entra na fila do CEO e fica « Em validação » até a decisão.",
+      "message": "Mensagem ao CEO",
+      "link": "Link do documento a validar",
+      "document_hint": "Informe um link ou escolha um anexo do item de trabalho.",
+      "attachment": "Anexo a validar",
+      "attachment_placeholder": "Escolher um anexo",
+      "risk_title": "Risco se o item de trabalho não for validado (opcional)",
+      "submitted_toast": "Item de trabalho submetido ao CEO.",
+      "pending": "Submetido ao CEO em {date} por {name} · aguardando decisão",
+      "open_document": "Abrir o documento",
+      "validated": "Validado pelo CEO em {date}",
+      "returned": "Devolvido pelo CEO em {date}",
+      "requalified": "Reclassificado por {by}: {declared} → {retained}",
+      "reminders": "{count, plural, one {Lembrado # vez} many {Lembrado # vezes} other {Lembrado # vezes}}, a última em {date}",
+      "errors": {
+        "not_assignee": "Somente o responsável pelo item de trabalho pode submetê-lo.",
+        "closed": "Um item de trabalho encerrado não pode ser submetido.",
+        "already_submitted": "Este item de trabalho já aguarda a decisão do CEO.",
+        "missing_message": "Escreva uma mensagem para o CEO.",
+        "missing_document": "Informe o link ou o anexo a validar.",
+        "invalid_link": "O link deve ser um endereço web (https://…).",
+        "invalid_attachment": "Este anexo não existe mais.",
+        "no_ceo": "Nenhum CEO está definido no referencial do Grupo.",
+        "invalid_steering": "Não foi possível atualizar a ficha de acompanhamento."
+      }
+    },
+    "history": {
+      "submitted": "submeteu o item de trabalho ao CEO",
+      "validated": "validou o item de trabalho",
+      "returned": "devolveu o item de trabalho",
+      "requalified": "reclassificou a prioridade para a fila do CEO: {old} → {new}",
+      "requalification_cancelled": "cancelou a reclassificação da prioridade",
+      "reminded": "enviou um lembrete ao responsável",
+      "reminded_auto": "Lembrete automático enviado ao responsável"
+    },
+    "alerts": {
+      "deadline_soon": "Prazo em 3 dias",
+      "late": "Item de trabalho atrasado",
+      "critical": "Item de trabalho crítico: mais de 30 dias de atraso",
+      "blocker_late": "Um item de trabalho que bloqueia o seu está atrasado",
+      "unblocked": "Bloqueio removido",
+      "submitted": "submeteu a você um item de trabalho para validar",
+      "validated": "validou o item de trabalho",
+      "returned": "devolveu o item de trabalho",
+      "submission_overdue": "Submetido ao CEO há 7 dias, sem decisão",
+      "risk_soon": "O risco se concretiza em 7 dias",
+      "requalified": "reclassificou a prioridade para a fila do CEO",
+      "reminder": "envia um lembrete sobre este item de trabalho",
+      "reminder_auto": "Lembrete automático: atualize este item de trabalho"
     }
   },
   "activity_via_claude": "via Claude",
