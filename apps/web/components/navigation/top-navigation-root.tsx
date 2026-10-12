@@ -7,7 +7,6 @@
 // components
 import { observer } from "mobx-react";
 import { useParams, usePathname } from "next/navigation";
-import { PlaneLogo } from "@plane/blocks/icons";
 import { cn } from "@plane/utils";
 import { useTranslation } from "@plane/i18n";
 import { TopNavPowerK } from "@/components/navigation";
@@ -22,6 +21,8 @@ import useSWR from "swr";
 import { useWorkspaceNotifications } from "@/hooks/store/notifications";
 // local imports
 import { AssistantTrigger } from "@/components/assistant";
+// assets
+import GroupLogoWhite from "@/app/assets/logos/infinity-africa-group-white.png?url";
 
 export const TopNavigationRoot = observer(function TopNavigationRoot() {
   const { t } = useTranslation();
@@ -55,7 +56,7 @@ export const TopNavigationRoot = observer(function TopNavigationRoot() {
     >
       {/* Workspace Menu */}
       <div className="flex flex-1 shrink-0 items-center gap-3">
-        <PlaneLogo width={27} height={14} className="shrink-0" />
+        <img src={GroupLogoWhite} alt="Infinity Africa Group" className="h-6 w-auto shrink-0" />
         <WorkspaceMenuRoot variant="top-navigation" />
       </div>
       {/* Power K Search */}

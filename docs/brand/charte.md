@@ -14,6 +14,7 @@ Relevée le 2026-10-07 sur [infinity-africa.com](https://infinity-africa.com/) (
 - `icons/` : favicons et icônes d'application (symbole blanc sur carré anthracite), générés par `tools/brand/render_icons.py`. La commande `python3 tools/brand/render_icons.py --apps --font <Inter.ttf>` régénère les icônes et l'image de partage des trois applications.
 - Logo des e-mails : `apps/api/plane/static/emails/`, généré par `tools/brand/render_email_logo.py`.
 - Dans l'interface, `PlaneLockup` et `PlaneLogo` (`packages/blocks/src/icons/brand/`) dessinent le logo Infinity Planning. Ils gardent leur nom Plane pour faciliter la reprise des correctifs de sécurité (ADR 0003).
+- Sur les fonds anthracite de l'interface web (barre de navigation, panneau des écrans de connexion), le logo blanc du groupe est affiché : `apps/web/app/assets/logos/infinity-africa-group-white.png`, la source rognée de ses marges transparentes.
 
 ## Couleurs
 
