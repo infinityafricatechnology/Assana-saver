@@ -276,7 +276,7 @@ class TestAccess:
         assert session_client.get(f"{DASHBOARD}version/").json()["version"] != first
 
     def test_the_sheet_shows_the_chain_and_the_history(self, session_client, workspace, group, create_user):
-        origin = _task(group, "iat", "Maquettes", timezone.now().date() - timedelta(days=5))
+        origin = _task(group, "iat", "Maquettes", timezone.now().date() - timedelta(days=5), user=create_user)
         middle = _task(group, "capital", "Développement", date(2026, 11, 1))
         end = _task(group, "securities", "Lancement", date(2026, 12, 1))
         for blocked, blocker in ((end, middle), (middle, origin)):
@@ -300,6 +300,7 @@ class TestAccess:
         body = session_client.get(f"{DASHBOARD}issues/{end.id}/").json()
         assert [[item["name"] for item in level] for level in body["chain"]] == [["Développement"], ["Maquettes"]]
         assert body["chain"][1][0]["signal"] == "late"
+        assert body["chain"][1][0]["assignees"] == [create_user.display_name]
         assert [line["field"] for line in body["history"]] == ["target_date"]
 
         _, manager = _member(workspace, "entite@iag.com", "entity_manager", entity=group["entities"]["iat"])

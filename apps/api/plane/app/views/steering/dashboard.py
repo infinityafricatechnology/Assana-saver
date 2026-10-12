@@ -189,6 +189,11 @@ class SteeringDashboardIssueEndpoint(BaseAPIView):
                 "project__steering__entity_id",
             )
         }
+        for issue_id, name in IssueAssignee.objects.filter(issue_id__in=ids).values_list(
+            "issue_id", "assignee__display_name"
+        ):
+            if str(issue_id) in items:
+                items[str(issue_id)].setdefault("assignees", []).append(name)
         chain = [[items[item] for item in level if item in items] for level in levels]
 
         activities = list(
