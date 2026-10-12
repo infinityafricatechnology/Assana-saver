@@ -5,6 +5,7 @@
 from django.urls import path
 
 from plane.app.views import (
+    SteeringEmailPreferenceEndpoint,
     SteeringReportEndpoint,
     SteeringReportPdfEndpoint,
     SteeringReportRefreshEndpoint,
@@ -140,4 +141,5 @@ urlpatterns = [
         SteeringReportSendEndpoint.as_view(),
         name="steering-report-send",
     ),
+    path("users/me/steering-emails/", SteeringEmailPreferenceEndpoint.as_view(), name="steering-email-preference"),
 ]

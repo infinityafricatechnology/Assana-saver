@@ -1422,6 +1422,12 @@
         "not_cabinet": "Doar Cabinetul și CEO-ul pregătesc raportul săptămânal.",
         "generic": "Raportul nu a putut fi actualizat."
       }
+    },
+    "emails": {
+      "title": "E-mailurile spațiului de coordonare",
+      "description": "Alerte de întârziere, blocaj și coada CEO-ului, reamintiri și raportul săptămânal. Alertele rămân vizibile în platformă.",
+      "saved": "Preferința pentru e-mailuri a fost salvată.",
+      "error": "Preferința nu a putut fi salvată."
     }
   },
   "activity_via_claude": "prin Claude",

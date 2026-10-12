@@ -13,7 +13,7 @@ from rest_framework.response import Response
 
 # Module imports
 from plane.app.permissions import ROLE, allow_permission
-from plane.db.models import Issue, SteeringReminder, SteeringSubmission, User
+from plane.db.models import Issue, SteeringEmailPreference, SteeringReminder, SteeringSubmission, User
 from plane.utils.steering_circuit import (
     CircuitError,
     active_requalification,
@@ -132,3 +132,21 @@ class IssueReminderEndpoint(BaseAPIView):
         except CircuitError as error:
             return _error(error)
         return Response(circuit_payload(issue), status=status.HTTP_201_CREATED)
+
+
+class SteeringEmailPreferenceEndpoint(BaseAPIView):
+    """§9.2: each person can turn the steering e-mails off; the alerts stay in the platform."""
+
+    def get(self, request):
+        preference = SteeringEmailPreference.objects.filter(user=request.user).first()
+        return Response({"emails_enabled": preference.emails_enabled if preference else True})
+
+    def patch(self, request):
+        enabled = request.data.get("emails_enabled")
+        if not isinstance(enabled, bool):
+            return Response(
+                {"error": "'emails_enabled' must be true or false.", "code": "invalid_value"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        SteeringEmailPreference.objects.update_or_create(user=request.user, defaults={"emails_enabled": enabled})
+        return Response({"emails_enabled": enabled})

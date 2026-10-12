@@ -1422,6 +1422,12 @@
         "not_cabinet": "Solo el Gabinete y el CEO preparan el informe semanal.",
         "generic": "No se pudo actualizar el informe."
       }
+    },
+    "emails": {
+      "title": "Correos del espacio de seguimiento",
+      "description": "Alertas de retraso, bloqueo y cola del CEO, recordatorios e informe semanal. Las alertas siguen visibles en la plataforma.",
+      "saved": "Preferencia de correos guardada.",
+      "error": "No se pudo guardar la preferencia."
     }
   },
   "activity_via_claude": "vía Claude",

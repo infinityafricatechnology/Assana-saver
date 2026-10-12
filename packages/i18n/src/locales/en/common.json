@@ -1422,6 +1422,12 @@
         "not_cabinet": "Only the Cabinet and the CEO prepare the weekly report.",
         "generic": "The report could not be updated."
       }
+    },
+    "emails": {
+      "title": "Steering space e-mails",
+      "description": "Late, blocked and CEO queue alerts, reminders and the weekly report. The alerts stay visible in the platform.",
+      "saved": "Steering e-mail preference saved.",
+      "error": "The preference could not be saved."
     }
   },
   "activity_via_claude": "via Claude",

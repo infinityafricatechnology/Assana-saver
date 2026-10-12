@@ -1422,6 +1422,12 @@
         "not_cabinet": "Raport tygodniowy przygotowują tylko Gabinet i Prezes.",
         "generic": "Nie udało się zaktualizować raportu."
       }
+    },
+    "emails": {
+      "title": "E-maile przestrzeni zarządzania",
+      "description": "Alerty o opóźnieniach, blokadach i kolejce Prezesa, przypomnienia i raport tygodniowy. Alerty pozostają widoczne na platformie.",
+      "saved": "Zapisano ustawienie e-maili.",
+      "error": "Nie udało się zapisać ustawienia."
     }
   },
   "activity_via_claude": "przez Claude",

@@ -1422,6 +1422,12 @@
         "not_cabinet": "Somente o Gabinete e o CEO preparam o relatório semanal.",
         "generic": "Não foi possível atualizar o relatório."
       }
+    },
+    "emails": {
+      "title": "E-mails do espaço de acompanhamento",
+      "description": "Alertas de atraso, bloqueio e fila do CEO, lembretes e relatório semanal. Os alertas continuam visíveis na plataforma.",
+      "saved": "Preferência de e-mails salva.",
+      "error": "Não foi possível salvar a preferência."
     }
   },
   "activity_via_claude": "via Claude",

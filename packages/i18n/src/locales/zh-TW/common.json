@@ -1422,6 +1422,12 @@
         "not_cabinet": "只有總裁辦公室和執行長可以準備週報。",
         "generic": "無法更新報告。"
       }
+    },
+    "emails": {
+      "title": "經營管理空間郵件",
+      "description": "逾期、受阻和審批佇列提醒、催辦以及週報。平台內的提醒仍會顯示。",
+      "saved": "郵件設定已儲存。",
+      "error": "無法儲存設定。"
     }
   },
   "activity_via_claude": "透過 Claude",

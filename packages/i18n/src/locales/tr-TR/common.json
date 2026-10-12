@@ -1422,6 +1422,12 @@
         "not_cabinet": "Haftalık raporu yalnızca Başkanlık Ofisi ve CEO hazırlar.",
         "generic": "Rapor güncellenemedi."
       }
+    },
+    "emails": {
+      "title": "Yönetim alanı e-postaları",
+      "description": "Gecikme, engel ve CEO kuyruğu uyarıları, hatırlatmalar ve haftalık rapor. Uyarılar platformda görünmeye devam eder.",
+      "saved": "E-posta tercihi kaydedildi.",
+      "error": "Tercih kaydedilemedi."
     }
   },
   "activity_via_claude": "Claude üzerinden",

@@ -1422,6 +1422,12 @@
         "not_cabinet": "Hanya Kabinet dan CEO yang menyiapkan laporan mingguan.",
         "generic": "Laporan tidak dapat diperbarui."
       }
+    },
+    "emails": {
+      "title": "Email ruang pemantauan",
+      "description": "Peringatan keterlambatan, blokir, dan antrean CEO, pengingat, serta laporan mingguan. Peringatan tetap terlihat di platform.",
+      "saved": "Preferensi email disimpan.",
+      "error": "Preferensi tidak dapat disimpan."
     }
   },
   "activity_via_claude": "melalui Claude",

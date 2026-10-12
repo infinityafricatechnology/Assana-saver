@@ -1422,6 +1422,12 @@
         "not_cabinet": "Chỉ Văn phòng và Tổng giám đốc chuẩn bị báo cáo hằng tuần.",
         "generic": "Không thể cập nhật báo cáo."
       }
+    },
+    "emails": {
+      "title": "Email của không gian điều hành",
+      "description": "Cảnh báo trễ hạn, bị chặn và hàng chờ Tổng giám đốc, lời nhắc và báo cáo hằng tuần. Cảnh báo vẫn hiển thị trên nền tảng.",
+      "saved": "Đã lưu tùy chọn email.",
+      "error": "Không thể lưu tùy chọn."
     }
   },
   "activity_via_claude": "qua Claude",

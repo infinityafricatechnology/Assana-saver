@@ -1422,6 +1422,12 @@
         "not_cabinet": "Nur das Büro des Präsidenten und der CEO bereiten den Wochenbericht vor.",
         "generic": "Der Bericht konnte nicht aktualisiert werden."
       }
+    },
+    "emails": {
+      "title": "E-Mails des Steuerungsbereichs",
+      "description": "Warnungen zu Verzögerungen, Blockaden und der CEO-Warteschlange, Erinnerungen und Wochenbericht. Die Warnungen bleiben in der Plattform sichtbar.",
+      "saved": "E-Mail-Einstellung gespeichert.",
+      "error": "Die Einstellung konnte nicht gespeichert werden."
     }
   },
   "activity_via_claude": "über Claude",

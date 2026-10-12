@@ -1422,6 +1422,12 @@
         "not_cabinet": "只有总裁办公室和首席执行官可以准备周报。",
         "generic": "无法更新报告。"
       }
+    },
+    "emails": {
+      "title": "经营管理空间邮件",
+      "description": "逾期、受阻和审批队列提醒、催办以及周报。平台内的提醒仍会显示。",
+      "saved": "邮件设置已保存。",
+      "error": "无法保存设置。"
     }
   },
   "activity_via_claude": "通过 Claude",

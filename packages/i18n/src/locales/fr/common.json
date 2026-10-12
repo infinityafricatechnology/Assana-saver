@@ -1422,6 +1422,12 @@
         "not_cabinet": "Seuls le Cabinet et le PDG préparent le rapport hebdomadaire.",
         "generic": "Le rapport n'a pas pu être mis à jour."
       }
+    },
+    "emails": {
+      "title": "E-mails de l'espace de pilotage",
+      "description": "Alertes de retard, de blocage et de File PDG, relances et rapport hebdomadaire. Les alertes restent visibles dans la plateforme.",
+      "saved": "Préférence des e-mails de pilotage enregistrée.",
+      "error": "La préférence n'a pas pu être enregistrée."
     }
   },
   "activity_via_claude": "via Claude",

@@ -271,6 +271,7 @@ from .people.base import (
     PersonReactivationEndpoint,
 )
 from .steering.circuit import (
+    SteeringEmailPreferenceEndpoint,
     IssueReminderEndpoint,
     IssueRequalificationEndpoint,
     IssueSubmissionEndpoint,

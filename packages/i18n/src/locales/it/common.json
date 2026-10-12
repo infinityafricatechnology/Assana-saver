@@ -1422,6 +1422,12 @@
         "not_cabinet": "Solo il Gabinetto e il CEO preparano il rapporto settimanale.",
         "generic": "Impossibile aggiornare il rapporto."
       }
+    },
+    "emails": {
+      "title": "E-mail dello spazio di controllo",
+      "description": "Avvisi di ritardo, blocco e coda del CEO, solleciti e rapporto settimanale. Gli avvisi restano visibili nella piattaforma.",
+      "saved": "Preferenza e-mail salvata.",
+      "error": "Impossibile salvare la preferenza."
     }
   },
   "activity_via_claude": "tramite Claude",

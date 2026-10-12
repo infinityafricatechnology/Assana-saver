@@ -1422,6 +1422,12 @@
         "not_cabinet": "Alleen het Kabinet en de CEO bereiden het weekrapport voor.",
         "generic": "Het rapport kon niet worden bijgewerkt."
       }
+    },
+    "emails": {
+      "title": "E-mails van de sturingsruimte",
+      "description": "Meldingen over vertraging, blokkades en de CEO-wachtrij, herinneringen en het weekrapport. De meldingen blijven zichtbaar in het platform.",
+      "saved": "E-mailvoorkeur opgeslagen.",
+      "error": "De voorkeur kon niet worden opgeslagen."
     }
   },
   "activity_via_claude": "via Claude",

@@ -1422,6 +1422,12 @@
         "not_cabinet": "Týdenní zprávu připravuje pouze Kancelář předsedy a generální ředitel.",
         "generic": "Zprávu se nepodařilo aktualizovat."
       }
+    },
+    "emails": {
+      "title": "E-maily prostoru řízení",
+      "description": "Upozornění na zpoždění, blokace a frontu ředitele, připomínky a týdenní zpráva. Upozornění zůstávají viditelná v platformě.",
+      "saved": "Nastavení e-mailů uloženo.",
+      "error": "Nastavení se nepodařilo uložit."
     }
   },
   "activity_via_claude": "přes Claude",

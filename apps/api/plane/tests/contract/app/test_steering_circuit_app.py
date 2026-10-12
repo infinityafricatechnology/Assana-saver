@@ -203,3 +203,14 @@ class TestReminders:
         notify(issue, "late", [create_user.id], key="2026-10-08")
         assert no_email.call_count == 1
         assert Notification.objects.filter(receiver=create_user).count() == 2
+
+
+@pytest.mark.contract
+@pytest.mark.django_db
+def test_each_person_turns_the_steering_e_mails_off(session_client, create_user):
+    url = "/api/users/me/steering-emails/"
+    assert session_client.get(url).json() == {"emails_enabled": True}
+    assert session_client.patch(url, {"emails_enabled": "non"}, format="json").status_code == 400
+    assert session_client.patch(url, {"emails_enabled": False}, format="json").json() == {"emails_enabled": False}
+    assert SteeringEmailPreference.objects.get(user=create_user).emails_enabled is False
+    assert session_client.get(url).json() == {"emails_enabled": False}
