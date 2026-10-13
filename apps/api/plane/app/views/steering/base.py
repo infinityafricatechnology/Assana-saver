@@ -33,6 +33,7 @@ from plane.db.models import (
     Workspace,
     WorkspaceMember,
 )
+from plane.utils.steering_required import SteeringRuleError, check_steering_fields_kept
 from plane.utils.steering import (
     SteeringValueError,
     apply_steering_changes,
@@ -42,6 +43,7 @@ from plane.utils.steering import (
 )
 
 from ..base import BaseAPIView
+from .circuit import circuit_payload
 
 # Starting referential from the specification (cahier des charges §3.1 and §4).
 DEFAULT_BRANCHES = [
@@ -450,6 +452,7 @@ def _issue_steering_payload(issue: Issue, steering: Optional[IssueSteering]) -> 
         "situation_updated_at": record.situation_updated_at,
         "updated_at": steering.updated_at if steering else None,
         "missing": missing_steering_fields(issue, steering, project_entity_id),
+        "circuit": circuit_payload(issue),
     }
 
 
@@ -470,9 +473,12 @@ class IssueSteeringEndpoint(BaseAPIView):
         )
         try:
             changes = clean_steering_changes(request.data, issue.workspace_id)
+            check_steering_fields_kept(issue, changes)
             changed = apply_steering_changes(steering, changes)
         except SteeringValueError as error:
             return _error(str(error))
+        except SteeringRuleError as error:
+            return Response(error.payload, status=status.HTTP_400_BAD_REQUEST)
 
         if changed or steering._state.adding:
             epoch = int(time.time())

@@ -95,6 +95,11 @@ export const coreRoutes: RouteConfigEntry[] = [
           ),
         ]),
 
+        // Steering space (Infinity Planning)
+        layout("./(all)/[workspaceSlug]/(projects)/steering/layout.tsx", [
+          route(":workspaceSlug/steering", "./(all)/[workspaceSlug]/(projects)/steering/page.tsx"),
+        ]),
+
         // Stickies
         layout("./(all)/[workspaceSlug]/(projects)/stickies/layout.tsx", [
           route(":workspaceSlug/stickies", "./(all)/[workspaceSlug]/(projects)/stickies/page.tsx"),

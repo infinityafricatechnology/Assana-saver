@@ -42,6 +42,23 @@ app = Celery("plane")
 app.config_from_object("django.conf:settings", namespace="CELERY")
 
 app.conf.beat_schedule = {
+    # Infinity Planning: the steering space (cahier des charges §9). Abidjan is on UTC all year.
+    "steering-daily-alerts": {
+        "task": "plane.bgtasks.steering_jobs_task.steering_daily_alerts",
+        "schedule": crontab(hour=7, minute=0),
+    },
+    "steering-unblock-alerts": {
+        "task": "plane.bgtasks.steering_jobs_task.steering_unblock_alerts",
+        "schedule": crontab(minute="*/10"),
+    },
+    "steering-weekly-reminders": {
+        "task": "plane.bgtasks.steering_jobs_task.steering_weekly_reminders",
+        "schedule": crontab(day_of_week=1, hour=8, minute=0),
+    },
+    "steering-friday-noon": {
+        "task": "plane.bgtasks.steering_jobs_task.steering_friday_noon",
+        "schedule": crontab(day_of_week=5, hour=12, minute=0),
+    },
     # Intra day recurring jobs
     "check-every-five-minutes-to-send-email-notifications": {
         "task": "plane.bgtasks.email_notification_task.stack_email_notification",

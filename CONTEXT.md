@@ -82,6 +82,14 @@ _Éviter_ : équipe, société, département
 L'entité qui porte un projet. Chaque projet en a une seule.
 _Éviter_ : propriétaire, entité responsable
 
+**Projet piloté** :
+Un projet qui a une entité porteuse. Ses tâches se créent complètes (responsable, échéance, catégorie, superviseur, approbateur), et tout report d'échéance est motivé. Les autres projets restent libres.
+_Éviter_ : projet suivi, projet obligatoire
+
+**Report d'échéance** :
+Le déplacement de l'échéance d'une tâche à une date plus tardive. Dans un projet piloté, il demande un motif, qui entre dans l'historique.
+_Éviter_ : décalage, glissement
+
 **Catégorie** :
 La nature d'une tâche dans l'espace de pilotage (Agréments, Gouvernance, Partenariats, Développement…), tenue par le Cabinet.
 _Éviter_ : type, étiquette
@@ -102,9 +110,29 @@ _Éviter_ : manager, collaborateur
 La personne qui valide une tâche ; c'est le PDG lorsque la tâche requiert sa décision.
 _Éviter_ : valideur, reviewer
 
+**Priorité** :
+L'importance d'une tâche, parmi trois valeurs : Urgent, Important, Normal. Elle range la File PDG et les retards ; le Cabinet ou le PDG peut la requalifier pour la File PDG sans changer celle déclarée par l'entité.
+_Éviter_ : high, medium, low, aucune priorité
+
 **Point de situation** :
 Un texte libre et daté qui résume où en est une tâche.
 _Éviter_ : commentaire, note, statut
+
+**Signal** :
+L'état d'une tâche ouverte selon son échéance, calculé chaque jour : Critique (plus de 30 jours de retard), En retard, Échéance proche (14 jours ou moins), Dans les délais. Il se lit par un libellé et une couleur.
+_Éviter_ : alerte (réservée aux notifications), statut
+
+**Fiche dormante** :
+Une tâche ouverte que personne n'a mise à jour depuis plus de 14 jours, hors tâches En attente et tâches en File PDG.
+_Éviter_ : tâche oubliée, tâche inactive
+
+**Incohérence** :
+Une fiche dont les données se contredisent : avancement à 100 % sans clôture, ou échéance dépassée et statut toujours « À démarrer ».
+_Éviter_ : erreur, anomalie
+
+**Rapport COMEX** :
+L'export PDF de l'espace de pilotage, en A4 paysage et marqué « Confidentiel ». Le rapport hebdomadaire part de lui.
+_Éviter_ : export, tableau de bord
 
 **Profil de pilotage** :
 Ce qu'une personne voit dans l'espace de pilotage : tout le Groupe (PDG, Cabinet de la Présidence), un pôle (directeur de pôle) ou une entité (responsable d'entité). Une personne peut en avoir plusieurs.

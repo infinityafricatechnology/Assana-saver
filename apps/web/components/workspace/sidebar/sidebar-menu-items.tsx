@@ -18,6 +18,7 @@ import {
 import { useTranslation } from "@plane/i18n";
 // components
 import { SidebarNavItem } from "@/components/sidebar/sidebar-navigation";
+import { SteeringSidebarItem } from "@/components/steering/sidebar-item";
 // store hooks
 import { useAppTheme } from "@/hooks/store/use-app-theme";
 import useLocalStorage from "@/hooks/use-local-storage";
@@ -99,6 +100,7 @@ export const SidebarMenuItems = observer(function SidebarMenuItems() {
           // oxlint-disable-next-line react/no-array-index-key
           <SidebarItemBase key={`static_${_index}`} item={item} />
         ))}
+        <SteeringSidebarItem />
       </div>
       <Collapsible
         placement="sidebar"

@@ -1,3 +1,4 @@
+// oxlint-disable no-shadow
 /**
  * Copyright (c) 2023-present Plane Software, Inc. and contributors
  * SPDX-License-Identifier: AGPL-3.0-only
@@ -14,6 +15,8 @@ import { useTranslation } from "@plane/i18n";
 import { setPromiseToast, setToast } from "@plane/blocks/toast";
 import type { IWorkItemPeekOverview, TIssue } from "@plane/types";
 import { EIssueServiceType, EIssuesStoreType } from "@plane/types";
+// helpers
+import { isHandledSteeringError } from "@/helpers/steering-rules.helper";
 // hooks
 import { useIssueDetail } from "@/hooks/store/use-issue-detail";
 import { useIssues } from "@/hooks/store/use-issues";
@@ -83,7 +86,9 @@ export const IssuePeekOverview = observer(function IssuePeekOverview(props: IWor
               fetchActivities(workspaceSlug, projectId, issueId);
               return;
             })
-            .catch((_error) => {
+            .catch((error) => {
+              // Infinity Planning: a steered project's refusal was already explained.
+              if (isHandledSteeringError(error)) return;
               setToast({
                 title: t("toast.error"),
                 type: "error",

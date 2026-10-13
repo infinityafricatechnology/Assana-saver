@@ -48,8 +48,8 @@
     },
     "priority": {
       "urgent": "Urgentă",
-      "high": "Ridicată",
-      "medium": "Medie",
+      "high": "Important",
+      "medium": "Normal",
       "low": "Scăzută"
     },
     "display": {

@@ -43,6 +43,14 @@ import {
   IssueProjectSelect,
   IssueTitleInput,
 } from "@/components/issues/issue-modal/components";
+import type { TSteeringDraft } from "@/components/steering/create-fields";
+import {
+  EMPTY_STEERING_DRAFT,
+  SteeringCreateFields,
+  missingSteeringFields,
+  useIsSteeredProject,
+} from "@/components/steering/create-fields";
+import { useSteeringRuleMessage } from "@/components/steering/rules-dialog";
 // helpers
 // hooks
 import { useIssueModal } from "@/hooks/context/use-issue-modal";
@@ -52,6 +60,8 @@ import { useProjectState } from "@/hooks/store/use-project-state";
 import { useWorkspaceDraftIssues } from "@/hooks/store/workspace-draft";
 import { usePlatformOS } from "@/hooks/use-platform-os";
 import { useProjectIssueProperties } from "@/hooks/use-project-issue-properties";
+// types
+import type { TSteeringMissingField } from "@/services/steering.service";
 
 export interface IssueFormProps {
   data?: Partial<TIssue>;
@@ -105,6 +115,8 @@ export const IssueFormRoot = observer(function IssueFormRoot(props: IssueFormPro
   // states
   const [gptAssistantModal, setGptAssistantModal] = useState(false);
   const [isMoving, setIsMoving] = useState<boolean>(false);
+  const [steeringDraft, setSteeringDraft] = useState<TSteeringDraft>(EMPTY_STEERING_DRAFT);
+  const [steeringMissing, setSteeringMissing] = useState<TSteeringMissingField[]>([]);
 
   // refs
   const editorRef = useRef<EditorRefApi>(null);
@@ -155,12 +167,28 @@ export const IssueFormRoot = observer(function IssueFormRoot(props: IssueFormPro
 
   const projectId = watch("project_id");
 
+  // Infinity Planning (cahier des charges §4): in a steered project, a work item is created complete.
+  const isSteered = useIsSteeredProject(workspaceSlug?.toString(), projectId);
+  const showSteering = !!isSteered && ((!data?.id && !isDraft) || moveToIssue);
+  const ruleMessage = useSteeringRuleMessage();
+
+  /** Points out what a steered work item still lacks; false when it cannot be created yet. */
+  const checkSteering = (values: Partial<TIssue>) => {
+    const missing = missingSteeringFields(values, steeringDraft, !!getProjectById(projectId)?.default_assignee);
+    setSteeringMissing(missing);
+    if (missing.length === 0) return true;
+    setToast({ type: "error", title: t("error"), message: ruleMessage({ code: "steering_required", missing }) });
+    return false;
+  };
+
   const isDisabled = isSubmitting || isApplyingTemplate;
 
   const { getIndex } = getTabIndex(ETabIndices.ISSUE_FORM, isMobile);
 
   //reset few fields on projectId change
   useEffect(() => {
+    setSteeringDraft(EMPTY_STEERING_DRAFT);
+    setSteeringMissing([]);
     if (isDirty) {
       if (workItemTemplateId) {
         // reset work item template id
@@ -230,6 +258,9 @@ export const IssueFormRoot = observer(function IssueFormRoot(props: IssueFormPro
     )
       return;
 
+    const withSteering = showSteering && !data?.id && !is_draft_issue;
+    if (withSteering && !checkSteering(formData)) return;
+
     const submitData = !data?.id
       ? formData
       : {
@@ -242,6 +273,7 @@ export const IssueFormRoot = observer(function IssueFormRoot(props: IssueFormPro
 
     // this condition helps to move the issues from draft to project issues
     if (formData.hasOwnProperty("is_draft")) submitData.is_draft = formData.is_draft;
+    if (withSteering) Object.assign(submitData, { steering: steeringDraft });
 
     await onSubmit(submitData, is_draft_issue)
       .then(() => {
@@ -270,6 +302,7 @@ export const IssueFormRoot = observer(function IssueFormRoot(props: IssueFormPro
 
   const handleMoveToProjects = async () => {
     if (!data?.id || !data?.project_id || !data) return;
+    if (showSteering && !checkSteering(getValues())) return;
     setIsMoving(true);
     try {
       await handleCreateUpdatePropertyValues({
@@ -283,12 +316,13 @@ export const IssueFormRoot = observer(function IssueFormRoot(props: IssueFormPro
       await moveIssue(workspaceSlug.toString(), data.id, {
         ...data,
         ...getValues(),
+        ...(showSteering ? { steering: steeringDraft } : {}),
       } as TWorkspaceDraftIssue);
-    } catch {
+    } catch (error) {
       setToast({
         type: "error",
         title: t("toast.error"),
-        message: "Failed to move work item to project. Please try again.",
+        message: ruleMessage(error) ?? "Failed to move work item to project. Please try again.",
       });
     } finally {
       setIsMoving(false);
@@ -426,6 +460,20 @@ export const IssueFormRoot = observer(function IssueFormRoot(props: IssueFormPro
                 handleFormChange={handleFormChange}
                 setSelectedParentIssue={setSelectedParentIssue}
               />
+              {showSteering && projectId && (
+                <SteeringCreateFields
+                  workspaceSlug={workspaceSlug?.toString()}
+                  projectId={projectId}
+                  value={steeringDraft}
+                  missing={steeringMissing}
+                  onChange={(next) => {
+                    setSteeringDraft(next);
+                    setSteeringMissing((missing) =>
+                      missing.filter((field) => !next[`${field}_id` as keyof TSteeringDraft])
+                    );
+                  }}
+                />
+              )}
             </div>
           </DialogMain>
           {showActionButtons && (

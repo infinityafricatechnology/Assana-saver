@@ -350,6 +350,11 @@ CELERY_IMPORTS = (
     # issue version tasks
     "plane.bgtasks.issue_version_sync",
     "plane.bgtasks.issue_description_version_sync",
+    # Infinity Planning: the steering space and the « Personnes » page
+    "plane.bgtasks.steering_alert_email_task",
+    "plane.bgtasks.steering_jobs_task",
+    "plane.bgtasks.steering_report_email_task",
+    "plane.bgtasks.person_welcome_email_task",
 )
 
 FILE_SIZE_LIMIT = int(os.environ.get("FILE_SIZE_LIMIT", 5242880))

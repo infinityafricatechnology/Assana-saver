@@ -72,6 +72,14 @@ Pour vérifier que tout tourne :
 6. **Référentiel du Groupe** : _Réglages de l'organisation → Référentiel du Groupe → Charger le référentiel du Groupe_.
 7. **Personnes** : _Réglages de l'organisation → Personnes_. Ajoutez les testeurs un par un, ou importez une liste, avec leur rôle, leurs profils de pilotage et leurs projets. Chacun reçoit un e-mail et se connecte avec un code.
 8. **Claude** : chacun relie Claude depuis _Réglages du profil → Connecter Claude_. L'adresse du connecteur est `https://planning.infinity-africa.com/mcp`.
+9. **Espace de pilotage** : dans les réglages de chaque projet, choisissez l'**entité porteuse**. Le projet devient piloté : ses tâches se créent complètes et tout report d'échéance demande un motif. Donnez ensuite les **profils de pilotage** (PDG, Cabinet, directeur de pôle, responsable d'entité) depuis la page « Personnes ». L'espace apparaît dans la barre latérale des personnes concernées.
+
+Les automatismes de l'espace de pilotage tournent dans `beat-worker` et `worker`. Ces deux services doivent rester démarrés, et le SMTP doit être configuré (étape 2). Les heures sont celles d'Abidjan :
+
+- tous les jours à 7 h, les alertes d'échéance, de retard, de risque et de File PDG ;
+- toutes les 10 minutes, l'alerte de levée de blocage ;
+- le lundi à 8 h, la relance automatique des fiches dormantes ou incohérentes ;
+- le vendredi à 12 h, l'instantané hebdomadaire et le projet de rapport, annoncé au Cabinet et au PDG.
 
 ## Mettre à jour
 

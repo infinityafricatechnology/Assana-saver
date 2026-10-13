@@ -48,8 +48,8 @@
     },
     "priority": {
       "urgent": "Khẩn cấp",
-      "high": "Cao",
-      "medium": "Trung bình",
+      "high": "Quan trọng",
+      "medium": "Bình thường",
       "low": "Thấp"
     },
     "display": {

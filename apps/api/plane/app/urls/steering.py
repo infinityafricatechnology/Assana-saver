@@ -5,6 +5,21 @@
 from django.urls import path
 
 from plane.app.views import (
+    SteeringEmailPreferenceEndpoint,
+    SteeringReportEndpoint,
+    SteeringReportPdfEndpoint,
+    SteeringReportRefreshEndpoint,
+    SteeringReportSendEndpoint,
+    SteeringReportsEndpoint,
+    SteeringComexExportEndpoint,
+    SteeringTasksExportEndpoint,
+    SteeringDashboardEndpoint,
+    SteeringDashboardIssueEndpoint,
+    SteeringDashboardVersionEndpoint,
+    IssueReminderEndpoint,
+    IssueRequalificationEndpoint,
+    IssueSubmissionEndpoint,
+    SubmissionDecisionEndpoint,
     IssueSteeringEndpoint,
     ProjectSteeringEndpoint,
     SteeringBootstrapEndpoint,
@@ -64,4 +79,67 @@ urlpatterns = [
         IssueSteeringEndpoint.as_view(),
         name="issue-steering",
     ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/issues/<uuid:issue_id>/steering/submission/",
+        IssueSubmissionEndpoint.as_view(),
+        name="issue-steering-submission",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/submissions/<uuid:submission_id>/decision/",
+        SubmissionDecisionEndpoint.as_view(),
+        name="steering-submission-decision",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/issues/<uuid:issue_id>/requalification/",
+        IssueRequalificationEndpoint.as_view(),
+        name="steering-issue-requalification",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/issues/<uuid:issue_id>/reminders/",
+        IssueReminderEndpoint.as_view(),
+        name="steering-issue-reminders",
+    ),
+    path("workspaces/<str:slug>/steering/dashboard/", SteeringDashboardEndpoint.as_view(), name="steering-dashboard"),
+    path(
+        "workspaces/<str:slug>/steering/dashboard/version/",
+        SteeringDashboardVersionEndpoint.as_view(),
+        name="steering-dashboard-version",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/dashboard/issues/<uuid:issue_id>/",
+        SteeringDashboardIssueEndpoint.as_view(),
+        name="steering-dashboard-issue",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/dashboard/export/comex/",
+        SteeringComexExportEndpoint.as_view(),
+        name="steering-dashboard-export-comex",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/dashboard/export/tasks/",
+        SteeringTasksExportEndpoint.as_view(),
+        name="steering-dashboard-export-tasks",
+    ),
+    path("workspaces/<str:slug>/steering/reports/", SteeringReportsEndpoint.as_view(), name="steering-reports"),
+    path(
+        "workspaces/<str:slug>/steering/reports/<uuid:report_id>/",
+        SteeringReportEndpoint.as_view(),
+        name="steering-report",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/reports/<uuid:report_id>/refresh/",
+        SteeringReportRefreshEndpoint.as_view(),
+        name="steering-report-refresh",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/reports/<uuid:report_id>/pdf/",
+        SteeringReportPdfEndpoint.as_view(),
+        name="steering-report-pdf",
+    ),
+    path(
+        "workspaces/<str:slug>/steering/reports/<uuid:report_id>/send/",
+        SteeringReportSendEndpoint.as_view(),
+        name="steering-report-send",
+    ),
+    path("users/me/steering-emails/", SteeringEmailPreferenceEndpoint.as_view(), name="steering-email-preference"),
 ]

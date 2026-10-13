@@ -270,3 +270,24 @@ from .people.base import (
     PersonDetailEndpoint,
     PersonReactivationEndpoint,
 )
+from .steering.circuit import (
+    SteeringEmailPreferenceEndpoint,
+    IssueReminderEndpoint,
+    IssueRequalificationEndpoint,
+    IssueSubmissionEndpoint,
+    SubmissionDecisionEndpoint,
+)
+from .steering.dashboard import (
+    SteeringComexExportEndpoint,
+    SteeringTasksExportEndpoint,
+    SteeringDashboardEndpoint,
+    SteeringDashboardIssueEndpoint,
+    SteeringDashboardVersionEndpoint,
+)
+from .steering.report import (
+    SteeringReportEndpoint,
+    SteeringReportPdfEndpoint,
+    SteeringReportRefreshEndpoint,
+    SteeringReportSendEndpoint,
+    SteeringReportsEndpoint,
+)

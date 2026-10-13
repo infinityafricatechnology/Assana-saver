@@ -1,3 +1,4 @@
+// oxlint-disable no-shadow
 /**
  * Copyright (c) 2023-present Plane Software, Inc. and contributors
  * SPDX-License-Identifier: AGPL-3.0-only
@@ -16,6 +17,8 @@ import { EIssuesStoreType } from "@plane/types";
 import emptyIssue from "@/app/assets/empty-state/issue.svg?url";
 // components
 import { EmptyState } from "@/components/common/empty-state";
+// helpers
+import { isHandledSteeringError } from "@/helpers/steering-rules.helper";
 // hooks
 import { useAppTheme } from "@/hooks/store/use-app-theme";
 import { useIssueDetail } from "@/hooks/store/use-issue-detail";
@@ -96,6 +99,8 @@ export const IssueDetailRoot = observer(function IssueDetailRoot(props: TIssueDe
           await updateIssue(workspaceSlug, projectId, issueId, data);
         } catch (error) {
           console.log("Error in updating issue:", error);
+          // Infinity Planning: a steered project's refusal was already explained.
+          if (isHandledSteeringError(error)) return;
           setToast({
             title: t("common.error.label"),
             type: "error",

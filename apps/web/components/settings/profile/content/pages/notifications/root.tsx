@@ -10,6 +10,7 @@ import { observer } from "mobx-react";
 import { useTranslation } from "@plane/i18n";
 // components
 import { ProfileSettingsHeading } from "@/components/settings/profile/heading";
+import { SteeringEmailPreference } from "@/components/steering/email-preference";
 import { EmailSettingsLoader } from "@/components/ui/loader/settings/email";
 // services
 import { UserService } from "@/services/user.service";
@@ -37,6 +38,9 @@ export const NotificationsProfileSettings = observer(function NotificationsProfi
       />
       <div className="mt-7">
         <NotificationsProfileSettingsForm data={data} />
+        <div className="mt-1">
+          <SteeringEmailPreference />
+        </div>
       </div>
     </div>
   );

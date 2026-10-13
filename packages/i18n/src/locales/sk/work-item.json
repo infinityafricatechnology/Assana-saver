@@ -48,8 +48,8 @@
     },
     "priority": {
       "urgent": "Naliehavá",
-      "high": "Vysoká",
-      "medium": "Stredná",
+      "high": "Dôležitá",
+      "medium": "Bežná",
       "low": "Nízka"
     },
     "display": {

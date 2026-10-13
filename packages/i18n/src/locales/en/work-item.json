@@ -48,8 +48,8 @@
     },
     "priority": {
       "urgent": "Urgent",
-      "high": "High",
-      "medium": "Medium",
+      "high": "Important",
+      "medium": "Normal",
       "low": "Low"
     },
     "display": {

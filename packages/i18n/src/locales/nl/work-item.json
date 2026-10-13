@@ -48,8 +48,8 @@
     },
     "priority": {
       "urgent": "Urgent",
-      "high": "Hoog",
-      "medium": "Gemiddeld",
+      "high": "Belangrijk",
+      "medium": "Normaal",
       "low": "Laag"
     },
     "display": {

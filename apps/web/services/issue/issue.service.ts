@@ -18,6 +18,8 @@ import type {
   TIssuesResponse,
   TIssueSubIssues,
 } from "@plane/types";
+// helpers
+import { withDeadlineComment } from "@/helpers/steering-rules.helper";
 // services
 import { APIService } from "@/services/api.service";
 
@@ -224,11 +226,19 @@ export class IssueService extends APIService {
   }
 
   async patchIssue(workspaceSlug: string, projectId: string, issueId: string, data: Partial<TIssue>): Promise<any> {
-    return this.patch(`/api/workspaces/${workspaceSlug}/projects/${projectId}/${this.serviceType}/${issueId}/`, data)
-      .then((response) => response?.data)
-      .catch((error) => {
-        throw error?.response?.data;
-      });
+    // Infinity Planning: in a steered project, a postponed deadline is sent again with its reason.
+    return withDeadlineComment(
+      (deadlineComment) =>
+        this.patch(
+          `/api/workspaces/${workspaceSlug}/projects/${projectId}/${this.serviceType}/${issueId}/`,
+          deadlineComment ? { ...data, deadline_comment: deadlineComment } : data
+        )
+          .then((response) => response?.data)
+          .catch((error) => {
+            throw error?.response?.data;
+          }),
+      data.target_date
+    );
   }
 
   async deleteIssue(workspaceSlug: string, projectId: string, issuesId: string): Promise<any> {
@@ -244,11 +254,19 @@ export class IssueService extends APIService {
     projectId: string,
     updates: { id: string; start_date?: string; target_date?: string }[]
   ): Promise<void> {
-    return this.post(`/api/workspaces/${workspaceSlug}/projects/${projectId}/issue-dates/`, { updates })
-      .then((response) => response?.data)
-      .catch((error) => {
-        throw error?.response?.data;
-      });
+    // Infinity Planning: in a steered project, a postponed deadline is sent again with its reason.
+    return withDeadlineComment(
+      (deadlineComment) =>
+        this.post(`/api/workspaces/${workspaceSlug}/projects/${projectId}/issue-dates/`, {
+          updates,
+          ...(deadlineComment ? { deadline_comment: deadlineComment } : {}),
+        })
+          .then((response) => response?.data)
+          .catch((error) => {
+            throw error?.response?.data;
+          }),
+      updates.length === 1 ? updates[0].target_date : null
+    );
   }
 
   async subIssues(

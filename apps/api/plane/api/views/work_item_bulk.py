@@ -33,6 +33,13 @@ from plane.utils.custom_field import CustomFieldValueError, clean_custom_field_v
 from plane.utils.custom_field_service import attached_project_fields, set_issue_custom_field_value
 from plane.utils.host import base_host
 from plane.utils.openapi import work_item_docs
+from plane.utils.steering_required import (
+    SteeringRuleError,
+    attach_steering,
+    check_steered_update,
+    prepare_steering_on_create,
+    record_postponement,
+)
 
 from .base import BaseAPIView
 
@@ -161,16 +168,23 @@ class WorkItemBulkAPIEndpoint(BaseAPIView):
             item_errors = {} if serializer.is_valid() else dict(serializer.errors)
             custom_values, custom_errors = _clean_custom_fields(item.get("custom_fields"), fields)
             item_errors.update(custom_errors)
+            # Infinity Planning (cahier des charges §4): a work item of a steered project is created complete.
+            steering_changes = None
+            try:
+                steering_changes = prepare_steering_on_create(project, item)
+            except SteeringRuleError as rule_error:
+                item_errors["steering"] = rule_error.payload
             if item_errors:
                 errors.append({"index": index, "errors": item_errors})
-            prepared.append((serializer, data, custom_values))
+            prepared.append((serializer, data, custom_values, steering_changes))
         if errors:
             return Response({"errors": errors}, status=status.HTTP_400_BAD_REQUEST)
 
         created = []
         with transaction.atomic():
-            for serializer, data, custom_values in prepared:
+            for serializer, data, custom_values, steering_changes in prepared:
                 issue = serializer.save()
+                attach_steering(issue, steering_changes)
                 issue.created_by_id = request.user.id
                 issue.save(update_fields=["created_by"])
                 for field, value in custom_values.items():
@@ -229,20 +243,28 @@ class WorkItemBulkAPIEndpoint(BaseAPIView):
             item_errors = {} if serializer.is_valid() else dict(serializer.errors)
             custom_values, custom_errors = _clean_custom_fields(item.get("custom_fields"), fields)
             item_errors.update(custom_errors)
+            # Infinity Planning (§4, §9.4): steered work items keep their deadline and assignees, and a
+            # postponement needs a « deadline_comment ».
+            postponement = None
+            try:
+                postponement = check_steered_update(issue, item)
+            except SteeringRuleError as rule_error:
+                item_errors["steering"] = rule_error.payload
             if item_errors:
                 errors.append({"index": index, "errors": item_errors})
-            prepared.append((issue, serializer, data, custom_values, current_instance))
+            prepared.append((issue, serializer, data, custom_values, current_instance, postponement, issue.target_date))
         if errors:
             return Response({"errors": errors}, status=status.HTTP_400_BAD_REQUEST)
 
         with transaction.atomic():
-            for issue, serializer, data, custom_values, _ in prepared:
+            for issue, serializer, data, custom_values, _, postponement, previous_target_date in prepared:
                 if data:
                     serializer.save()
+                    record_postponement(issue, request.user, previous_target_date, postponement)
                 for field, value in custom_values.items():
                     set_issue_custom_field_value(issue, field, value, request.user, via=self.activity_via)
 
-        for issue, _, data, _, current_instance in prepared:
+        for issue, _, data, _, current_instance, *_ in prepared:
             if data:
                 self._track(request, slug, project_id, issue.id, data, current_instance)
         refreshed = {issue.id: issue for issue in Issue.issue_objects.filter(pk__in=[i.id for i, *_ in prepared])}

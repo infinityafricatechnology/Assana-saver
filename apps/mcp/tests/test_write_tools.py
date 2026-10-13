@@ -96,6 +96,51 @@ async def test_update_tasks_completes_reassigns_and_clears(api, call):
     assert result["updated"][0]["identifier"] == "IAT-12"
 
 
+async def test_steered_projects_get_their_steering_fields(api, call, call_error):
+    route = api.post(f"{WS}/projects/p-iat/work-items/bulk/").respond(
+        201, json={"work_items": [{"sequence_id": 13, "name": "Agrément"}]}
+    )
+
+    await call(
+        "create_tasks",
+        project="IAT",
+        tasks=[
+            {
+                "name": "Agrément",
+                "assignee": "me",
+                "due_date": "2026-12-01",
+                "category": "Réglementaire",
+                "supervisor": "Kofi",
+                "approver": "pdg@infinity-africa.com",
+            }
+        ],
+    )
+
+    assert body(route)["work_items"][0]["steering"] == {
+        "category": "Réglementaire",
+        "supervisor": "u-kofi",
+        "approver": "pdg@infinity-africa.com",
+    }
+    message = await call_error("create_tasks", project="IAT", tasks=[{"name": "X", "supervisor": "Personne"}])
+    assert "Personne" in message
+
+
+async def test_postponing_carries_its_reason(api, call):
+    api.get(f"{WS}/work-items/IAT-12/").respond(json=ISSUE_12)
+    route = api.patch(f"{WS}/projects/p-iat/work-items/bulk/").respond(
+        json={"work_items": [{"sequence_id": 12, "name": "Offre MDM"}]}
+    )
+
+    await call(
+        "update_tasks",
+        changes=[{"task": "IAT-12", "due_date": "2026-12-15", "due_date_reason": "Attente du client"}],
+    )
+
+    assert body(route)["work_items"] == [
+        {"id": "t-12", "target_date": "2026-12-15", "deadline_comment": "Attente du client"}
+    ]
+
+
 async def test_reopening_goes_back_to_the_default_section(api, call):
     api.get(f"{WS}/work-items/IAT-12/").respond(json={**ISSUE_12, "state": "s-done"})
     route = api.patch(f"{WS}/projects/p-iat/work-items/bulk/").respond(json={"work_items": [ISSUE_12]})

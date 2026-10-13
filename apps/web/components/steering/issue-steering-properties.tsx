@@ -22,13 +22,12 @@ import {
   WarningTriangleOutline,
 } from "@makeplane/propel/icons";
 import { DateSelect } from "@plane/blocks/property-select";
-import { Select } from "@plane/blocks/select";
 import { setToast } from "@plane/blocks/toast";
 import { useTranslation } from "@plane/i18n";
-import { cn, getDate, renderFormattedDate, renderFormattedPayloadDate } from "@plane/utils";
+import { getDate, renderFormattedDate, renderFormattedPayloadDate } from "@plane/utils";
 // components
 import { SidebarPropertyListItem } from "@/components/common/layout/sidebar/property-list-item";
-import { InlineInput, OptionDot } from "@/components/custom-fields/value-editor";
+import { InlineInput } from "@/components/custom-fields/value-editor";
 import { MemberSelect } from "@/components/dropdowns/member/member-select";
 // hooks
 import { useIssueDetail } from "@/hooks/store/use-issue-detail";
@@ -42,6 +41,9 @@ import type {
 } from "@/services/steering.service";
 import { STEERING_RISK_NATURES, STEERING_STATUSES, STEERING_WAITING_FOR } from "@/services/steering.service";
 // local imports
+import { ChoiceSelect } from "./choice-select";
+import { useSteeringRuleMessage } from "./rules-dialog";
+import { SteeringCircuitSummary } from "./circuit-summary";
 import { SteeringStatusDialog } from "./status-dialog";
 
 export const STEERING_STATUS_COLORS: Record<TSteeringStatus, string> = {
@@ -52,58 +54,6 @@ export const STEERING_STATUS_COLORS: Record<TSteeringStatus, string> = {
   done: "#16A34A",
   cancelled: "#EF4444",
 };
-
-type TChoice = { value: string; label: string; color?: string; group?: string };
-
-type TChoiceSelectProps = {
-  /** The property name, announced before the value and shown in the tooltip. */
-  fieldLabel: string;
-  options: TChoice[];
-  value: string | null;
-  placeholder: string;
-  disabled?: boolean;
-  /** Picking the selected option again clears it, unless the field cannot be empty. */
-  clearable?: boolean;
-  showSearch?: boolean;
-  onChange: (value: string | null) => void;
-};
-
-/** A single choice in the sidebar, styled like the other work item properties. */
-function ChoiceSelect(props: TChoiceSelectProps) {
-  const { fieldLabel, options, value, placeholder, disabled, clearable = true, showSearch = false, onChange } = props;
-  const selected = options.find((option) => option.value === value) ?? null;
-  return (
-    <Select<TChoice>
-      getValues={() => options}
-      value={selected}
-      onChange={(next) => {
-        if (next && next !== value) onChange(next);
-        else if (!next && clearable) onChange(null);
-      }}
-      disabled={disabled}
-      placeholder={placeholder}
-      showSearch={showSearch}
-      getOptionValue={(option) => option.value}
-      getOptionLabel={(option) => option.label}
-      getOptionGroup={(option) => option.group}
-      getOptionIcon={(option) => (option.color ? <OptionDot color={option.color} /> : undefined)}
-    >
-      <Select.Trigger<TChoice>
-        disabled={disabled}
-        tooltip={{ heading: fieldLabel }}
-        variant="select-ghost-md"
-        prependIcon={(chosen) => (chosen[0]?.color ? <OptionDot color={chosen[0].color} /> : undefined)}
-        label={(chosen) => chosen[0]?.label ?? placeholder}
-      >
-        {(chosen) => (
-          <span className={cn("min-w-0 grow truncate text-left", { "text-placeholder": !chosen[0] })}>
-            {chosen[0]?.label ?? placeholder}
-          </span>
-        )}
-      </Select.Trigger>
-    </Select>
-  );
-}
 
 type TInlineTextAreaProps = {
   value: string;
@@ -173,6 +123,7 @@ export const IssueSteeringProperties = observer(function IssueSteeringProperties
     activity,
   } = useIssueDetail();
   const [dialogKind, setDialogKind] = useState<"waiting" | "done" | null>(null);
+  const ruleMessage = useSteeringRuleMessage();
 
   useSWR(`STEERING_REFERENTIAL_${workspaceSlug}`, () => steeringStore.fetchReferential(workspaceSlug), {
     revalidateOnFocus: false,
@@ -197,8 +148,12 @@ export const IssueSteeringProperties = observer(function IssueSteeringProperties
       // A class method: keep it bound to its store.
       void activity.fetchActivities(workspaceSlug, projectId, issueId);
       return true;
-    } catch {
-      setToast({ type: "error", title: t("common.error.label"), message: t("steering.task.errors.save") });
+    } catch (error) {
+      setToast({
+        type: "error",
+        title: t("common.error.label"),
+        message: ruleMessage(error) ?? t("steering.task.errors.save"),
+      });
       return false;
     }
   };
@@ -222,6 +177,14 @@ export const IssueSteeringProperties = observer(function IssueSteeringProperties
           })}
         </p>
       )}
+
+      <SteeringCircuitSummary
+        workspaceSlug={workspaceSlug}
+        projectId={projectId}
+        issueId={issueId}
+        steering={steering}
+        disabled={disabled}
+      />
 
       <SidebarPropertyListItem icon={StateOutline} label={t("steering.task.fields.status")}>
         <ChoiceSelect
@@ -336,7 +299,7 @@ export const IssueSteeringProperties = observer(function IssueSteeringProperties
         />
       </SidebarPropertyListItem>
 
-      <SidebarPropertyListItem icon={WarningTriangleOutline} label={t("steering.task.fields.risk_nature")}>
+      <SidebarPropertyListItem icon={WarningTriangleOutline} label={t("steering.task.risk_label")}>
         <ChoiceSelect
           fieldLabel={t("steering.task.fields.risk_nature")}
           options={STEERING_RISK_NATURES.map((value) => ({ value, label: t(`steering.task.risk.${value}`) }))}

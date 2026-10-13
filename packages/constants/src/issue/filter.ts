@@ -82,18 +82,6 @@ export const ISSUE_PRIORITY_FILTERS: TIssueFilterPriorityObject[] = [
     className: "bg-layer-2 text-priority-medium border-strong",
     icon: "signal_cellular_alt_2_bar",
   },
-  {
-    key: "low",
-    titleTranslationKey: "issue.priority.low",
-    className: "bg-layer-2 text-priority-low border-strong",
-    icon: "signal_cellular_alt_1_bar",
-  },
-  {
-    key: "none",
-    titleTranslationKey: "common.none",
-    className: "bg-layer-2 text-priority-none border-strong",
-    icon: "block",
-  },
 ];
 
 export type TFiltersLayoutOptions = {
@@ -353,9 +341,9 @@ export const filterActivityOnSelectedFilters = (
   activity: TIssueActivityComment[],
   filters: TActivityFilters[]
 ): TIssueActivityComment[] =>
-  activity.filter((activity) => {
-    if (activity.activity_type === EActivityFilterType.DEFAULT) return true;
-    return filters.includes(activity.activity_type as TActivityFilters);
+  activity.filter((item) => {
+    if (item.activity_type === EActivityFilterType.DEFAULT) return true;
+    return filters.includes(item.activity_type as TActivityFilters);
   });
 
 export const ENABLE_ISSUE_DEPENDENCIES = false;
